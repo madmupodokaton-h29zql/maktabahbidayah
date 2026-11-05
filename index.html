@@ -1,0 +1,3859 @@
+<!DOCTYPE html>
+<html lang="id" class="">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Maktabah Al-Bidayah Wan Nihayah - Perpustakaan Digital</title>
+
+  <!-- PWA Manifest Data URI -->
+  <link rel="manifest" href="data:application/manifest+json;charset=utf-8,%7B%22name%22%3A%22Maktabah%20Al-Bidayah%20Wan%20Nihayah%22%2C%22short_name%22%3A%22Maktabah%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%230D342C%22%2C%22theme_color%22%3A%22%230D342C%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22https%3A%2F%2Fplacehold.co%2F192x192%2F0D342C%2FC5A059%3Ftext%3DM%22%2C%22sizes%22%3A%22192x192%22%2C%22type%22%3A%22image%2Fpng%22%7D%5D%7D">
+  <meta name="theme-color" content="#0D342C">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts: Plus Jakarta Sans & Amiri (Arabic) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Font KFGQPC Uthmanic Script HAFS -->
+  <style>
+    @font-face {
+      font-family: 'KFGQPC Uthmanic Script HAFS';
+      src: url('https://cdn.jsdelivr.net/gh/mustafa0x/qpc-fonts@f93bf5f3/mushaf-v2/UthmanicHafs_V20.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+      font-display: swap;
+    }
+  </style>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest" crossorigin="anonymous"></script>
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            arabic: ['"Amiri"', 'serif'],
+          },
+          colors: {
+            emerald: {
+              850: '#0F382F',
+              900: '#0D342C',
+              950: '#07221D',
+            },
+            gold: {
+              400: '#D4AF37',
+              500: '#C5A059',
+              600: '#AA8439',
+            },
+            alabaster: '#F4F6F5',
+            parchment: '#F8F5EE',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Full-page override untuk Blogger / Embed */
+    html, body {
+      margin: 0 !important;
+      padding: 0 !important;
+      width: 100% !important;
+      min-height: 100vh !important;
+      background-color: #F4F6F5;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      color: #111827;
+      -webkit-tap-highlight-color: transparent;
+      overflow-x: hidden;
+    }
+
+    #maktabah-root {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      z-index: 99999;
+      background-color: #F4F6F5;
+      display: flex;
+      flex-direction: column;
+      transition: background-color 0.25s ease, color 0.25s ease;
+    }
+
+    /* Mode Gelap (Dark Mode) Global Override */
+    html.dark body,
+    html.dark #maktabah-root,
+    html.dark .bg-alabaster {
+      background-color: #071713 !important;
+      color: #F3F4F6 !important;
+    }
+    html.dark .bg-white {
+      background-color: #0D231E !important;
+      color: #F3F4F6 !important;
+    }
+    html.dark .bg-gray-50,
+    html.dark .bg-gray-50\/40,
+    html.dark .bg-gray-50\/50,
+    html.dark .bg-gray-50\/70,
+    html.dark .bg-gray-50\/80,
+    html.dark .bg-gray-100,
+    html.dark .sticky-editor-toolbar {
+      background-color: #133029 !important;
+      color: #E5E7EB !important;
+    }
+    html.dark .bg-parchment,
+    html.dark .bg-parchment\/70,
+    html.dark .bg-parchment\/80 {
+      background-color: #152C24 !important;
+      border-color: rgba(212, 175, 55, 0.3) !important;
+    }
+    html.dark .text-gray-900,
+    html.dark .text-gray-800 {
+      color: #F9FAFB !important;
+    }
+    html.dark .text-gray-700,
+    html.dark .text-gray-600 {
+      color: #D1D5DB !important;
+    }
+    html.dark .text-gray-500,
+    html.dark .text-gray-400 {
+      color: #9CA3AF !important;
+    }
+    html.dark .border-gray-100,
+    html.dark .border-gray-200,
+    html.dark .border-gray-200\/80 {
+      border-color: #1E3F37 !important;
+    }
+    html.dark input,
+    html.dark select,
+    html.dark textarea,
+    html.dark #rich-editor-board {
+      background-color: #091B17 !important;
+      color: #F9FAFB !important;
+      border-color: #234B41 !important;
+    }
+
+    /* Spoiler Text: Fleksibel 3 baris pada mode mobile, tampil hingga 200 huruf di layar lebih luas */
+    @media (max-width: 639px) {
+      .spoiler-text {
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+    }
+
+    /* Sticky Toolbar pada Papan Editor Rich Text agar selalu mengikuti saat teks memanjang ke bawah */
+    .sticky-editor-toolbar {
+      position: sticky;
+      top: 0;
+      z-index: 25;
+      background-color: rgba(249, 250, 251, 0.96);
+      backdrop-filter: blur(8px);
+      box-shadow: 0 4px 10px -2px rgba(0, 0, 0, 0.05);
+    }
+    @media (min-width: 1024px) {
+      .sticky-editor-toolbar {
+        top: 72px;
+      }
+    }
+
+    /* Rich Text Content Formatting - Presisi Antara Editor, Hasil Pencarian & Mode Baca */
+    .rich-content {
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+    }
+    .rich-content h2 { font-size: 1.4em; font-weight: 700; margin-top: 1.1em; margin-bottom: 0.45em; line-height: 1.4; }
+    .rich-content h3 { font-size: 1.2em; font-weight: 700; margin-top: 0.9em; margin-bottom: 0.4em; line-height: 1.4; }
+    .rich-content p, .rich-content div { margin-bottom: 0.85em; line-height: 1.9; min-height: 1em; }
+    .rich-content p:last-child, .rich-content div:last-child { margin-bottom: 0; }
+    .rich-content ul { list-style-type: disc; padding-left: 1.5rem; padding-right: 1.5rem; margin-bottom: 1em; }
+    .rich-content ol { list-style-type: decimal; padding-left: 1.5rem; padding-right: 1.5rem; margin-bottom: 1em; }
+    .rich-content blockquote {
+      border-left: 4px solid #C5A059;
+      padding: 0.75rem 1rem;
+      margin: 1rem 0;
+      background: rgba(197, 160, 89, 0.1);
+      border-radius: 0.5rem;
+      font-style: italic;
+    }
+    .rich-content [dir="rtl"],
+    .rich-content .ql-direction-rtl {
+      direction: rtl !important;
+      unicode-bidi: isolate;
+      text-align: right;
+    }
+    .rich-content [dir="ltr"],
+    .rich-content .ql-direction-ltr {
+      direction: ltr !important;
+      unicode-bidi: isolate;
+      text-align: left;
+    }
+    .rich-content .ql-align-justify {
+      text-align: justify !important;
+    }
+    .rich-content .ql-align-center {
+      text-align: center !important;
+    }
+    .rich-content .ql-align-right {
+      text-align: right !important;
+    }
+    .rich-content .ql-align-left {
+      text-align: left !important;
+    }
+    .rich-content .ql-font-amiri,
+    .rich-content [style*="Amiri"] {
+      font-family: 'Amiri', serif !important;
+      line-height: 2.15;
+      font-size: 1.18em;
+    }
+    html.dark .rich-content [style*="color: black"],
+    html.dark .rich-content [style*="color:#000"],
+    html.dark .rich-content [style*="color: rgb(0, 0, 0)"] {
+      color: #F3F4F6 !important;
+    }
+    #rich-editor-board:empty:before {
+      content: attr(data-placeholder);
+      color: #9CA3AF;
+      pointer-events: none;
+    }
+
+    /* Highlight Kata Kunci Pencarian Berwarna Kuning (Tidak merusak sambungan huruf Arab / tanda baca) */
+    mark.search-highlight {
+      background-color: #FEF08A;
+      color: #111827 !important;
+      font-weight: inherit;
+      padding: 0 2px;
+      margin: 0;
+      border-radius: 3px;
+      display: inline;
+      unicode-bidi: inherit;
+    }
+    html.dark mark.search-highlight {
+      background-color: #FACC15 !important;
+      color: #091B17 !important;
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #CBD5E1;
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #94A3B8;
+    }
+
+    .font-arabic {
+      font-family: 'Amiri', serif;
+      line-height: 2.1;
+    }
+
+    /* Background Masjid / Islamic Atmospheric Login */
+    .login-bg {
+      background-color: #092620;
+      background-image: 
+        linear-gradient(135deg, rgba(10, 46, 38, 0.92) 0%, rgba(13, 52, 44, 0.82) 50%, rgba(9, 38, 32, 0.95) 100%),
+        url('https://images.unsplash.com/photo-1564769625905-50e93615e769?auto=format&fit=crop&w=1600&q=80');
+      background-size: cover;
+      background-position: center;
+    }
+
+    .hero-banner-bg {
+      background-color: #0D342C;
+      background-image:
+        linear-gradient(90deg, rgba(9, 36, 30, 0.96) 0%, rgba(13, 52, 44, 0.88) 55%, rgba(13, 52, 44, 0.45) 100%),
+        url('https://images.unsplash.com/photo-1585036156171-384164a8c675?auto=format&fit=crop&w=1200&q=80');
+      background-size: cover;
+      background-position: right center;
+    }
+
+    /* Media Queries sesuai aturan ketat Desktop Sidebar vs Mobile Bottom Nav */
+    @media (min-width: 1024px) {
+      .desktop-sidebar {
+        display: flex !important;
+      }
+      .mobile-bottom-nav {
+        display: none !important;
+      }
+      .main-workspace {
+        margin-left: 260px;
+      }
+    }
+
+    @media (max-width: 1023px) {
+      .desktop-sidebar {
+        display: none !important;
+      }
+      .mobile-bottom-nav {
+        display: flex !important;
+      }
+      .main-workspace {
+        margin-left: 0;
+        padding-bottom: 84px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="maktabah-root">
+    <!-- Toast Notification Container -->
+    <div id="toast-container" class="fixed top-4 right-4 z-[100001] flex flex-col gap-2 max-w-sm w-full pointer-events-none px-4 sm:px-0"></div>
+
+    <!-- Custom Confirm Modal -->
+    <div id="confirm-modal" class="fixed inset-0 z-[100000] bg-black/50 backdrop-blur-sm hidden items-center justify-center p-4">
+      <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl border border-gray-100 transform transition-all">
+        <div class="flex items-center gap-3 mb-3">
+          <div class="w-10 h-10 rounded-xl bg-red-50 text-red-600 flex items-center justify-center shrink-0">
+            <i data-lucide="alert-triangle" class="w-5 h-5"></i>
+          </div>
+          <h3 id="confirm-title" class="text-lg font-bold text-gray-900">Konfirmasi</h3>
+        </div>
+        <p id="confirm-message" class="text-sm text-gray-600 mb-6 leading-relaxed"></p>
+        <div class="flex items-center justify-end gap-3">
+          <button id="confirm-cancel-btn" class="px-4 py-2.5 rounded-xl text-sm font-semibold text-gray-600 bg-gray-100 hover:bg-gray-200 transition">Batal</button>
+          <button id="confirm-ok-btn" class="px-4 py-2.5 rounded-xl text-sm font-semibold text-white bg-red-600 hover:bg-red-700 transition">Ya, Lanjutkan</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Dynamic App View Container -->
+    <div id="app-view" class="w-full h-full flex flex-col overflow-hidden"></div>
+  </div>
+
+  <!-- SCRIPT UTAMA MODULE -->
+  <script type="module">
+    // KONFIGURASI APLIKASI
+    const IS_PREVIEW = false; // Ubah menjadi false SAAT DEPLOY / PUBLISH agar terhubung murni ke Firebase tanpa data dummy
+
+    // PASTE FIREBASE CONFIG ANDA DI SINI
+    const firebaseConfig = {
+      apiKey: "AIzaSyA9cI4500bkJCTDtRiHVkCy8hPDeY9o-Qw",
+      authDomain: "maktabahalbdyh.firebaseapp.com",
+      projectId: "maktabahalbdyh",
+      storageBucket: "maktabahalbdyh.firebasestorage.app",
+      messagingSenderId: "1078680073479",
+      appId: "1:1078680073479:web:7c626a29a8c7048f7f01a2"
+    };
+
+    // Import Firebase SDK (v11.6.1)
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword, signOut, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+    import { getFirestore, doc, setDoc, addDoc, updateDoc, deleteDoc, collection, onSnapshot, getDocs } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+    // Registrasi PWA Service Worker Dinamis dengan Blob
+    if ('serviceWorker' in navigator) {
+      const swCode = `
+        self.addEventListener('install', (e) => self.skipWaiting());
+        self.addEventListener('activate', (e) => e.waitUntil(self.clients.claim()));
+        self.addEventListener('fetch', (e) => {});
+      `;
+      const blob = new Blob([swCode], { type: 'application/javascript' });
+      const swUrl = URL.createObjectURL(blob);
+      navigator.serviceWorker.register(swUrl).catch(() => {});
+    }
+
+    // SVG Default Logo Kubah & Al-Qur'an Emas
+    const DEFAULT_LOGO_SVG = `data:image/svg+xml;utf8,` + encodeURIComponent(`
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none">
+        <path d="M60 12C60 12 63 20 60 24C57 20 60 12 60 12Z" fill="#D4AF37"/>
+        <path d="M32 62C32 42 46 28 60 22C74 28 88 42 88 62H32Z" stroke="#D4AF37" stroke-width="4" fill="#0F382F"/>
+        <path d="M22 72C36 68 48 72 60 78C72 72 84 68 98 72V92C84 88 72 92 60 98C48 92 36 88%2022%2092V72Z" fill="#D4AF37"/>
+        <path d="M26 65C40 62 50 66 60 72C70 66 80 62 94 65" stroke="#F8F5EE" stroke-width="3" stroke-linecap="round"/>
+        <line x1="60" y1="74" x2="60" y2="98" stroke="#0D342C" stroke-width="3"/>
+      </svg>
+    `);
+
+    // ==========================================
+    // STATE APLIKASI UTAMA
+    // ==========================================
+    const state = {
+      currentUser: null, // { id, username, fullName, role: 'admin' | 'member', email }
+      loginTab: 'member', // 'member' | 'admin'
+      activeMenu: 'beranda', // 'beranda' | 'koleksi' | 'baca' | 'kategori' | 'referensi' | 'pencarian' | 'tulis' | 'favorit' | 'pengaturan'
+      previousMenu: 'koleksi', // Menyimpan asal menu sebelum membuka mode baca
+      selectedCategoryFilter: 'semua',
+
+      // State Pencarian Terpisah (Full Text & Multi-Kata 1-4 Kolom)
+      searchMode: 'fulltext', // 'fulltext' | 'multikata'
+      searchQuery: '', // Query pencarian Full Text
+      multiSearchWords: ['', '', '', ''], // 4 kolom kata kunci terpisah (opsional)
+      searchTab: 'semua', // 'semua' | 'tulisan' | 'kategori'
+
+      // State Ekspansi Konteks Snippet Pencarian per Artikel
+      expandedSearchSnippets: {}, // { [articleId]: number (level ekspansi: 0 = default, 1 = sekitar paragraf, 2 = lebih luas, 3 = seluruh naskah terformat) }
+
+      // State Penyimpan Posisi Scroll untuk setiap menu
+      menuScrollPositions: {}, // { [menuName]: scrollTopNumber }
+
+      readingArticleId: null,
+      editingArticleId: null,
+      editingReferenceId: null,
+      readerFontSize: 16,
+      showPassword: false,
+
+      // State Accordion Interaktif (Drill-Down) untuk Kategori & Referensi
+      expandedCategories: {},
+      expandedReferences: {},
+
+      // Konfigurasi Identitas Aplikasi (Real-time Custom di Pengaturan)
+      appConfig: {
+        appName: 'MAKTABAH AL-BIDAYAH WAN NIHAYAH',
+        appArabicName: 'مكتبة البداية والنهاية',
+        appDescription: 'Membaca • Menulis • Menggapai Ridha-Nya',
+        logoUrl: DEFAULT_LOGO_SVG,
+        themeMode: 'light', // 'light' | 'dark'
+        loginQuote: '“Sebaik-baik kalian adalah yang belajar Al-Qur\'an dan mengajarkannya.” (HR. Bukhari)',
+        heroTitle: 'Ilmu adalah cahaya dan menulis adalah amal jariyah.',
+        heroSubtitle: 'Mari terus menambah ilmu dan menyebarkan kebaikan melalui tulisan.',
+        dailyArabic: 'وَقُل رَّبِّ زِدْنِي عِلْمًا',
+        dailyTranslation: '“Dan katakanlah: Ya Tuhanku, tambahkanlah kepadaku ilmu.” (QS. Thaha: 114)'
+      },
+
+      categories: [],
+      references: [],
+      articles: [],
+      users: []
+    };
+
+    // ==========================================
+    // INISIALISASI MODE PREVIEW VS PRODUKSI
+    // ==========================================
+    let app = null;
+    let auth = null;
+    let db = null;
+    const appId = typeof __app_id !== 'undefined' ? __app_id : 'maktabah-digital-app';
+
+    if (IS_PREVIEW) {
+      // HANYA 2 DATA DUMMY KRUSIAL PER KOLEKSI SESUAI ATURAN KETAT
+      state.categories = [
+        {
+          id: 'cat-1',
+          name: 'Fiqih & Ibadah',
+          slug: 'fiqih',
+          color: 'blue',
+          description: 'Panduan hukum syariat dan tata cara ibadah harian Muslim.'
+        },
+        {
+          id: 'cat-2',
+          name: 'Tafsir & Ilmu Al-Qur\'an',
+          slug: 'tafsir',
+          color: 'emerald',
+          description: 'Kajian makna ayat-ayat suci Al-Qur\'an dan ulumul Qur\'an.'
+        }
+      ];
+
+      state.references = [
+        {
+          id: 'ref-1',
+          name: 'Al-Majmu\' Syarh Al-Muhadzdzab Juz 3 & Shahih Al-Bukhari no. 527',
+          description: 'Kitab induk fiqih madzhab Syafi\'i dan kitab hadits shahih.'
+        },
+        {
+          id: 'ref-2',
+          name: 'Tafsir Al-Qur\'an Al-\'Azhim (Ibnu Katsir) Juz 1',
+          description: 'Kitab tafsir bil ma\'tsur rujukan utama umat Islam.'
+        }
+      ];
+
+      state.articles = [
+        {
+          id: 'art-1',
+          title: 'Keutamaan Shalat di Awal Waktu dalam Kehidupan Seorang Mukmin',
+          categoryId: 'cat-1',
+          categoryName: 'Fiqih & Ibadah',
+          reference: 'Al-Majmu\' Syarh Al-Muhadzdzab Juz 3 & Shahih Al-Bukhari no. 527',
+          content: `<p dir="rtl" style="text-align: right; font-family: 'KFGQPC Uthmanic Script HAFS', 'Amiri', serif; font-size: 1.35em;">إِنَّ الصَّلَاةَ كَانَتْ عَلَى الْمُؤْمِنِينَ كِتَابًا مَوْقُوتًا</p><p style="text-align: justify;">Shalat di awal waktu merupakan salah satu amalan utama yang sangat dicintai oleh Allah SWT. Ketika seorang hamba bersegera memenuhi panggilan adzan dan meninggalkan kesibukan dunianya sejenak, hal tersebut menjadi bukti nyata kecintaan, pengagungan, serta ketundukan hatinya kepada Sang Pencipta alam semesta.</p><p style="text-align: justify;">Dalam kajian fiqih ibadah, bersegera menunaikan shalat pada awal waktunya mendatangkan ketenangan batin, melapangkan dada dari kesempitan hidup, serta mengundang keberkahan waktu dalam setiap aktivitas harian.</p>`,
+          isFavorite: true
+        },
+        {
+          id: 'art-2',
+          title: 'Tafsir Surat Al-Fatihah: Menyelami Makna Induk Al-Qur\'an',
+          categoryId: 'cat-2',
+          categoryName: 'Tafsir & Ilmu Al-Qur\'an',
+          reference: 'Tafsir Al-Qur\'an Al-\'Azhim (Ibnu Katsir) Juz 1',
+          content: `<p dir="rtl" style="text-align: right; font-family: 'KFGQPC Uthmanic Script HAFS', 'Amiri', serif; font-size: 1.35em;">الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ</p><p style="text-align: justify;">Surat Al-Fatihah disebut sebagai Ummul Kitab atau Induk Al-Kitab karena seluruh pokok ajaran Al-Qur'an yang mulia terangkum secara sempurna di dalam tujuh ayatnya. Di dalamnya terkandung tiga pilar tauhid sekaligus, yakni Tauhid Rububiyyah, Tauhid Uluhiyyah, serta Tauhid Asma wa Shifat.</p><p style="text-align: justify;">Para mufassir menjelaskan bahwa membaca Surat Al-Fatihah dengan penuh tadabbur di dalam setiap rakaat shalat akan menghidupkan dialog spiritual yang agung antara seorang hamba dengan Rabb-nya.</p>`,
+          isFavorite: false
+        }
+      ];
+
+      state.users = [
+        {
+          id: 'usr-1',
+          username: 'ahmad',
+          password: '123',
+          fullName: 'Ahmad Al-Manshur',
+          role: 'member'
+        }
+      ];
+    } else {
+      // MODE PRODUKSI MURNI FIREBASE (ZERO DUMMY DATA)
+      state.appConfig = {
+        appName: 'Perpustakaan Digital',
+        appArabicName: 'المكتبة الرقمية',
+        appDescription: 'Sistem Koleksi Tulisan & Pustaka Ilmu',
+        logoUrl: DEFAULT_LOGO_SVG,
+        themeMode: 'light',
+        loginQuote: '“Menuntut ilmu adalah kewajiban bagi setiap Muslim.”',
+        heroTitle: 'Ilmu adalah cahaya dan menulis adalah amal jariyah.',
+        heroSubtitle: 'Mari terus menambah ilmu dan menyebarkan kebaikan melalui tulisan.',
+        dailyArabic: 'وَقُل رَّبِّ زِدْنِي عِلْمًا',
+        dailyTranslation: '“Dan katakanlah: Ya Tuhanku, tambahkanlah kepadaku ilmu.” (QS. Thaha: 114)'
+      };
+
+      try {
+        const resolvedConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : firebaseConfig;
+        app = initializeApp(resolvedConfig);
+        auth = getAuth(app);
+        db = getFirestore(app);
+        initProductionListeners();
+      } catch (err) {
+        console.error("Gagal inisialisasi Firebase:", err);
+      }
+    }
+
+    // ==========================================
+    // FIREBASE REAL-TIME LISTENERS (MODE PRODUKSI)
+    // ==========================================
+    async function initProductionListeners() {
+      if (IS_PREVIEW || !db) return;
+
+      try {
+        if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+          await signInWithCustomToken(auth, __initial_auth_token);
+        }
+      } catch (e) {
+        console.error("Custom token sign-in error:", e);
+      }
+
+      const configDocRef = doc(db, 'artifacts', appId, 'public', 'data', 'settings', 'app_config');
+      onSnapshot(
+        configDocRef,
+        (snap) => {
+          if (snap.exists()) {
+            state.appConfig = { ...state.appConfig, ...snap.data() };
+            document.title = state.appConfig.appName;
+            renderApp({ preserveScroll: true });
+          }
+        },
+        (err) => console.error("Gagal memuat app_config:", err)
+      );
+
+      const catColRef = collection(db, 'artifacts', appId, 'public', 'data', 'categories');
+      onSnapshot(
+        catColRef,
+        (snap) => {
+          state.categories = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+          renderApp({ preserveScroll: true });
+        },
+        (err) => console.error("Gagal memuat kategori:", err)
+      );
+
+      const refColRef = collection(db, 'artifacts', appId, 'public', 'data', 'references');
+      onSnapshot(
+        refColRef,
+        (snap) => {
+          state.references = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+          renderApp({ preserveScroll: true });
+        },
+        (err) => console.error("Gagal memuat referensi:", err)
+      );
+
+      const artColRef = collection(db, 'artifacts', appId, 'public', 'data', 'articles');
+      onSnapshot(
+        artColRef,
+        (snap) => {
+          state.articles = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+          renderApp({ preserveScroll: true });
+        },
+        (err) => console.error("Gagal memuat artikel:", err)
+      );
+
+      const usrColRef = collection(db, 'artifacts', appId, 'public', 'data', 'users');
+      onSnapshot(
+        usrColRef,
+        (snap) => {
+          state.users = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+          renderApp({ preserveScroll: true });
+        },
+        (err) => console.error("Gagal memuat users:", err)
+      );
+    }
+
+    // ==========================================
+    // FUNGSI UTILITAS & UI HELPERS
+    // ==========================================
+    function escapeHtml(str = '') {
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    function saveCurrentScrollPosition(menuKey = state.activeMenu) {
+      const ws = document.getElementById('main-workspace-scroll');
+      if (ws && menuKey) {
+        state.menuScrollPositions[menuKey] = ws.scrollTop;
+      }
+    }
+
+    function showToast(message, type = 'success') {
+      const container = document.getElementById('toast-container');
+      if (!container) return;
+
+      const colors = {
+        success: 'bg-[#0D342C] text-white border-gold-500/40',
+        error: 'bg-red-700 text-white border-red-400/40',
+        info: 'bg-slate-800 text-white border-slate-600'
+      };
+      const icons = {
+        success: 'check-circle-2',
+        error: 'alert-circle',
+        info: 'info'
+      };
+
+      const toast = document.createElement('div');
+      toast.className = `pointer-events-auto flex items-center gap-3 px-4 py-3.5 rounded-2xl shadow-xl border ${colors[type] || colors.success} text-xs sm:text-sm font-medium transform transition-all duration-300`;
+      toast.innerHTML = `
+        <i data-lucide="${icons[type] || 'check-circle-2'}" class="w-4 h-4 shrink-0 text-gold-400"></i>
+        <span class="flex-1 leading-snug">${escapeHtml(message)}</span>
+      `;
+      container.appendChild(toast);
+      lucide.createIcons();
+
+      setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transform = 'translateY(-8px)';
+        setTimeout(() => toast.remove(), 250);
+      }, 3200);
+    }
+
+    function showConfirm(title, message, onConfirm) {
+      const modal = document.getElementById('confirm-modal');
+      const titleEl = document.getElementById('confirm-title');
+      const msgEl = document.getElementById('confirm-message');
+      const cancelBtn = document.getElementById('confirm-cancel-btn');
+      const okBtn = document.getElementById('confirm-ok-btn');
+
+      if (!modal) return;
+      titleEl.textContent = title;
+      msgEl.textContent = message;
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+
+      const cleanup = () => {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+        cancelBtn.onclick = null;
+        okBtn.onclick = null;
+      };
+
+      cancelBtn.onclick = cleanup;
+      okBtn.onclick = () => {
+        cleanup();
+        onConfirm();
+      };
+    }
+
+    function stripHtmlTags(html = '') {
+      const tmp = document.createElement('div');
+      tmp.innerHTML = html;
+      return (tmp.textContent || tmp.innerText || '').replace(/\s+/g, ' ').trim();
+    }
+
+    function getArticleSpoiler(htmlContent = '', maxChars = 200) {
+      const plain = stripHtmlTags(htmlContent);
+      if (!plain) return 'Tidak ada ringkasan isi tulisan.';
+      if (plain.length <= maxChars) {
+        return plain;
+      }
+      let sliced = plain.slice(0, maxChars);
+      const lastSpace = sliced.lastIndexOf(' ');
+      if (lastSpace >= 170) {
+        sliced = sliced.slice(0, lastSpace);
+      }
+      return sliced.trim() + '...';
+    }
+
+    function getActiveSearchKeywords() {
+      if (state.searchMode === 'fulltext') {
+        const raw = (state.searchQuery || '').trim();
+        if (!raw) return [];
+        const parts = raw.split(/\s+/).filter(Boolean);
+        return Array.from(new Set([raw, ...parts]));
+      } else {
+        return (state.multiSearchWords || [])
+          .map(w => (w || '').trim())
+          .filter(Boolean);
+      }
+    }
+
+    function escapeRegExp(str = '') {
+      return String(str).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    }
+
+    // ==========================================
+    // NORMALISASI & REGEX PENCARIAN ARAB TANPA HARAKAT (DIACRITIC-INSENSITIVE)
+    // ==========================================
+    const ARABIC_DIACRITICS_CLASS = '[\\u0610-\\u061A\\u0640\\u064B-\\u065F\\u0670\\u06D6-\\u06DC\\u06DF-\\u06E8\\u06EA-\\u06ED]';
+    const ARABIC_DIACRITICS_STRIP_REGEX = new RegExp(ARABIC_DIACRITICS_CLASS, 'g');
+
+    function normalizeSearchText(str = '') {
+      return String(str)
+        .replace(ARABIC_DIACRITICS_STRIP_REGEX, '')
+        .replace(/[أإآٱ]/g, 'ا')
+        .replace(/[ؤ]/g, 'و')
+        .replace(/[ئى]/g, 'ي')
+        .replace(/ک/g, 'ك')
+        .replace(/ی/g, 'ي')
+        .toLowerCase();
+    }
+
+    function buildArabicAwarePattern(keyword = '') {
+      const stripped = String(keyword || '').replace(ARABIC_DIACRITICS_STRIP_REGEX, '').trim();
+      if (!stripped) return '';
+
+      const chars = Array.from(stripped);
+      return chars.map(ch => {
+        if (/\s/.test(ch)) {
+          return '\\s+';
+        }
+        let charGroup = '';
+        if (/[اأإآٱ]/.test(ch)) {
+          charGroup = '[اأإآٱ]';
+        } else if (/[وؤ]/.test(ch)) {
+          charGroup = '[وؤ]';
+        } else if (/[يئىی]/.test(ch)) {
+          charGroup = '[يئىی]';
+        } else if (/[كک]/.test(ch)) {
+          charGroup = '[كک]';
+        } else if (/[هة]/.test(ch)) {
+          charGroup = '[هة]';
+        } else {
+          charGroup = escapeRegExp(ch);
+        }
+        return charGroup + ARABIC_DIACRITICS_CLASS + '*';
+      }).join('');
+    }
+
+    function buildCombinedSearchRegex(keywords = []) {
+      const validKeywords = (keywords || [])
+        .map(k => String(k || '').replace(ARABIC_DIACRITICS_STRIP_REGEX, '').trim())
+        .filter(Boolean)
+        .sort((a, b) => b.length - a.length);
+
+      if (!validKeywords.length) return null;
+
+      const patterns = validKeywords.map(k => buildArabicAwarePattern(k)).filter(Boolean);
+      if (!patterns.length) return null;
+
+      return new RegExp(`(${patterns.join('|')})`, 'gi');
+    }
+
+    function highlightTextWithKeywords(text = '', keywords = []) {
+      const rawText = String(text || '');
+      if (!rawText) return '';
+
+      const regex = buildCombinedSearchRegex(keywords);
+      if (!regex) return escapeHtml(rawText);
+
+      let result = '';
+      let lastIndex = 0;
+      let match;
+
+      regex.lastIndex = 0;
+      while ((match = regex.exec(rawText)) !== null) {
+        if (match.index > lastIndex) {
+          result += escapeHtml(rawText.slice(lastIndex, match.index));
+        }
+        result += `<mark class="search-highlight">${escapeHtml(match[0])}</mark>`;
+        lastIndex = regex.lastIndex;
+        if (match[0].length === 0) regex.lastIndex++;
+      }
+
+      if (lastIndex < rawText.length) {
+        result += escapeHtml(rawText.slice(lastIndex));
+      }
+
+      return result;
+    }
+
+    function highlightHtmlContent(html = '', keywords = []) {
+      if (!html) return html;
+      const regex = buildCombinedSearchRegex(keywords);
+      if (!regex) return html;
+
+      const wrapper = document.createElement('div');
+      wrapper.innerHTML = html;
+
+      const textNodes = [];
+      const collectTextNodes = (node) => {
+        if (node.nodeType === 3) {
+          if (node.nodeValue && node.nodeValue.trim().length > 0) {
+            textNodes.push(node);
+          }
+        } else if (
+          node.nodeType === 1 &&
+          node.nodeName !== 'MARK' &&
+          node.nodeName !== 'SCRIPT' &&
+          node.nodeName !== 'STYLE'
+        ) {
+          for (let i = 0; i < node.childNodes.length; i++) {
+            collectTextNodes(node.childNodes[i]);
+          }
+        }
+      };
+
+      collectTextNodes(wrapper);
+
+      textNodes.forEach(textNode => {
+        const text = textNode.nodeValue;
+        regex.lastIndex = 0;
+        if (!regex.test(text)) return;
+
+        regex.lastIndex = 0;
+        const frag = document.createDocumentFragment();
+        let lastIdx = 0;
+        let match;
+
+        while ((match = regex.exec(text)) !== null) {
+          if (match.index > lastIdx) {
+            frag.appendChild(document.createTextNode(text.slice(lastIdx, match.index)));
+          }
+          const markEl = document.createElement('mark');
+          markEl.className = 'search-highlight';
+          markEl.textContent = match[0];
+          frag.appendChild(markEl);
+          lastIdx = regex.lastIndex;
+          if (match[0].length === 0) regex.lastIndex++;
+        }
+
+        if (lastIdx < text.length) {
+          frag.appendChild(document.createTextNode(text.slice(lastIdx)));
+        }
+
+        if (textNode.parentNode) {
+          textNode.parentNode.replaceChild(frag, textNode);
+        }
+      });
+
+      return wrapper.innerHTML;
+    }
+
+    function parseHtmlIntoBlocks(htmlContent = '') {
+      const isHtml = /<[a-z][\s\S]*>/i.test(htmlContent || '');
+      const normalizedHtml = isHtml
+        ? htmlContent
+        : String(htmlContent || '')
+            .split('\n')
+            .map(line => `<p>${escapeHtml(line)}</p>`)
+            .join('');
+
+      const temp = document.createElement('div');
+      temp.innerHTML = normalizedHtml;
+
+      const blocks = [];
+      Array.from(temp.childNodes).forEach(node => {
+        if (node.nodeType === 1) {
+          const text = (node.textContent || '').trim();
+          const hasBr = node.querySelector && node.querySelector('br');
+          if (text.length > 0 || hasBr) {
+            blocks.push({
+              html: node.outerHTML,
+              text: text,
+              dir: node.getAttribute('dir') || node.style?.direction || (node.classList?.contains('ql-direction-rtl') ? 'rtl' : '')
+            });
+          }
+        } else if (node.nodeType === 3) {
+          const text = (node.nodeValue || '').trim();
+          if (text.length > 0) {
+            blocks.push({
+              html: `<p>${escapeHtml(text)}</p>`,
+              text: text,
+              dir: ''
+            });
+          }
+        }
+      });
+
+      return blocks;
+    }
+
+    function getSmartSearchSnippets(htmlContent = '', keywords = [], expandLevel = 0) {
+      const blocks = parseHtmlIntoBlocks(htmlContent);
+      const nonEmptyBlocks = blocks.filter(b => b.text.length > 0);
+
+      if (nonEmptyBlocks.length === 0) {
+        return { html: '<p class="text-gray-400">Tidak ada isi tulisan.</p>', canExpandMore: false, canCollapse: false };
+      }
+
+      const validKeywords = (keywords || [])
+        .map(k => (k || '').trim())
+        .filter(Boolean);
+
+      if (validKeywords.length === 0) {
+        const countByLevel = [1, 3, 6, nonEmptyBlocks.length];
+        const takeCount = countByLevel[Math.min(expandLevel, countByLevel.length - 1)];
+        const selected = nonEmptyBlocks.slice(0, takeCount);
+
+        return {
+          html: selected.map(b => b.html).join(''),
+          canExpandMore: nonEmptyBlocks.length > takeCount,
+          canCollapse: expandLevel > 0
+        };
+      }
+
+      const matchedIndices = [];
+      const normalizedKeywords = validKeywords.map(kw => normalizeSearchText(kw)).filter(Boolean);
+
+      nonEmptyBlocks.forEach((b, idx) => {
+        const normalizedBlockText = normalizeSearchText(b.text);
+        const isHit = normalizedKeywords.some(nkw => normalizedBlockText.includes(nkw));
+        if (isHit) matchedIndices.push(idx);
+      });
+
+      if (matchedIndices.length === 0) {
+        const countByLevel = [1, 3, 6, nonEmptyBlocks.length];
+        const takeCount = countByLevel[Math.min(expandLevel, countByLevel.length - 1)];
+        const selected = nonEmptyBlocks.slice(0, takeCount);
+
+        return {
+          html: highlightHtmlContent(selected.map(b => b.html).join(''), validKeywords),
+          canExpandMore: nonEmptyBlocks.length > takeCount,
+          canCollapse: expandLevel > 0
+        };
+      }
+
+      if (expandLevel >= 3) {
+        return {
+          html: highlightHtmlContent(blocks.map(b => b.html).join(''), validKeywords),
+          canExpandMore: false,
+          canCollapse: true
+        };
+      }
+
+      const neighborRadius = expandLevel === 0 ? 0 : (expandLevel === 1 ? 1 : 3);
+      const maxHitSeeds = expandLevel === 0 ? 2 : (expandLevel === 1 ? 4 : matchedIndices.length);
+
+      const includedIndicesSet = new Set();
+      matchedIndices.slice(0, maxHitSeeds).forEach(hitIdx => {
+        const start = Math.max(0, hitIdx - neighborRadius);
+        const end = Math.min(nonEmptyBlocks.length - 1, hitIdx + neighborRadius);
+        for (let i = start; i <= end; i++) {
+          includedIndicesSet.add(i);
+        }
+      });
+
+      const sortedIndices = Array.from(includedIndicesSet).sort((a, b) => a - b);
+      const hasMoreBlocks = sortedIndices.length < nonEmptyBlocks.length;
+
+      let assembledHtml = '';
+      let prevIdx = -1;
+
+      sortedIndices.forEach(idx => {
+        if (prevIdx !== -1 && idx > prevIdx + 1) {
+          assembledHtml += `<div class="my-2 text-center text-xs text-amber-600/80 font-semibold select-none">• • •</div>`;
+        }
+        const blockObj = nonEmptyBlocks[idx];
+        assembledHtml += highlightHtmlContent(blockObj.html, validKeywords);
+        prevIdx = idx;
+      });
+
+      return {
+        html: assembledHtml,
+        canExpandMore: hasMoreBlocks,
+        canCollapse: expandLevel > 0
+      };
+    }
+
+    function getMenuDisplayName(menuId) {
+      const map = {
+        beranda: 'Beranda',
+        koleksi: 'Koleksi Tulisan',
+        kategori: 'Kategori',
+        referensi: 'Referensi',
+        pencarian: 'Pencarian',
+        favorit: 'Favorit',
+        pengaturan: 'Pengaturan'
+      };
+      return map[menuId] || 'Koleksi Tulisan';
+    }
+
+    function getMergedReferencesList() {
+      const map = new Map();
+
+      state.references.forEach(ref => {
+        const key = (ref.name || '').trim();
+        if (!key) return;
+        map.set(key.toLowerCase(), {
+          id: ref.id,
+          name: key,
+          description: ref.description || '',
+          isFromCollection: true,
+          items: []
+        });
+      });
+
+      state.articles.forEach(art => {
+        const refName = (art.reference || '').trim();
+        if (!refName) return;
+        const lowerKey = refName.toLowerCase();
+        if (!map.has(lowerKey)) {
+          map.set(lowerKey, {
+            id: null,
+            name: refName,
+            description: '',
+            isFromCollection: false,
+            items: []
+          });
+        }
+        map.get(lowerKey).items.push(art);
+      });
+
+      return Array.from(map.values());
+    }
+
+    function applyBlockFormatToSelection(options = {}) {
+      const board = document.getElementById('rich-editor-board');
+      if (!board) return;
+      board.focus();
+
+      const sel = window.getSelection();
+      if (!sel || sel.rangeCount === 0) return;
+
+      const range = sel.getRangeAt(0);
+      if (!board.contains(range.commonAncestorContainer)) return;
+
+      const blockTags = ['P', 'DIV', 'H1', 'H2', 'H3', 'H4', 'BLOCKQUOTE', 'LI'];
+      const getClosestBlock = (node) => {
+        let curr = node.nodeType === 3 ? node.parentNode : node;
+        while (curr && curr !== board) {
+          if (blockTags.includes(curr.nodeName)) return curr;
+          curr = curr.parentNode;
+        }
+        return null;
+      };
+
+      const blocks = new Set();
+      let startBlock = getClosestBlock(range.startContainer);
+      let endBlock = getClosestBlock(range.endContainer);
+
+      if (startBlock) blocks.add(startBlock);
+      if (endBlock) blocks.add(endBlock);
+
+      Array.from(board.querySelectorAll('p, div, h1, h2, h3, h4, blockquote, li')).forEach(el => {
+        if (sel.containsNode && sel.containsNode(el, true)) {
+          blocks.add(el);
+        }
+      });
+
+      if (blocks.size === 0) {
+        document.execCommand('formatBlock', false, 'P');
+        const createdBlock = getClosestBlock(sel.anchorNode);
+        if (createdBlock) blocks.add(createdBlock);
+      }
+
+      blocks.forEach(block => {
+        if (options.dir) {
+          block.setAttribute('dir', options.dir);
+          block.style.direction = options.dir;
+          if (!options.align) {
+            block.style.textAlign = options.dir === 'rtl' ? 'right' : 'left';
+          }
+        }
+        if (options.align) {
+          block.style.textAlign = options.align;
+        }
+      });
+    }
+
+    function applyFontFamilyToSelection(fontName) {
+      const board = document.getElementById('rich-editor-board');
+      if (!board || !fontName) return;
+      board.focus();
+      document.execCommand('styleWithCSS', false, true);
+      document.execCommand('fontName', false, fontName);
+    }
+
+    function applyThemeMode() {
+      const htmlEl = document.documentElement;
+      if (state.appConfig.themeMode === 'dark') {
+        htmlEl.classList.add('dark');
+      } else {
+        htmlEl.classList.remove('dark');
+      }
+    }
+
+    // Fungsi Tombol Mode Cepat (Dark & Light) di Halaman Aplikasi
+    async function toggleQuickThemeMode() {
+      saveCurrentScrollPosition();
+      const nextTheme = state.appConfig.themeMode === 'dark' ? 'light' : 'dark';
+      state.appConfig.themeMode = nextTheme;
+      applyThemeMode();
+      renderApp({ preserveScroll: true });
+
+      if (!IS_PREVIEW && db && state.currentUser?.role === 'admin') {
+        try {
+          const configDocRef = doc(db, 'artifacts', appId, 'public', 'data', 'settings', 'app_config');
+          await setDoc(configDocRef, { themeMode: nextTheme }, { merge: true });
+        } catch (err) {
+          console.error(err);
+        }
+      }
+    }
+
+    function getCategoryBadgeStyle(color = 'emerald') {
+      const map = {
+        emerald: { bg: 'bg-emerald-600', lightBg: 'bg-emerald-50', text: 'text-emerald-700', border: 'border-emerald-200' },
+        amber: { bg: 'bg-amber-600', lightBg: 'bg-amber-50', text: 'text-amber-700', border: 'border-amber-200' },
+        purple: { bg: 'bg-purple-700', lightBg: 'bg-purple-50', text: 'text-purple-700', border: 'border-purple-200' },
+        blue: { bg: 'bg-blue-600', lightBg: 'bg-blue-50', text: 'text-blue-700', border: 'border-blue-200' },
+        red: { bg: 'bg-red-600', lightBg: 'bg-red-50', text: 'text-red-700', border: 'border-red-200' },
+        teal: { bg: 'bg-teal-600', lightBg: 'bg-teal-50', text: 'text-teal-700', border: 'border-teal-200' }
+      };
+      return map[color] || map.emerald;
+    }
+
+    // ==========================================
+    // FUNGSI AUTENTIKASI (HYBRID LOGIN)
+    // ==========================================
+    async function handleLogin(e) {
+      e.preventDefault();
+      const identifier = document.getElementById('login-identifier')?.value?.trim();
+      const password = document.getElementById('login-password')?.value?.trim();
+
+      if (!identifier || !password) {
+        showToast('Harap isi kredensial masuk dengan lengkap.', 'error');
+        return;
+      }
+
+      if (IS_PREVIEW) {
+        if (state.loginTab === 'admin') {
+          if ((identifier === 'admin@maktabah.id' || identifier === 'admin') && password === 'admin123') {
+            state.currentUser = {
+              id: 'admin-preview',
+              username: 'admin',
+              fullName: 'Ustadz Ahmad (Admin)',
+              email: 'admin@maktabah.id',
+              role: 'admin'
+            };
+            showToast('Assalamu\'alaikum, selamat datang Admin!');
+            renderApp();
+          } else {
+            showToast('Email atau Password Admin tidak sesuai. Gunakan akun demo.', 'error');
+          }
+        } else {
+          const foundUser = state.users.find(u => u.username.toLowerCase() === identifier.toLowerCase() && u.password === password);
+          if (foundUser) {
+            state.currentUser = {
+              id: foundUser.id,
+              username: foundUser.username,
+              fullName: foundUser.fullName,
+              role: 'member'
+            };
+            showToast(`Assalamu'alaikum, ${foundUser.fullName}!`);
+            renderApp();
+          } else {
+            showToast('Username atau Password anggota salah.', 'error');
+          }
+        }
+        return;
+      }
+
+      try {
+        if (state.loginTab === 'admin') {
+          const userCred = await signInWithEmailAndPassword(auth, identifier, password);
+          state.currentUser = {
+            id: userCred.user.uid,
+            username: userCred.user.email.split('@')[0],
+            fullName: 'Administrator Utama',
+            email: userCred.user.email,
+            role: 'admin'
+          };
+          showToast('Berhasil masuk sebagai Administrator.');
+          renderApp();
+        } else {
+          const usrColRef = collection(db, 'artifacts', appId, 'public', 'data', 'users');
+          const snap = await getDocs(usrColRef);
+          const allUsers = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+          const match = allUsers.find(u => String(u.username).toLowerCase() === identifier.toLowerCase() && String(u.password) === password);
+
+          if (match) {
+            state.currentUser = {
+              id: match.id,
+              username: match.username,
+              fullName: match.fullName || match.username,
+              role: 'member'
+            };
+            showToast(`Assalamu'alaikum, ${state.currentUser.fullName}!`);
+            renderApp();
+          } else {
+            showToast('Username atau Password tidak ditemukan di database.', 'error');
+          }
+        }
+      } catch (err) {
+        console.error(err);
+        showToast('Gagal masuk: Periksa kembali Email/Username dan Password Anda.', 'error');
+      }
+    }
+
+    async function handleLogout() {
+      if (!IS_PREVIEW && auth?.currentUser) {
+        await signOut(auth);
+      }
+      state.currentUser = null;
+      state.activeMenu = 'beranda';
+      state.menuScrollPositions = {};
+      showToast('Anda telah keluar dari sesi perpustakaan.', 'info');
+      renderApp();
+    }
+
+    // ==========================================
+    // OPERASI CRUD (ARTIKEL, KATEGORI, REFERENSI, SETTINGS, USER)
+    // ==========================================
+    async function handleSaveArticle(e) {
+      e.preventDefault();
+      if (state.currentUser?.role !== 'admin') {
+        showToast('Akses ditolak: Hanya Admin yang dapat menyimpan tulisan.', 'error');
+        return;
+      }
+
+      const title = document.getElementById('form-article-title')?.value?.trim();
+      const categoryId = document.getElementById('form-article-category')?.value;
+      const reference = document.getElementById('form-article-reference')?.value?.trim() || '';
+      const editorBoard = document.getElementById('rich-editor-board');
+      const content = editorBoard ? editorBoard.innerHTML.trim() : '';
+      const plainText = stripHtmlTags(content);
+      const isFavorite = document.getElementById('form-article-fav')?.checked || false;
+
+      if (!title || !categoryId || !plainText) {
+        showToast('Judul, Kategori, dan Isi Tulisan di papan editor wajib diisi.', 'error');
+        return;
+      }
+
+      const catObj = state.categories.find(c => c.id === categoryId);
+
+      const payload = {
+        title,
+        categoryId,
+        categoryName: catObj ? catObj.name : 'Umum',
+        reference,
+        content,
+        isFavorite
+      };
+
+      if (reference) {
+        const existsRef = state.references.some(r => (r.name || '').trim().toLowerCase() === reference.toLowerCase());
+        if (!existsRef) {
+          if (IS_PREVIEW) {
+            state.references.push({
+              id: 'ref-' + Date.now(),
+              name: reference,
+              description: 'Ditambahkan dari penulisan ibarot.'
+            });
+          } else if (db) {
+            try {
+              await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'references'), {
+                name: reference,
+                description: 'Ditambahkan dari penulisan ibarot.'
+              });
+            } catch (e) {
+              console.error(e);
+            }
+          }
+        }
+      }
+
+      if (IS_PREVIEW) {
+        if (state.editingArticleId) {
+          const idx = state.articles.findIndex(a => a.id === state.editingArticleId);
+          if (idx > -1) state.articles[idx] = { ...state.articles[idx], ...payload };
+          showToast('Tulisan berhasil diperbarui!');
+        } else {
+          const newId = 'art-' + Date.now();
+          state.articles.unshift({ id: newId, ...payload });
+          showToast('Tulisan baru berhasil diterbitkan!');
+        }
+        state.editingArticleId = null;
+        state.activeMenu = 'koleksi';
+        renderApp();
+        return;
+      }
+
+      try {
+        if (state.editingArticleId) {
+          const docRef = doc(db, 'artifacts', appId, 'public', 'data', 'articles', state.editingArticleId);
+          await updateDoc(docRef, payload);
+          showToast('Tulisan berhasil diperbarui di Firestore!');
+        } else {
+          const colRef = collection(db, 'artifacts', appId, 'public', 'data', 'articles');
+          await addDoc(colRef, payload);
+          showToast('Tulisan baru berhasil disimpan ke Firestore!');
+        }
+        state.editingArticleId = null;
+        state.activeMenu = 'koleksi';
+        renderApp();
+      } catch (err) {
+        console.error(err);
+        showToast('Gagal menyimpan tulisan ke database.', 'error');
+      }
+    }
+
+    async function toggleFavoriteArticle(articleId, currentStatus) {
+      if (state.currentUser?.role !== 'admin') {
+        showToast('Mode Baca (Read-Only): Hanya Admin yang dapat mengubah status favorit.', 'info');
+        return;
+      }
+      saveCurrentScrollPosition();
+      if (IS_PREVIEW) {
+        const item = state.articles.find(a => a.id === articleId);
+        if (item) {
+          item.isFavorite = !currentStatus;
+          showToast(item.isFavorite ? 'Ditambahkan ke Favorit' : 'Dihapus dari Favorit');
+          renderApp({ preserveScroll: true });
+        }
+        return;
+      }
+
+      try {
+        const docRef = doc(db, 'artifacts', appId, 'public', 'data', 'articles', articleId);
+        await updateDoc(docRef, { isFavorite: !currentStatus });
+        showToast(!currentStatus ? 'Ditambahkan ke Favorit' : 'Dihapus dari Favorit');
+      } catch (err) {
+        console.error(err);
+        showToast('Gagal memperbarui status favorit.', 'error');
+      }
+    }
+
+    function handleDeleteArticle(articleId) {
+      if (state.currentUser?.role !== 'admin') return;
+      showConfirm('Hapus Tulisan', 'Apakah Anda yakin ingin menghapus tulisan ini secara permanen dari perpustakaan?', async () => {
+        if (IS_PREVIEW) {
+          state.articles = state.articles.filter(a => a.id !== articleId);
+          state.activeMenu = state.previousMenu || 'koleksi';
+          showToast('Tulisan telah dihapus.');
+          renderApp({ restoreMenuScroll: true });
+          return;
+        }
+        try {
+          await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'articles', articleId));
+          state.activeMenu = state.previousMenu || 'koleksi';
+          showToast('Tulisan berhasil dihapus dari database.');
+          renderApp({ restoreMenuScroll: true });
+        } catch (err) {
+          showToast('Gagal menghapus tulisan.', 'error');
+        }
+      });
+    }
+
+    // CRUD KATEGORI
+    async function handleSaveCategory(e) {
+      e.preventDefault();
+      const name = document.getElementById('cat-name')?.value?.trim();
+      const color = document.getElementById('cat-color')?.value || 'emerald';
+      const description = document.getElementById('cat-desc')?.value?.trim() || '';
+
+      if (!name) {
+        showToast('Nama kategori wajib diisi.', 'error');
+        return;
+      }
+
+      saveCurrentScrollPosition();
+      const slug = name.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+      const payload = { name, slug, color, description };
+
+      if (IS_PREVIEW) {
+        state.categories.push({ id: 'cat-' + Date.now(), ...payload });
+        showToast('Kategori baru berhasil ditambahkan!');
+        renderApp({ preserveScroll: true });
+        return;
+      }
+
+      try {
+        await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'categories'), payload);
+        showToast('Kategori berhasil disimpan ke database!');
+      } catch (err) {
+        showToast('Gagal menambah kategori.', 'error');
+      }
+    }
+
+    function handleDeleteCategory(catId) {
+      showConfirm('Hapus Kategori', 'Yakin ingin menghapus kategori ini?', async () => {
+        saveCurrentScrollPosition();
+        if (IS_PREVIEW) {
+          state.categories = state.categories.filter(c => c.id !== catId);
+          showToast('Kategori dihapus.');
+          renderApp({ preserveScroll: true });
+          return;
+        }
+        try {
+          await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'categories', catId));
+          showToast('Kategori berhasil dihapus.');
+        } catch (err) {
+          showToast('Gagal menghapus kategori.', 'error');
+        }
+      });
+    }
+
+    // CRUD REFERENSI
+    async function handleSaveReference(e) {
+      e.preventDefault();
+      if (state.currentUser?.role !== 'admin') return;
+
+      const name = document.getElementById('ref-form-name')?.value?.trim();
+      const description = document.getElementById('ref-form-desc')?.value?.trim() || '';
+
+      if (!name) {
+        showToast('Nama Sumber/Referensi wajib diisi.', 'error');
+        return;
+      }
+
+      saveCurrentScrollPosition();
+      const payload = { name, description };
+
+      if (IS_PREVIEW) {
+        if (state.editingReferenceId) {
+          const existingRef = state.references.find(r => r.id === state.editingReferenceId);
+          const oldName = existingRef ? existingRef.name : '';
+
+          const idx = state.references.findIndex(r => r.id === state.editingReferenceId);
+          if (idx > -1) {
+            state.references[idx] = { ...state.references[idx], ...payload };
+          } else {
+            state.references.push({ id: 'ref-' + Date.now(), ...payload });
+          }
+
+          if (oldName && oldName !== name) {
+            state.articles.forEach(art => {
+              if ((art.reference || '').trim() === oldName.trim()) {
+                art.reference = name;
+              }
+            });
+          }
+
+          state.editingReferenceId = null;
+          showToast('Data referensi berhasil diperbarui!');
+        } else {
+          state.references.push({ id: 'ref-' + Date.now(), ...payload });
+          showToast('Referensi baru berhasil ditambahkan!');
+        }
+        renderApp({ preserveScroll: true });
+        return;
+      }
+
+      try {
+        if (state.editingReferenceId) {
+          const existingRef = state.references.find(r => r.id === state.editingReferenceId);
+          const oldName = existingRef ? existingRef.name : '';
+
+          if (existingRef) {
+            await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', 'references', state.editingReferenceId), payload);
+          } else {
+            await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'references'), payload);
+          }
+
+          if (oldName && oldName !== name) {
+            const matchedArticles = state.articles.filter(a => (a.reference || '').trim() === oldName.trim());
+            for (const art of matchedArticles) {
+              await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', 'articles', art.id), { reference: name });
+            }
+          }
+
+          state.editingReferenceId = null;
+          showToast('Referensi berhasil diperbarui di Firestore!');
+        } else {
+          await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'references'), payload);
+          showToast('Referensi baru berhasil disimpan ke Firestore!');
+        }
+        renderApp({ preserveScroll: true });
+      } catch (err) {
+        console.error(err);
+        showToast('Gagal menyimpan referensi ke database.', 'error');
+      }
+    }
+
+    function handleEditReference(refId, fallbackName) {
+      if (state.currentUser?.role !== 'admin') return;
+      saveCurrentScrollPosition();
+      if (refId) {
+        state.editingReferenceId = refId;
+      } else if (fallbackName) {
+        const newTempId = 'ref-' + Date.now();
+        state.references.push({
+          id: newTempId,
+          name: fallbackName,
+          description: ''
+        });
+        state.editingReferenceId = newTempId;
+      }
+      renderApp({ preserveScroll: true });
+      const formEl = document.getElementById('reference-crud-form');
+      if (formEl) formEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    function handleDeleteReference(refId, refName) {
+      if (state.currentUser?.role !== 'admin') return;
+      showConfirm(
+        'Hapus Sumber/Referensi',
+        `Yakin ingin menghapus referensi "${refName}"? Label referensi pada tulisan terkait juga akan dikosongkan.`,
+        async () => {
+          saveCurrentScrollPosition();
+          if (IS_PREVIEW) {
+            if (refId) {
+              state.references = state.references.filter(r => r.id !== refId);
+            }
+            state.articles.forEach(art => {
+              if ((art.reference || '').trim() === (refName || '').trim()) {
+                art.reference = '';
+              }
+            });
+            if (state.editingReferenceId === refId) state.editingReferenceId = null;
+            showToast('Referensi berhasil dihapus.');
+            renderApp({ preserveScroll: true });
+            return;
+          }
+
+          try {
+            if (refId) {
+              await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'references', refId));
+            }
+            const matchedArticles = state.articles.filter(a => (a.reference || '').trim() === (refName || '').trim());
+            for (const art of matchedArticles) {
+              await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', 'articles', art.id), { reference: '' });
+            }
+            if (state.editingReferenceId === refId) state.editingReferenceId = null;
+            showToast('Referensi berhasil dihapus dari Firestore.');
+          } catch (err) {
+            showToast('Gagal menghapus referensi.', 'error');
+          }
+        }
+      );
+    }
+
+    // SIMPAN PENGATURAN IDENTITAS APLIKASI REAL-TIME
+    async function handleSaveSettings(e) {
+      e.preventDefault();
+      if (state.currentUser?.role !== 'admin') return;
+
+      const appName = document.getElementById('set-app-name')?.value?.trim();
+      const appArabicName = document.getElementById('set-app-arabic')?.value?.trim();
+      const appDescription = document.getElementById('set-app-desc')?.value?.trim();
+      const logoUrl = document.getElementById('set-app-logo')?.value?.trim() || DEFAULT_LOGO_SVG;
+      const themeMode = document.getElementById('set-theme-mode')?.value || 'light';
+      const loginQuote = document.getElementById('set-login-quote')?.value?.trim();
+      const heroTitle = document.getElementById('set-hero-title')?.value?.trim();
+      const heroSubtitle = document.getElementById('set-hero-subtitle')?.value?.trim();
+      const dailyArabic = document.getElementById('set-daily-arabic')?.value?.trim();
+      const dailyTranslation = document.getElementById('set-daily-translation')?.value?.trim();
+
+      if (!appName || !appDescription) {
+        showToast('Nama Aplikasi dan Deskripsi Aplikasi wajib diisi.', 'error');
+        return;
+      }
+
+      saveCurrentScrollPosition();
+
+      const newConfig = {
+        appName,
+        appArabicName: appArabicName || '',
+        appDescription,
+        logoUrl,
+        themeMode,
+        loginQuote: loginQuote || '',
+        heroTitle: heroTitle || '',
+        heroSubtitle: heroSubtitle || '',
+        dailyArabic: dailyArabic || '',
+        dailyTranslation: dailyTranslation || ''
+      };
+
+      if (IS_PREVIEW) {
+        state.appConfig = { ...state.appConfig, ...newConfig };
+        document.title = state.appConfig.appName;
+        applyThemeMode();
+        showToast('Identitas & tema aplikasi berhasil diperbarui secara real-time!');
+        renderApp({ preserveScroll: true });
+        return;
+      }
+
+      try {
+        const configDocRef = doc(db, 'artifacts', appId, 'public', 'data', 'settings', 'app_config');
+        await setDoc(configDocRef, newConfig, { merge: true });
+        applyThemeMode();
+        showToast('Pengaturan aplikasi berhasil disinkronkan secara real-time!');
+      } catch (err) {
+        console.error(err);
+        showToast('Gagal menyimpan pengaturan aplikasi.', 'error');
+      }
+    }
+
+    // MANAJEMEN ANGGOTA / USER
+    async function handleAddUser(e) {
+      e.preventDefault();
+      const fullName = document.getElementById('usr-fullname')?.value?.trim();
+      const username = document.getElementById('usr-username')?.value?.trim();
+      const password = document.getElementById('usr-password')?.value?.trim();
+
+      if (!fullName || !username || !password) {
+        showToast('Lengkapi Nama, Username, dan Password anggota.', 'error');
+        return;
+      }
+
+      saveCurrentScrollPosition();
+      const payload = {
+        fullName,
+        username,
+        password,
+        role: 'member'
+      };
+
+      if (IS_PREVIEW) {
+        state.users.push({ id: 'usr-' + Date.now(), ...payload });
+        showToast('Akun anggota berhasil ditambahkan!');
+        renderApp({ preserveScroll: true });
+        return;
+      }
+
+      try {
+        await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'users'), payload);
+        showToast('Akun anggota disimpan ke Firestore!');
+      } catch (err) {
+        showToast('Gagal menyimpan akun anggota.', 'error');
+      }
+    }
+
+    function handleDeleteUser(userId) {
+      showConfirm('Hapus Akun Anggota', 'Cabut akses anggota ini dari perpustakaan?', async () => {
+        saveCurrentScrollPosition();
+        if (IS_PREVIEW) {
+          state.users = state.users.filter(u => u.id !== userId);
+          showToast('Akun anggota dihapus.');
+          renderApp({ preserveScroll: true });
+          return;
+        }
+        try {
+          await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'users', userId));
+          showToast('Akun anggota dihapus dari Firestore.');
+        } catch (err) {
+          showToast('Gagal menghapus akun.', 'error');
+        }
+      });
+    }
+
+    // ==========================================
+    // KOMPONEN RENDER HALAMAN LOGIN
+    // ==========================================
+    function renderLoginView() {
+      const cfg = state.appConfig;
+      const isDark = cfg.themeMode === 'dark';
+      const previewBadge = IS_PREVIEW ? `
+        <div class="mb-5 p-3.5 rounded-xl bg-amber-50 border border-amber-200 text-xs text-amber-900">
+          <div class="flex items-center gap-2 font-bold text-amber-800 mb-1">
+            <i data-lucide="sparkles" class="w-4 h-4"></i>
+            <span>MODE PREVIEW AKTIF (UJI COBA)</span>
+          </div>
+          <p class="text-amber-700 leading-relaxed">
+            • <b>Anggota:</b> Username <code class="bg-amber-100 px-1.5 py-0.5 rounded font-bold">ahmad</code> / Pass: <code class="bg-amber-100 px-1.5 py-0.5 rounded font-bold">123</code><br/>
+            • <b>Admin:</b> Email <code class="bg-amber-100 px-1.5 py-0.5 rounded font-bold">admin@maktabah.id</code> / Pass: <code class="bg-amber-100 px-1.5 py-0.5 rounded font-bold">admin123</code>
+          </p>
+        </div>
+      ` : '';
+
+      return `
+        <div class="w-full h-full login-bg overflow-y-auto flex items-center justify-center p-4 sm:p-8 relative">
+          <!-- Tombol Mode Cepat (Dark & Light) di Pojok Kanan Atas Login -->
+          <button
+            type="button"
+            data-action="quick-theme-toggle"
+            class="fixed top-4 right-4 z-50 p-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-amber-200 border border-white/15 backdrop-blur-sm shadow-lg transition flex items-center gap-2 text-xs font-semibold"
+            title="${isDark ? 'Beralih ke Mode Terang' : 'Beralih ke Mode Gelap'}"
+          >
+            <i data-lucide="${isDark ? 'sun' : 'moon'}" class="w-4 h-4"></i>
+          </button>
+
+          <div class="max-w-6xl w-full grid grid-cols-1 lg:grid-cols-12 gap-8 items-center my-auto py-6">
+            
+            <!-- Sisi Kiri: Identitas Real-time Aplikasi -->
+            <div class="lg:col-span-7 text-center flex flex-col items-center justify-center px-4 text-white">
+              <div class="w-24 h-24 sm:w-28 sm:h-28 mb-4 rounded-2xl bg-white/5 border border-gold-500/30 p-3 flex items-center justify-center shadow-2xl backdrop-blur-sm">
+                <img src="${escapeHtml(cfg.logoUrl)}" alt="Logo Aplikasi" class="w-full h-full object-contain" onerror="this.src='${DEFAULT_LOGO_SVG}'" />
+              </div>
+
+              ${cfg.appArabicName ? `
+                <h1 class="font-arabic text-3xl sm:text-5xl text-amber-50/95 mb-2 tracking-wide drop-shadow">${escapeHtml(cfg.appArabicName)}</h1>
+              ` : ''}
+
+              <h2 class="text-lg sm:text-2xl font-bold tracking-[0.16em] uppercase text-gold-400 mb-3">${escapeHtml(cfg.appName)}</h2>
+
+              <p class="text-sm sm:text-base text-emerald-100/90 font-medium tracking-wide max-w-md">${escapeHtml(cfg.appDescription)}</p>
+
+              <div class="mt-6 flex items-center gap-3 opacity-75">
+                <span class="w-12 h-px bg-gold-500"></span>
+                <span class="w-2 h-2 rotate-45 bg-gold-400"></span>
+                <span class="w-12 h-px bg-gold-500"></span>
+              </div>
+            </div>
+
+            <!-- Sisi Kanan: Kartu Form Login Putih Bersih -->
+            <div class="lg:col-span-5">
+              <div class="bg-white rounded-3xl shadow-2xl p-6 sm:p-9 border border-gray-100">
+                <div class="mb-6">
+                  <h3 class="text-2xl font-bold text-gray-900">Selamat Datang</h3>
+                  <p class="text-sm text-gray-500 mt-1">Masuk ke akun Anda untuk melanjutkan</p>
+                </div>
+
+                <!-- Switcher Tab Anggota vs Admin -->
+                <div class="grid grid-cols-2 gap-1.5 p-1 bg-gray-100 rounded-xl mb-5">
+                  <button type="button" data-action="switch-login-tab" data-tab="member" class="py-2 text-xs font-bold rounded-lg transition ${state.loginTab === 'member' ? 'bg-[#0D342C] text-white shadow-sm' : 'text-gray-600 hover:text-gray-900'}">
+                    Anggota / Pembaca
+                  </button>
+                  <button type="button" data-action="switch-login-tab" data-tab="admin" class="py-2 text-xs font-bold rounded-lg transition ${state.loginTab === 'admin' ? 'bg-[#0D342C] text-white shadow-sm' : 'text-gray-600 hover:text-gray-900'}">
+                    Admin Pengelola
+                  </button>
+                </div>
+
+                ${previewBadge}
+
+                <form id="login-form" class="space-y-4">
+                  <div>
+                    <div class="relative">
+                      <span class="absolute inset-y-0 left-0 pl-4 flex items-center text-gray-400">
+                        <i data-lucide="${state.loginTab === 'admin' ? 'mail' : 'user'}" class="w-4 h-4"></i>
+                      </span>
+                      <input
+                        id="login-identifier"
+                        type="${state.loginTab === 'admin' ? 'email' : 'text'}"
+                        placeholder="${state.loginTab === 'admin' ? 'Email Admin (Firebase Auth)' : 'Username'}"
+                        value="${IS_PREVIEW ? (state.loginTab === 'admin' ? 'admin@maktabah.id' : 'ahmad') : ''}"
+                        class="w-full pl-11 pr-4 py-3.5 rounded-xl bg-gray-50 border border-gray-200 text-sm text-gray-900 focus:bg-white focus:border-[#0D342C] focus:ring-2 focus:ring-[#0D342C]/15 outline-none transition"
+                        required
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <div class="relative">
+                      <span class="absolute inset-y-0 left-0 pl-4 flex items-center text-gray-400">
+                        <i data-lucide="lock" class="w-4 h-4"></i>
+                      </span>
+                      <input
+                        id="login-password"
+                        type="${state.showPassword ? 'text' : 'password'}"
+                        placeholder="Password"
+                        value="${IS_PREVIEW ? (state.loginTab === 'admin' ? 'admin123' : '123') : ''}"
+                        class="w-full pl-11 pr-11 py-3.5 rounded-xl bg-gray-50 border border-gray-200 text-sm text-gray-900 focus:bg-white focus:border-[#0D342C] focus:ring-2 focus:ring-[#0D342C]/15 outline-none transition"
+                        required
+                      />
+                      <button type="button" data-action="toggle-password" class="absolute inset-y-0 right-0 pr-4 flex items-center text-gray-400 hover:text-gray-600">
+                        <i data-lucide="${state.showPassword ? 'eye-off' : 'eye'}" class="w-4 h-4"></i>
+                      </button>
+                    </div>
+                  </div>
+
+                  <button type="submit" class="w-full py-3.5 px-6 rounded-xl bg-[#0D342C] hover:bg-[#14493E] text-white font-semibold text-sm shadow-lg shadow-emerald-950/20 flex items-center justify-center gap-2 transition">
+                    <span>Masuk</span>
+                    <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                  </button>
+                </form>
+
+                ${cfg.loginQuote ? `
+                  <div class="mt-7 pt-6 border-t border-gray-100 text-center">
+                    <p class="text-xs text-gray-500 italic leading-relaxed">${escapeHtml(cfg.loginQuote)}</p>
+                  </div>
+                ` : ''}
+              </div>
+            </div>
+
+          </div>
+        </div>
+      `;
+    }
+
+    // ==========================================
+    // KOMPONEN SIDEBAR DESKTOP & BOTTOM NAV MOBILE
+    // ==========================================
+    function renderNavigation() {
+      const cfg = state.appConfig;
+      const isAdmin = state.currentUser?.role === 'admin';
+
+      const menuItems = [
+        { id: 'beranda', label: 'Beranda', icon: 'home' },
+        { id: 'koleksi', label: 'Koleksi Tulisan', icon: 'book-text' },
+        { id: 'kategori', label: 'Kategori', icon: 'layout-grid' },
+        { id: 'referensi', label: 'Referensi', icon: 'book-marked' },
+        { id: 'pencarian', label: 'Pencarian', icon: 'search' },
+        ...(isAdmin ? [{ id: 'tulis', label: 'Tulis Baru', icon: 'pen-tool' }] : []),
+        { id: 'favorit', label: 'Favorit', icon: 'heart' },
+        ...(isAdmin ? [{ id: 'pengaturan', label: 'Pengaturan', icon: 'settings' }] : [])
+      ];
+
+      const mobileItems = [
+        { id: 'beranda', label: 'Beranda', icon: 'home' },
+        { id: 'koleksi', label: 'Koleksi', icon: 'book-text' },
+        { id: 'kategori', label: 'Kategori', icon: 'layout-grid' },
+        { id: 'referensi', label: 'Referensi', icon: 'book-marked' },
+        { id: 'pencarian', label: 'Pencarian', icon: 'search' },
+        { id: 'favorit', label: 'Favorit', icon: 'heart' },
+        ...(isAdmin ? [{ id: 'pengaturan', label: 'Pengaturan', icon: 'settings' }] : [])
+      ];
+
+      const currentHighlightedMenu = state.activeMenu === 'baca' ? (state.previousMenu || 'koleksi') : state.activeMenu;
+
+      return `
+        <!-- FIXED LEFT SIDEBAR (DESKTOP) -->
+        <aside class="desktop-sidebar fixed top-0 left-0 bottom-0 w-[260px] bg-[#0D342C] text-white flex-col justify-between z-40 select-none shadow-xl">
+          <div>
+            <!-- Brand Header Real-time -->
+            <div class="p-5 border-b border-white/10 flex items-center gap-3">
+              <div class="w-11 h-11 rounded-xl bg-white/10 border border-gold-500/40 p-1.5 flex items-center justify-center shrink-0">
+                <img src="${escapeHtml(cfg.logoUrl)}" alt="Logo" class="w-full h-full object-contain" onerror="this.src='${DEFAULT_LOGO_SVG}'" />
+              </div>
+              <div class="min-w-0 flex-1">
+                ${cfg.appArabicName ? `<div class="font-arabic text-lg text-amber-100 truncate leading-tight">${escapeHtml(cfg.appArabicName)}</div>` : ''}
+                <div class="text-[10px] font-bold tracking-wider uppercase text-gold-400 truncate mt-0.5">${escapeHtml(cfg.appName)}</div>
+              </div>
+            </div>
+
+            <!-- Menu List -->
+            <nav class="p-3.5 space-y-1">
+              ${menuItems.map(item => {
+                const isActive = currentHighlightedMenu === item.id;
+                return `
+                  <button
+                    type="button"
+                    data-action="nav"
+                    data-menu="${item.id}"
+                    class="w-full flex items-center gap-3.5 px-4 py-3 rounded-xl text-sm font-medium transition ${
+                      isActive
+                        ? 'bg-white/15 text-white font-semibold shadow-sm border border-white/10'
+                        : 'text-emerald-100/75 hover:text-white hover:bg-white/5'
+                    }"
+                  >
+                    <i data-lucide="${item.icon}" class="w-4 h-4 ${isActive ? 'text-gold-400' : ''}"></i>
+                    <span>${item.label}</span>
+                  </button>
+                `;
+              }).join('')}
+            </nav>
+          </div>
+
+          <!-- Tombol Logout -->
+          <div class="p-4 border-t border-white/10">
+            ${IS_PREVIEW ? `
+              <div class="mb-3 px-3 py-2 rounded-lg bg-amber-500/15 border border-amber-400/30 text-[11px] text-amber-200 flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+                <span>Mode Preview Aktif</span>
+              </div>
+            ` : ''}
+            <button
+              type="button"
+              data-action="logout"
+              class="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-emerald-100/80 hover:text-white hover:bg-red-500/20 transition"
+            >
+              <i data-lucide="log-out" class="w-4 h-4"></i>
+              <span>Logout</span>
+            </button>
+          </div>
+        </aside>
+
+        <!-- BOTTOM NAVIGATION BAR (MOBILE) -->
+        <nav class="mobile-bottom-nav fixed bottom-0 left-0 right-0 bg-[#0D342C] text-white border-t border-white/10 px-2 py-2 justify-around items-center z-50 shadow-2xl">
+          ${mobileItems.map(item => {
+            const isActive = currentHighlightedMenu === item.id;
+            return `
+              <button
+                type="button"
+                data-action="nav"
+                data-menu="${item.id}"
+                class="flex flex-col items-center justify-center py-1 px-2 rounded-xl transition ${
+                  isActive ? 'text-gold-400 font-semibold' : 'text-emerald-100/70'
+                }"
+              >
+                <i data-lucide="${item.icon}" class="w-5 h-5 mb-1"></i>
+                <span class="text-[10px]">${item.label}</span>
+              </button>
+            `;
+          }).join('')}
+        </nav>
+      `;
+    }
+
+    // ==========================================
+    // KOMPONEN TOPBAR (DILENGKAPI TOMBOL MODE CEPAT DARK / LIGHT)
+    // ==========================================
+    function renderTopbar() {
+      const cfg = state.appConfig;
+      const user = state.currentUser;
+      const isAdmin = user?.role === 'admin';
+      const isDark = cfg.themeMode === 'dark';
+
+      return `
+        <!-- Header Khusus Mobile (Logo, Tombol Mode Cepat & Identitas Real-time) -->
+        <div class="lg:hidden bg-[#0D342C] text-white px-4 pt-4 pb-5 rounded-b-3xl shadow-md">
+          <div class="flex items-center justify-between mb-3">
+            <div class="flex items-center gap-2.5 min-w-0">
+              <img src="${escapeHtml(cfg.logoUrl)}" alt="Logo" class="w-9 h-9 rounded-lg bg-white/10 p-1 object-contain" onerror="this.src='${DEFAULT_LOGO_SVG}'" />
+              <div class="min-w-0">
+                ${cfg.appArabicName ? `<div class="font-arabic text-base text-amber-100 truncate">${escapeHtml(cfg.appArabicName)}</div>` : ''}
+                <div class="text-[10px] font-bold text-gold-400 tracking-wider uppercase truncate">${escapeHtml(cfg.appName)}</div>
+              </div>
+            </div>
+            <div class="flex items-center gap-1.5">
+              <!-- Tombol Mode Cepat Dark/Light Mobile -->
+              <button
+                type="button"
+                data-action="quick-theme-toggle"
+                class="p-2 rounded-xl bg-white/10 text-amber-200 hover:bg-white/20 transition"
+                title="${isDark ? 'Mode Terang' : 'Mode Gelap'}"
+              >
+                <i data-lucide="${isDark ? 'sun' : 'moon'}" class="w-4 h-4"></i>
+              </button>
+
+              ${isAdmin ? `
+                <button type="button" data-action="nav" data-menu="tulis" class="p-2 rounded-xl bg-white/10 text-gold-400 hover:bg-white/20" title="Tulis Baru">
+                  <i data-lucide="plus" class="w-4 h-4"></i>
+                </button>
+              ` : ''}
+              <button type="button" data-action="logout" class="p-2 rounded-xl bg-white/10 text-white/80 hover:bg-red-500/30" title="Keluar">
+                <i data-lucide="log-out" class="w-4 h-4"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="relative">
+            <i data-lucide="search" class="w-4 h-4 text-gray-400 absolute left-3.5 top-1/2 -translate-y-1/2"></i>
+            <input
+              type="text"
+              placeholder="Cari tulisan, judul, atau kata kunci..."
+              value="${escapeHtml(state.searchQuery)}"
+              data-action="quick-search-input"
+              class="w-full pl-10 pr-4 py-2.5 rounded-xl bg-white text-gray-900 text-xs focus:outline-none shadow-inner"
+            />
+          </div>
+        </div>
+
+        <!-- Topbar Desktop -->
+        <header class="hidden lg:flex items-center justify-between px-8 py-4 bg-white border-b border-gray-200/80 sticky top-0 z-30">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-emerald-50 text-[#0D342C] flex items-center justify-center font-bold">
+              <i data-lucide="user-check" class="w-5 h-5"></i>
+            </div>
+            <div>
+              <h2 class="text-sm font-bold text-gray-900">Assalamu'alaikum, ${escapeHtml(user?.fullName || 'Sahabat Ilmu')}</h2>
+              <p class="text-xs text-gray-500">Semoga hari ini penuh keberkahan.</p>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-3">
+            <div class="relative w-72 xl:w-80">
+              <i data-lucide="search" class="w-4 h-4 text-gray-400 absolute left-3.5 top-1/2 -translate-y-1/2"></i>
+              <input
+                type="text"
+                placeholder="Cari tulisan, judul, atau kata kunci..."
+                value="${escapeHtml(state.searchQuery)}"
+                data-action="quick-search-input"
+                class="w-full pl-10 pr-4 py-2 rounded-xl bg-gray-100 hover:bg-gray-200/60 focus:bg-white border border-transparent focus:border-[#0D342C] text-xs text-gray-800 outline-none transition"
+              />
+            </div>
+
+            <!-- Tombol Mode Cepat Dark / Light Desktop -->
+            <button
+              type="button"
+              data-action="quick-theme-toggle"
+              class="p-2.5 rounded-xl bg-gray-100 hover:bg-gray-200 text-gray-700 border border-gray-200 transition flex items-center justify-center"
+              title="${isDark ? 'Beralih ke Mode Terang' : 'Beralih ke Mode Gelap'}"
+            >
+              <i data-lucide="${isDark ? 'sun' : 'moon'}" class="w-4 h-4 ${isDark ? 'text-amber-400' : 'text-gray-700'}"></i>
+            </button>
+
+            ${isAdmin ? `
+              <button type="button" data-action="nav" data-menu="tulis" class="px-3.5 py-2 rounded-xl bg-[#0D342C] hover:bg-[#164E42] text-white text-xs font-semibold flex items-center gap-1.5 shadow-sm transition">
+                <i data-lucide="plus" class="w-4 h-4"></i>
+                <span>Tulis Baru</span>
+              </button>
+            ` : ''}
+
+            <div class="flex items-center gap-2 pl-2 border-l border-gray-200">
+              <span class="px-2.5 py-1 rounded-lg text-[11px] font-bold uppercase ${isAdmin ? 'bg-amber-100 text-amber-800' : 'bg-emerald-100 text-emerald-800'}">
+                ${isAdmin ? 'Admin' : 'Pembaca'}
+              </span>
+            </div>
+          </div>
+        </header>
+      `;
+    }
+
+    // ==========================================
+    // 1. VIEW: BERANDA
+    // ==========================================
+    function renderBerandaView() {
+      const cfg = state.appConfig;
+      const totalArticles = state.articles.length;
+      const totalCategories = state.categories.length;
+      const totalFavorites = state.articles.filter(a => a.isFavorite).length;
+      const totalReferences = getMergedReferencesList().length;
+
+      return `
+        <div class="p-4 sm:p-8 space-y-6 max-w-7xl mx-auto w-full">
+          <!-- Baris Hero Banner & Kartu Kutipan Ayat -->
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
+            <!-- Hero Motivasi -->
+            <div class="lg:col-span-8 hero-banner-bg rounded-2xl p-6 sm:p-8 text-white flex flex-col justify-between min-h-[200px] shadow-md relative overflow-hidden">
+              <div class="max-w-lg z-10">
+                <h1 class="text-xl sm:text-2xl md:text-3xl font-bold leading-snug mb-2.5 text-amber-50">
+                  ${escapeHtml(cfg.heroTitle)}
+                </h1>
+                <p class="text-xs sm:text-sm text-emerald-100/90 leading-relaxed mb-5">
+                  ${escapeHtml(cfg.heroSubtitle)}
+                </p>
+                <div class="flex items-center gap-3">
+                  <span class="w-16 h-0.5 bg-gold-400"></span>
+                  <span class="w-2 h-2 rotate-45 bg-gold-400"></span>
+                  <span class="w-16 h-0.5 bg-gold-400"></span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Kartu Kutipan Doa / Ayat -->
+            <div class="lg:col-span-4 bg-parchment border border-amber-200/60 rounded-2xl p-6 flex flex-col items-center justify-center text-center shadow-sm">
+              <div class="w-8 h-8 rounded-full bg-amber-100 text-amber-700 flex items-center justify-center mb-3">
+                <i data-lucide="sparkles" class="w-4 h-4"></i>
+              </div>
+              <p class="font-arabic text-2xl sm:text-3xl text-gray-900 mb-3">${escapeHtml(cfg.dailyArabic)}</p>
+              <p class="text-xs text-gray-600 leading-relaxed max-w-xs">${escapeHtml(cfg.dailyTranslation)}</p>
+            </div>
+          </div>
+
+          <!-- 4 Kartu Statistik -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
+            <div class="bg-white rounded-2xl p-4 border border-gray-100 shadow-sm flex items-center gap-3.5">
+              <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-700 flex items-center justify-center shrink-0">
+                <i data-lucide="file-text" class="w-5 h-5"></i>
+              </div>
+              <div>
+                <div class="text-[11px] text-gray-500">Total Tulisan</div>
+                <div class="text-lg font-extrabold text-gray-900">${totalArticles}</div>
+              </div>
+            </div>
+
+            <div class="bg-white rounded-2xl p-4 border border-gray-100 shadow-sm flex items-center gap-3.5">
+              <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-700 flex items-center justify-center shrink-0">
+                <i data-lucide="folder-kanban" class="w-5 h-5"></i>
+              </div>
+              <div>
+                <div class="text-[11px] text-gray-500">Kategori</div>
+                <div class="text-lg font-extrabold text-gray-900">${totalCategories}</div>
+              </div>
+            </div>
+
+            <div class="bg-white rounded-2xl p-4 border border-gray-100 shadow-sm flex items-center gap-3.5">
+              <div class="w-10 h-10 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center shrink-0">
+                <i data-lucide="star" class="w-5 h-5"></i>
+              </div>
+              <div>
+                <div class="text-[11px] text-gray-500">Favorit</div>
+                <div class="text-lg font-extrabold text-gray-900">${totalFavorites}</div>
+              </div>
+            </div>
+
+            <div class="bg-white rounded-2xl p-4 border border-gray-100 shadow-sm flex items-center gap-3.5">
+              <div class="w-10 h-10 rounded-xl bg-teal-50 text-teal-700 flex items-center justify-center shrink-0">
+                <i data-lucide="book-marked" class="w-5 h-5"></i>
+              </div>
+              <div class="min-w-0">
+                <div class="text-[11px] text-gray-500">Referensi Kitab</div>
+                <div class="text-lg font-extrabold text-gray-900">${totalReferences}</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Kategori Populer -->
+          <div class="bg-white rounded-2xl p-5 sm:p-6 border border-gray-100 shadow-sm">
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="text-base font-bold text-gray-900">Kategori Populer</h3>
+              <button type="button" data-action="nav" data-menu="kategori" class="text-xs font-semibold text-[#0D342C] hover:underline">Lihat Kategori →</button>
+            </div>
+
+            ${state.categories.length === 0 ? `
+              <div class="text-center py-8 text-xs text-gray-400">Belum ada kategori yang terdaftar.</div>
+            ` : `
+              <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3.5">
+                ${state.categories.map(cat => {
+                  const count = state.articles.filter(a => a.categoryId === cat.id).length;
+                  const style = getCategoryBadgeStyle(cat.color);
+                  return `
+                    <button
+                      type="button"
+                      data-action="goto-category-expand"
+                      data-cat-id="${cat.id}"
+                      class="flex items-center justify-between p-4 rounded-2xl border border-gray-100 hover:border-emerald-200 hover:shadow-md transition text-left bg-gray-50/50 hover:bg-white group"
+                    >
+                      <div class="min-w-0 flex-1 pr-3">
+                        <div class="text-xs sm:text-sm font-bold text-gray-900 group-hover:text-[#0D342C] truncate">${escapeHtml(cat.name)}</div>
+                        <div class="text-[11px] text-gray-500 mt-0.5 truncate">${escapeHtml(cat.description || 'Kumpulan kajian pustaka')}</div>
+                      </div>
+                      <span class="px-2.5 py-1 rounded-lg ${style.lightBg} ${style.text} text-[11px] font-bold shrink-0">
+                        ${count} ibarot
+                      </span>
+                    </button>
+                  `;
+                }).join('')}
+              </div>
+            `}
+          </div>
+
+          <!-- Daftar Tulisan Terbaru di Beranda -->
+          <div class="bg-white rounded-2xl p-5 sm:p-6 border border-gray-100 shadow-sm">
+            <div class="flex items-center justify-between mb-5">
+              <div>
+                <h3 class="text-base sm:text-lg font-bold text-gray-900">Koleksi Tulisan & Ibarot</h3>
+              </div>
+              <button type="button" data-action="nav" data-menu="koleksi" class="text-xs font-semibold text-[#0D342C] hover:underline">Lihat Semua Koleksi →</button>
+            </div>
+
+            ${state.articles.length === 0 ? `
+              <div class="text-center py-10 text-xs text-gray-400">Belum ada tulisan diterbitkan.</div>
+            ` : `
+              <div class="space-y-4">
+                ${state.articles.slice(0, 5).map(art => `
+                  <div
+                    data-action="read-article"
+                    data-id="${art.id}"
+                    class="p-5 rounded-2xl border border-gray-100 hover:border-emerald-300 bg-gray-50/50 hover:bg-white cursor-pointer transition group"
+                  >
+                    <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+                      <span class="px-2.5 py-0.5 rounded-lg bg-emerald-50 text-emerald-800 text-[11px] font-semibold">
+                        ${escapeHtml(art.categoryName)}
+                      </span>
+                      ${art.isFavorite ? `<i data-lucide="star" class="w-4 h-4 fill-amber-400 text-amber-400"></i>` : ''}
+                    </div>
+                    <h4 class="text-base sm:text-lg font-bold text-gray-900 group-hover:text-[#0D342C] mb-2">
+                      ${escapeHtml(art.title)}
+                    </h4>
+                    <p class="spoiler-text text-xs sm:text-sm text-gray-600 leading-relaxed text-justify">
+                      ${escapeHtml(getArticleSpoiler(art.content, 200))}
+                    </p>
+                    ${art.reference ? `
+                      <div class="mt-3 pt-2.5 border-t border-gray-200/60 flex items-center justify-between text-[11px] text-gray-500">
+                        <span class="truncate"><b class="text-gray-700">Referensi:</b> ${escapeHtml(art.reference)}</span>
+                        <span class="font-bold text-[#0D342C] shrink-0 ml-2">Baca Selengkapnya →</span>
+                      </div>
+                    ` : `
+                      <div class="mt-3 text-right">
+                        <span class="text-xs font-bold text-[#0D342C]">Baca Selengkapnya →</span>
+                      </div>
+                    `}
+                  </div>
+                `).join('')}
+              </div>
+            `}
+          </div>
+        </div>
+      `;
+    }
+
+    // ==========================================
+    // 2. VIEW: KOLEKSI TULISAN (DILENGKAPI PENOMORAN OTOMATIS & TANPA "OLEH: ...")
+    // ==========================================
+    function renderKoleksiView() {
+      const isAdmin = state.currentUser?.role === 'admin';
+      const filtered = state.selectedCategoryFilter === 'semua'
+        ? state.articles
+        : state.articles.filter(a => a.categoryId === state.selectedCategoryFilter);
+
+      return `
+        <div class="p-4 sm:p-8 space-y-6 max-w-7xl mx-auto w-full">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div>
+              <h1 class="text-xl sm:text-2xl font-bold text-gray-900">Koleksi Tulisan</h1>
+            </div>
+            ${isAdmin ? `
+              <button
+                type="button"
+                data-action="nav"
+                data-menu="tulis"
+                class="px-4 py-2.5 rounded-xl bg-[#0D342C] hover:bg-[#164E42] text-white text-xs font-semibold flex items-center gap-2 self-start sm:self-auto shadow-sm transition"
+              >
+                <i data-lucide="plus" class="w-4 h-4"></i>
+                <span>Tulis Baru</span>
+              </button>
+            ` : ''}
+          </div>
+
+          <!-- Filter Chips Kategori -->
+          <div class="flex items-center gap-2 overflow-x-auto pb-2">
+            <button
+              type="button"
+              data-action="select-cat-filter"
+              data-cat-id="semua"
+              class="px-4 py-2 rounded-xl text-xs font-semibold shrink-0 transition ${
+                state.selectedCategoryFilter === 'semua'
+                  ? 'bg-[#0D342C] text-white shadow-sm'
+                  : 'bg-white text-gray-600 hover:bg-gray-100 border border-gray-200'
+              }"
+            >
+              Semua
+            </button>
+            ${state.categories.map(cat => `
+              <button
+                type="button"
+                data-action="select-cat-filter"
+                data-cat-id="${cat.id}"
+                class="px-4 py-2 rounded-xl text-xs font-semibold shrink-0 transition ${
+                  state.selectedCategoryFilter === cat.id
+                    ? 'bg-[#0D342C] text-white shadow-sm'
+                    : 'bg-white text-gray-600 hover:bg-gray-100 border border-gray-200'
+                }"
+              >
+                ${escapeHtml(cat.name)}
+              </button>
+            `).join('')}
+          </div>
+
+          ${filtered.length === 0 ? `
+            <div class="bg-white rounded-2xl p-12 text-center border border-gray-100">
+              <div class="w-12 h-12 rounded-2xl bg-emerald-50 text-[#0D342C] flex items-center justify-center mx-auto mb-3">
+                <i data-lucide="book-open" class="w-6 h-6"></i>
+              </div>
+              <h3 class="text-sm font-bold text-gray-900">Belum ada tulisan</h3>
+            </div>
+          ` : `
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+              ${filtered.map((art, index) => `
+                <div class="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm hover:shadow-md transition flex flex-col justify-between group">
+                  <div>
+                    <div class="flex items-center justify-between gap-2 mb-3">
+                      <div class="flex items-center gap-2">
+                        <!-- Penomoran Otomatis Koleksi Tulisan -->
+                        <span class="w-7 h-7 rounded-lg bg-[#0D342C] text-amber-200 text-xs font-extrabold flex items-center justify-center shrink-0 shadow-sm">
+                          ${index + 1}
+                        </span>
+                        <span class="inline-block px-3 py-1 rounded-lg bg-emerald-50 text-emerald-800 text-[11px] font-semibold">
+                          ${escapeHtml(art.categoryName)}
+                        </span>
+                      </div>
+                      <div class="flex items-center gap-2">
+                        ${isAdmin ? `
+                          <button
+                            type="button"
+                            data-action="toggle-fav"
+                            data-id="${art.id}"
+                            data-fav="${art.isFavorite}"
+                            class="text-gray-400 hover:text-amber-500 shrink-0"
+                            title="Favoritkan"
+                          >
+                            <i data-lucide="star" class="w-4 h-4 ${art.isFavorite ? 'fill-amber-400 text-amber-400' : ''}"></i>
+                          </button>
+                        ` : (art.isFavorite ? `<i data-lucide="star" class="w-4 h-4 fill-amber-400 text-amber-400"></i>` : '')}
+                      </div>
+                    </div>
+
+                    <h3
+                      data-action="read-article"
+                      data-id="${art.id}"
+                      class="text-base sm:text-lg font-bold text-gray-900 group-hover:text-[#0D342C] cursor-pointer leading-snug mb-2.5"
+                    >
+                      ${escapeHtml(art.title)}
+                    </h3>
+
+                    <p
+                      data-action="read-article"
+                      data-id="${art.id}"
+                      class="spoiler-text text-xs sm:text-sm text-gray-600 leading-relaxed text-justify cursor-pointer"
+                    >
+                      ${escapeHtml(getArticleSpoiler(art.content, 200))}
+                    </p>
+                  </div>
+
+                  <div class="mt-4 pt-3 border-t border-gray-100 flex items-center justify-between text-xs text-gray-500">
+                    <span class="truncate max-w-[70%]">
+                      ${art.reference ? `<i data-lucide="bookmark" class="w-3.5 h-3.5 inline mr-1 text-gold-500"></i>${escapeHtml(art.reference)}` : ''}
+                    </span>
+                    <button
+                      type="button"
+                      data-action="read-article"
+                      data-id="${art.id}"
+                      class="font-bold text-[#0D342C] hover:underline shrink-0 ml-auto"
+                    >
+                      Baca Tulisan →
+                    </button>
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+          `}
+        </div>
+      `;
+    }
+
+    // ==========================================
+    // 3. VIEW: HALAMAN BACA (TANPA KATA "OLEH: ...")
+    // ==========================================
+    function renderBacaView() {
+      const isAdmin = state.currentUser?.role === 'admin';
+      const art = state.articles.find(a => a.id === state.readingArticleId) || state.articles[0];
+      if (!art) {
+        return `<div class="p-8 text-center text-sm text-gray-500">Tulisan tidak ditemukan.</div>`;
+      }
+
+      const backTarget = state.previousMenu || 'koleksi';
+      const backLabel = getMenuDisplayName(backTarget);
+
+      const activeReadKeywords = backTarget === 'pencarian' ? getActiveSearchKeywords() : [];
+
+      const isHtmlContent = /<[a-z][\s\S]*>/i.test(art.content || '');
+      const rawFormattedBody = isHtmlContent
+        ? art.content
+        : String(art.content || '').split('\n').map(p => `<p>${escapeHtml(p)}</p>`).join('');
+
+      const formattedBody = activeReadKeywords.length > 0
+        ? highlightHtmlContent(rawFormattedBody, activeReadKeywords)
+        : rawFormattedBody;
+
+      const highlightedTitle = activeReadKeywords.length > 0
+        ? highlightTextWithKeywords(art.title, activeReadKeywords)
+        : escapeHtml(art.title);
+
+      return `
+        <div class="p-4 sm:p-8 max-w-4xl mx-auto w-full">
+          <div class="bg-white rounded-3xl p-6 sm:p-10 border border-gray-100 shadow-sm">
+            <!-- Navigasi Atas & Kontrol Ukuran Teks -->
+            <div class="flex flex-wrap items-center justify-between gap-3 mb-5">
+              <button
+                type="button"
+                data-action="return-from-read"
+                class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-gray-100 hover:bg-gray-200 text-xs font-semibold text-gray-700 transition"
+              >
+                <i data-lucide="arrow-left" class="w-4 h-4"></i>
+                <span>Kembali ke ${escapeHtml(backLabel)}</span>
+              </button>
+
+              <div class="flex items-center gap-2">
+                <div class="flex items-center gap-1 bg-gray-100 p-1 rounded-xl border border-gray-200">
+                  <button
+                    type="button"
+                    data-action="font-size-down"
+                    class="px-2.5 py-1 rounded-lg hover:bg-white text-xs font-bold text-gray-700 transition"
+                    title="Kecilkan Tulisan"
+                  >
+                    A-
+                  </button>
+                  <span id="reader-font-indicator" class="px-2 text-[11px] font-semibold text-gray-600">${state.readerFontSize}px</span>
+                  <button
+                    type="button"
+                    data-action="font-size-up"
+                    class="px-2.5 py-1 rounded-lg hover:bg-white text-xs font-bold text-gray-700 transition"
+                    title="Perbesar Tulisan"
+                  >
+                    A+
+                  </button>
+                  <button
+                    type="button"
+                    data-action="font-size-reset"
+                    class="px-2 py-1 rounded-lg hover:bg-white text-[10px] font-semibold text-gray-500 transition"
+                    title="Ukuran Normal"
+                  >
+                    Reset
+                  </button>
+                </div>
+
+                ${isAdmin ? `
+                  <button
+                    type="button"
+                    data-action="toggle-fav"
+                    data-id="${art.id}"
+                    data-fav="${art.isFavorite}"
+                    class="p-2 rounded-xl border border-gray-200 hover:bg-amber-50 transition"
+                    title="Simpan ke Favorit"
+                  >
+                    <i data-lucide="star" class="w-4 h-4 ${art.isFavorite ? 'fill-amber-400 text-amber-400' : 'text-gray-500'}"></i>
+                  </button>
+
+                  <button
+                    type="button"
+                    data-action="edit-article"
+                    data-id="${art.id}"
+                    class="p-2 rounded-xl border border-gray-200 text-gray-600 hover:bg-gray-100 transition"
+                    title="Edit Tulisan"
+                  >
+                    <i data-lucide="edit-3" class="w-4 h-4"></i>
+                  </button>
+
+                  <button
+                    type="button"
+                    data-action="delete-article"
+                    data-id="${art.id}"
+                    class="p-2 rounded-xl border border-red-200 text-red-600 hover:bg-red-50 transition"
+                    title="Hapus Tulisan"
+                  >
+                    <i data-lucide="trash-2" class="w-4 h-4"></i>
+                  </button>
+                ` : ''}
+              </div>
+            </div>
+
+            <!-- Judul & Meta (Tanpa "Oleh: ...") -->
+            <h1 class="text-2xl sm:text-3xl font-extrabold text-gray-900 leading-tight mb-3">
+              ${highlightedTitle}
+            </h1>
+
+            <div class="flex flex-wrap items-center gap-3 text-xs text-gray-500 mb-6 pb-5 border-b border-gray-100">
+              <span class="px-3 py-1 rounded-lg bg-emerald-50 text-[#0D342C] font-semibold">
+                ${activeReadKeywords.length > 0 ? highlightTextWithKeywords(art.categoryName, activeReadKeywords) : escapeHtml(art.categoryName)}
+              </span>
+              ${art.reference ? `<span>• Referensi: <b class="text-gray-700">${activeReadKeywords.length > 0 ? highlightTextWithKeywords(art.reference, activeReadKeywords) : escapeHtml(art.reference)}</b></span>` : ''}
+            </div>
+
+            <!-- Isi Rich Text (Menampilkan Susunan Presisi Seperti di Papan Editor) -->
+            <div
+              id="reader-article-body"
+              style="font-size: ${state.readerFontSize}px;"
+              class="rich-content text-gray-800 leading-relaxed transition-all duration-150"
+            >
+              ${formattedBody}
+            </div>
+
+            <!-- Kotak Referensi / Sumber Kitab -->
+            ${art.reference ? `
+              <div class="mt-8 pt-6 border-t border-gray-200 flex items-start gap-3 bg-gray-50/70 p-4 rounded-2xl">
+                <i data-lucide="book-marked" class="w-5 h-5 text-[#0D342C] shrink-0 mt-0.5"></i>
+                <div>
+                  <div class="text-xs font-bold text-gray-900 uppercase tracking-wider">Referensi & Rujukan Pustaka</div>
+                  <p class="text-xs sm:text-sm text-gray-600 mt-1">${escapeHtml(art.reference)}</p>
+                </div>
+              </div>
+            ` : ''}
+
+            <!-- Tombol Bawah untuk Kembali dan Mempertahankan Posisi Scroll -->
+            <div class="mt-8 pt-5 border-t border-gray-100 flex justify-between items-center">
+              <button
+                type="button"
+                data-action="return-from-read"
+                class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#0D342C] hover:bg-[#164E42] text-white text-xs font-semibold shadow-sm transition"
+              >
+                <i data-lucide="arrow-left" class="w-4 h-4"></i>
+                <span>Kembali ke ${escapeHtml(backLabel)}</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    // ==========================================
+    // 4. VIEW: KATEGORI INTERAKTIF (JUDUL TULISAN TAMPIL PENUH / FULL)
+    // ==========================================
+    function renderKategoriView() {
+      const isAdmin = state.currentUser?.role === 'admin';
+
+      return `
+        <div class="p-4 sm:p-8 space-y-6 max-w-7xl mx-auto w-full">
+          <div>
+            <h1 class="text-xl sm:text-2xl font-bold text-gray-900">Kategori</h1>
+          </div>
+
+          <div class="grid grid-cols-1 ${isAdmin ? 'lg:grid-cols-12' : ''} gap-6">
+            <div class="${isAdmin ? 'lg:col-span-8' : ''} space-y-3.5">
+              ${state.categories.length === 0 ? `
+                <div class="bg-white rounded-2xl p-10 text-center text-xs text-gray-400 border border-gray-100">
+                  Belum ada kategori.
+                </div>
+              ` : state.categories.map(cat => {
+                const catArticles = state.articles.filter(a => a.categoryId === cat.id);
+                const count = catArticles.length;
+                const style = getCategoryBadgeStyle(cat.color);
+                const isExpanded = !!state.expandedCategories[cat.id];
+
+                return `
+                  <div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden transition">
+                    <div
+                      data-action="toggle-category-accordion"
+                      data-cat-id="${cat.id}"
+                      class="p-5 flex items-center justify-between gap-4 cursor-pointer hover:bg-gray-50/70 transition select-none"
+                    >
+                      <div class="min-w-0 flex-1">
+                        <div class="flex items-center gap-2.5 flex-wrap">
+                          <span class="w-3 h-3 rounded-full ${style.bg} shrink-0"></span>
+                          <h3 class="text-sm sm:text-base font-bold text-gray-900">${escapeHtml(cat.name)}</h3>
+                          <span class="px-2.5 py-0.5 rounded-lg ${style.lightBg} ${style.text} text-[11px] font-bold">
+                            ${count}
+                          </span>
+                        </div>
+                        ${cat.description ? `<p class="text-xs text-gray-500 mt-1">${escapeHtml(cat.description)}</p>` : ''}
+                      </div>
+
+                      <div class="flex items-center gap-2 shrink-0">
+                        ${isAdmin ? `
+                          <button
+                            type="button"
+                            data-action="delete-category"
+                            data-id="${cat.id}"
+                            class="p-2 rounded-xl text-gray-400 hover:text-red-600 hover:bg-red-50 transition"
+                            title="Hapus Kategori"
+                          >
+                            <i data-lucide="trash-2" class="w-4 h-4"></i>
+                          </button>
+                        ` : ''}
+                        <div class="w-8 h-8 rounded-xl bg-gray-100 flex items-center justify-center text-gray-600">
+                          <i data-lucide="${isExpanded ? 'chevron-up' : 'chevron-down'}" class="w-4 h-4"></i>
+                        </div>
+                      </div>
+                    </div>
+
+                    ${isExpanded ? `
+                      <div class="px-5 pb-5 pt-2 border-t border-gray-100 bg-gray-50/40 space-y-2">
+                        ${count === 0 ? `
+                          <div class="p-4 rounded-xl bg-white border border-gray-100 text-xs text-gray-400 text-center">
+                            Belum ada tulisan.
+                          </div>
+                        ` : catArticles.map((art, idx) => `
+                          <div
+                            data-action="read-article"
+                            data-id="${art.id}"
+                            class="px-4 py-3.5 rounded-xl bg-white border border-gray-100 hover:border-emerald-300 hover:shadow-sm transition cursor-pointer group flex items-start justify-between gap-3"
+                          >
+                            <div class="flex items-start gap-3 min-w-0 flex-1">
+                              <span class="w-6 h-6 rounded-lg bg-emerald-50 text-[#0D342C] text-xs font-bold flex items-center justify-center shrink-0 mt-0.5">
+                                ${idx + 1}
+                              </span>
+                              <h4 class="text-xs sm:text-sm font-bold text-gray-900 group-hover:text-[#0D342C] leading-relaxed break-words">
+                                ${escapeHtml(art.title)}
+                              </h4>
+                            </div>
+                            <i data-lucide="arrow-up-right" class="w-4 h-4 text-gray-400 group-hover:text-[#0D342C] shrink-0 mt-1"></i>
+                          </div>
+                        `).join('')}
+                      </div>
+                    ` : ''}
+                  </div>
+                `;
+              }).join('')}
+            </div>
+
+            ${isAdmin ? `
+              <div class="lg:col-span-4">
+                <form id="category-form" class="bg-white rounded-2xl p-5 border border-gray-100 shadow-sm space-y-4 sticky top-24">
+                  <h3 class="text-sm font-bold text-gray-900 flex items-center gap-2">
+                    <i data-lucide="folder-plus" class="w-4 h-4 text-[#0D342C]"></i>
+                    <span>Tambah Kategori Baru</span>
+                  </h3>
+
+                  <div>
+                    <label class="block text-xs font-semibold text-gray-700 mb-1">Nama Kategori *</label>
+                    <input id="cat-name" type="text" placeholder="Misal: Ushul Fiqih" class="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-xs focus:border-[#0D342C] outline-none" required />
+                  </div>
+
+                  <div>
+                    <label class="block text-xs font-semibold text-gray-700 mb-1">Warna Label</label>
+                    <select id="cat-color" class="w-full px-3 py-2.5 rounded-xl border border-gray-200 text-xs focus:border-[#0D342C] outline-none bg-white">
+                      <option value="emerald">Hijau Zamrud</option>
+                      <option value="amber">Emas / Amber</option>
+                      <option value="blue">Biru</option>
+                      <option value="purple">Ungu</option>
+                      <option value="red">Merah</option>
+                      <option value="teal">Teal</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label class="block text-xs font-semibold text-gray-700 mb-1">Deskripsi Singkat</label>
+                    <textarea id="cat-desc" rows="2" placeholder="Penjelasan singkat kategori..." class="w-full px-3.5 py-2 rounded-xl border border-gray-200 text-xs focus:border-[#0D342C] outline-none"></textarea>
+                  </div>
+
+                  <button type="submit" class="w-full py-2.5 rounded-xl bg-[#0D342C] hover:bg-[#164E42] text-white text-xs font-semibold shadow-sm transition">
+                    Simpan Kategori
+                  </button>
+                </form>
+              </div>
+            ` : ''}
+          </div>
+        </div>
+      `;
+    }
+
+    // ==========================================
+    // 4B. VIEW: REFERENSI INTERAKTIF (JUDUL TULISAN TAMPIL PENUH / FULL)
+    // ==========================================
+    function renderReferensiView() {
+      const isAdmin = state.currentUser?.role === 'admin';
+      const refEntries = getMergedReferencesList();
+      const editingRef = state.editingReferenceId
+        ? state.references.find(r => r.id === state.editingReferenceId)
+        : null;
+
+      return `
+        <div class="p-4 sm:p-8 space-y-6 max-w-7xl mx-auto w-full">
+          <div>
+            <h1 class="text-xl sm:text-2xl font-bold text-gray-900">Referensi</h1>
+          </div>
+
+          <div class="grid grid-cols-1 ${isAdmin ? 'lg:grid-cols-12' : ''} gap-6">
+            <div class="${isAdmin ? 'lg:col-span-8' : ''} space-y-3.5">
+              ${refEntries.length === 0 ? `
+                <div class="bg-white rounded-2xl p-12 text-center border border-gray-100">
+                  <div class="w-12 h-12 rounded-2xl bg-emerald-50 text-[#0D342C] flex items-center justify-center mx-auto mb-3">
+                    <i data-lucide="book-marked" class="w-6 h-6"></i>
+                  </div>
+                  <h3 class="text-sm font-bold text-gray-900">Belum ada referensi</h3>
+                </div>
+              ` : refEntries.map(ref => {
+                const isExpanded = !!state.expandedReferences[ref.name];
+                const count = ref.items.length;
+
+                return `
+                  <div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden transition">
+                    <div
+                      data-action="toggle-reference-accordion"
+                      data-ref-name="${escapeHtml(ref.name)}"
+                      class="p-5 flex items-center justify-between gap-4 cursor-pointer hover:bg-gray-50/70 transition select-none"
+                    >
+                      <div class="flex items-start gap-3.5 min-w-0 flex-1">
+                        <div class="w-10 h-10 rounded-xl bg-parchment border border-amber-200/70 text-[#0D342C] flex items-center justify-center shrink-0 mt-0.5">
+                          <i data-lucide="book-marked" class="w-5 h-5"></i>
+                        </div>
+                        <div class="min-w-0 flex-1">
+                          <div class="flex items-center gap-2 flex-wrap">
+                            <h3 class="text-sm sm:text-base font-bold text-gray-900 leading-snug">${escapeHtml(ref.name)}</h3>
+                            <span class="px-2.5 py-0.5 rounded-lg bg-emerald-50 text-emerald-800 text-[11px] font-bold">
+                              ${count}
+                            </span>
+                          </div>
+                          ${ref.description ? `<p class="text-xs text-gray-500 mt-1">${escapeHtml(ref.description)}</p>` : ''}
+                        </div>
+                      </div>
+
+                      <div class="flex items-center gap-1.5 shrink-0">
+                        ${isAdmin ? `
+                          <button
+                            type="button"
+                            data-action="edit-reference"
+                            data-id="${ref.id || ''}"
+                            data-name="${escapeHtml(ref.name)}"
+                            class="p-2 rounded-xl text-gray-500 hover:text-[#0D342C] hover:bg-emerald-50 transition"
+                            title="Edit Referensi"
+                          >
+                            <i data-lucide="edit-3" class="w-4 h-4"></i>
+                          </button>
+                          <button
+                            type="button"
+                            data-action="delete-reference"
+                            data-id="${ref.id || ''}"
+                            data-name="${escapeHtml(ref.name)}"
+                            class="p-2 rounded-xl text-gray-400 hover:text-red-600 hover:bg-red-50 transition"
+                            title="Hapus Referensi"
+                          >
+                            <i data-lucide="trash-2" class="w-4 h-4"></i>
+                          </button>
+                        ` : ''}
+                        <div class="w-8 h-8 rounded-xl bg-gray-100 flex items-center justify-center text-gray-600">
+                          <i data-lucide="${isExpanded ? 'chevron-up' : 'chevron-down'}" class="w-4 h-4"></i>
+                        </div>
+                      </div>
+                    </div>
+
+                    ${isExpanded ? `
+                      <div class="px-5 pb-5 pt-2 border-t border-gray-100 bg-gray-50/40 space-y-2">
+                        ${count === 0 ? `
+                          <div class="p-4 rounded-xl bg-white border border-gray-100 text-xs text-gray-400 text-center">
+                            Belum ada tulisan.
+                          </div>
+                        ` : ref.items.map((art, idx) => `
+                          <div
+                            data-action="read-article"
+                            data-id="${art.id}"
+                            class="px-4 py-3.5 rounded-xl bg-white border border-gray-100 hover:border-emerald-300 hover:shadow-sm transition cursor-pointer group flex items-start justify-between gap-3"
+                          >
+                            <div class="flex items-start gap-3 min-w-0 flex-1">
+                              <span class="w-6 h-6 rounded-lg bg-emerald-50 text-[#0D342C] text-xs font-bold flex items-center justify-center shrink-0 mt-0.5">
+                                ${idx + 1}
+                              </span>
+                              <h4 class="text-xs sm:text-sm font-bold text-gray-900 group-hover:text-[#0D342C] leading-relaxed break-words">
+                                ${escapeHtml(art.title)}
+                              </h4>
+                            </div>
+                            <i data-lucide="arrow-up-right" class="w-4 h-4 text-gray-400 group-hover:text-[#0D342C] shrink-0 mt-1"></i>
+                          </div>
+                        `).join('')}
+                      </div>
+                    ` : ''}
+                  </div>
+                `;
+              }).join('')}
+            </div>
+
+            ${isAdmin ? `
+              <div class="lg:col-span-4">
+                <form id="reference-crud-form" class="bg-white rounded-2xl p-5 border border-gray-100 shadow-sm space-y-4 sticky top-24">
+                  <div class="flex items-center justify-between">
+                    <h3 class="text-sm font-bold text-gray-900 flex items-center gap-2">
+                      <i data-lucide="book-plus" class="w-4 h-4 text-[#0D342C]"></i>
+                      <span>${editingRef ? 'Edit Sumber/Referensi' : 'Tambah Sumber/Referensi'}</span>
+                    </h3>
+                    ${editingRef ? `
+                      <button
+                        type="button"
+                        data-action="cancel-edit-reference"
+                        class="text-[11px] font-semibold text-gray-500 hover:text-gray-800"
+                      >
+                        Batal Edit
+                      </button>
+                    ` : ''}
+                  </div>
+
+                  <div>
+                    <label class="block text-xs font-semibold text-gray-700 mb-1">Nama Sumber/Referensi *</label>
+                    <input
+                      id="ref-form-name"
+                      type="text"
+                      value="${escapeHtml(editingRef?.name || '')}"
+                      placeholder="Contoh: Fathul Mu'in bi Syarhi Qurratil 'Ain"
+                      class="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-xs focus:border-[#0D342C] outline-none"
+                      required
+                    />
+                  </div>
+
+                  <div>
+                    <label class="block text-xs font-semibold text-gray-700 mb-1">Keterangan</label>
+                    <textarea
+                      id="ref-form-desc"
+                      rows="3"
+                      placeholder="Tuliskan keterangan sumber/referensi..."
+                      class="w-full px-3.5 py-2 rounded-xl border border-gray-200 text-xs focus:border-[#0D342C] outline-none"
+                    >${escapeHtml(editingRef?.description || '')}</textarea>
+                  </div>
+
+                  <button type="submit" class="w-full py-2.5 rounded-xl bg-[#0D342C] hover:bg-[#164E42] text-white text-xs font-semibold shadow-sm transition flex items-center justify-center gap-1.5">
+                    <i data-lucide="save" class="w-4 h-4"></i>
+                    <span>${editingRef ? 'Simpan Perubahan' : 'Simpan Referensi'}</span>
+                  </button>
+                </form>
+              </div>
+            ` : ''}
+          </div>
+        </div>
+      `;
+    }
+
+    // ==========================================
+    // 5. VIEW: PENCARIAN
+    // ==========================================
+    function renderPencarianView() {
+      const isFullTextMode = state.searchMode === 'fulltext';
+      const activeKeywords = getActiveSearchKeywords();
+
+      const matchedArticles = state.articles.filter(a => {
+        const normalizedCombined = normalizeSearchText([
+          a.title || '',
+          a.reference || '',
+          a.categoryName || '',
+          stripHtmlTags(a.content || '')
+        ].join(' '));
+
+        if (isFullTextMode) {
+          const q = normalizeSearchText(state.searchQuery || '').trim();
+          if (!q) return true;
+          if (normalizedCombined.includes(q)) return true;
+          const queryWords = q.split(/\s+/).filter(Boolean);
+          return queryWords.every(w => normalizedCombined.includes(w));
+        } else {
+          const activeWords = (state.multiSearchWords || [])
+            .map(w => normalizeSearchText(w || '').trim())
+            .filter(Boolean);
+
+          if (activeWords.length === 0) return true;
+          return activeWords.every(word => normalizedCombined.includes(word));
+        }
+      });
+
+      const matchedCategories = state.categories.filter(c => {
+        const normalizedCat = normalizeSearchText([c.name || '', c.description || ''].join(' '));
+        if (isFullTextMode) {
+          const q = normalizeSearchText(state.searchQuery || '').trim();
+          if (!q) return true;
+          if (normalizedCat.includes(q)) return true;
+          const queryWords = q.split(/\s+/).filter(Boolean);
+          return queryWords.every(w => normalizedCat.includes(w));
+        } else {
+          const activeWords = (state.multiSearchWords || [])
+            .map(w => normalizeSearchText(w || '').trim())
+            .filter(Boolean);
+          if (activeWords.length === 0) return true;
+          return activeWords.every(word => normalizedCat.includes(word));
+        }
+      });
+
+      return `
+        <div class="p-4 sm:p-8 space-y-6 max-w-5xl mx-auto w-full">
+          <div>
+            <h1 class="text-xl sm:text-2xl font-bold text-gray-900">Pencarian</h1>
+          </div>
+
+          <div class="bg-white rounded-2xl p-5 sm:p-6 border border-gray-100 shadow-sm space-y-4">
+            <div class="grid grid-cols-2 gap-2 p-1.5 bg-gray-100 rounded-2xl">
+              <button
+                type="button"
+                data-action="set-search-mode"
+                data-mode="fulltext"
+                class="py-2.5 px-4 rounded-xl text-xs font-bold flex items-center justify-center gap-2 transition ${
+                  isFullTextMode
+                    ? 'bg-[#0D342C] text-white shadow-sm'
+                    : 'text-gray-600 hover:text-gray-900'
+                }"
+              >
+                <i data-lucide="file-search" class="w-4 h-4"></i>
+                <span>Pencarian Full Teks</span>
+              </button>
+
+              <button
+                type="button"
+                data-action="set-search-mode"
+                data-mode="multikata"
+                class="py-2.5 px-4 rounded-xl text-xs font-bold flex items-center justify-center gap-2 transition ${
+                  !isFullTextMode
+                    ? 'bg-[#0D342C] text-white shadow-sm'
+                    : 'text-gray-600 hover:text-gray-900'
+                }"
+              >
+                <i data-lucide="columns-4" class="w-4 h-4"></i>
+                <span>Pencarian Multi Kata</span>
+              </button>
+            </div>
+
+            ${isFullTextMode ? `
+              <div class="relative">
+                <i data-lucide="search" class="w-4 h-4 text-gray-400 absolute left-4 top-1/2 -translate-y-1/2"></i>
+                <input
+                  id="main-search-input"
+                  type="text"
+                  placeholder="Cari judul, referensi, kategori, atau isi (mendukung Arab tanpa harakat)..."
+                  value="${escapeHtml(state.searchQuery)}"
+                  class="w-full pl-11 pr-10 py-3.5 rounded-xl bg-gray-50 focus:bg-white border border-gray-200 text-sm text-gray-900 focus:border-[#0D342C] outline-none transition"
+                />
+                ${state.searchQuery ? `
+                  <button
+                    type="button"
+                    data-action="clear-search"
+                    class="absolute right-3.5 top-1/2 -translate-y-1/2 text-xs text-gray-400 hover:text-gray-700"
+                    title="Bersihkan"
+                  >
+                    <i data-lucide="x" class="w-4 h-4"></i>
+                  </button>
+                ` : ''}
+              </div>
+            ` : `
+              <div class="space-y-3">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+                  ${[0, 1, 2, 3].map(idx => `
+                    <div>
+                      <input
+                        type="text"
+                        data-multi-index="${idx}"
+                        value="${escapeHtml(state.multiSearchWords[idx] || '')}"
+                        placeholder="Kata kunci ${idx + 1}..."
+                        class="multi-search-input w-full px-3.5 py-2.5 rounded-xl bg-gray-50 focus:bg-white border border-gray-200 text-xs sm:text-sm text-gray-900 focus:border-[#0D342C] outline-none transition"
+                      />
+                    </div>
+                  `).join('')}
+                </div>
+                ${state.multiSearchWords.some(w => w.trim()) ? `
+                  <div class="flex justify-end">
+                    <button
+                      type="button"
+                      data-action="clear-multi-search"
+                      class="text-xs font-semibold text-red-600 hover:underline flex items-center gap-1"
+                    >
+                      <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i>
+                      <span>Reset</span>
+                    </button>
+                  </div>
+                ` : ''}
+              </div>
+            `}
+          </div>
+
+          <div class="flex items-center gap-2">
+            ${[
+              { id: 'semua', label: `Semua (${matchedArticles.length + matchedCategories.length})` },
+              { id: 'tulisan', label: `Tulisan (${matchedArticles.length})` },
+              { id: 'kategori', label: `Kategori (${matchedCategories.length})` }
+            ].map(t => `
+              <button
+                type="button"
+                data-action="set-search-tab"
+                data-tab="${t.id}"
+                class="px-4 py-2 rounded-xl text-xs font-semibold transition ${
+                  state.searchTab === t.id
+                    ? 'bg-[#0D342C] text-white'
+                    : 'bg-white text-gray-600 border border-gray-200 hover:bg-gray-100'
+                }"
+              >
+                ${t.label}
+              </button>
+            `).join('')}
+          </div>
+
+          ${(state.searchTab === 'semua' || state.searchTab === 'tulisan') ? `
+            <div class="space-y-3.5">
+              ${matchedArticles.length === 0 ? `
+                <div class="bg-white rounded-2xl p-8 text-center text-xs text-gray-400 border border-gray-100">
+                  Tidak ada hasil ditemukan.
+                </div>
+              ` : matchedArticles.map(art => {
+                const currentExpandLevel = state.expandedSearchSnippets[art.id] || 0;
+                const snippetObj = getSmartSearchSnippets(art.content, activeKeywords, currentExpandLevel);
+
+                return `
+                  <div class="bg-white rounded-2xl p-5 border border-gray-100 shadow-sm hover:border-emerald-300 hover:shadow-md transition group">
+                    <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+                      <span class="px-2.5 py-0.5 rounded-lg bg-emerald-50 text-emerald-800 text-[11px] font-semibold">
+                        ${highlightTextWithKeywords(art.categoryName, activeKeywords)}
+                      </span>
+                      ${art.reference ? `
+                        <span class="text-[11px] text-gray-500 truncate max-w-[65%]">
+                          <i data-lucide="book-marked" class="w-3 h-3 inline mr-1 text-gold-500"></i>${highlightTextWithKeywords(art.reference, activeKeywords)}
+                        </span>
+                      ` : ''}
+                    </div>
+
+                    <h4
+                      data-action="read-article"
+                      data-id="${art.id}"
+                      class="text-sm sm:text-base font-bold text-gray-900 group-hover:text-[#0D342C] mb-2.5 leading-snug cursor-pointer"
+                    >
+                      ${highlightTextWithKeywords(art.title, activeKeywords)}
+                    </h4>
+
+                    <div class="p-4 rounded-xl bg-gray-50/80 border border-gray-100 space-y-3">
+                      <div
+                        data-action="read-article"
+                        data-id="${art.id}"
+                        class="rich-content text-xs sm:text-sm text-gray-800 leading-relaxed cursor-pointer"
+                      >
+                        ${snippetObj.html}
+                      </div>
+
+                      <div class="pt-2 border-t border-gray-200/70 flex items-center justify-between gap-2">
+                        <div class="flex items-center gap-1.5">
+                          ${snippetObj.canExpandMore ? `
+                            <button
+                              type="button"
+                              data-action="expand-search-snippet"
+                              data-id="${art.id}"
+                              class="w-8 h-8 rounded-xl bg-white hover:bg-emerald-50 border border-gray-200 hover:border-emerald-300 text-[#0D342C] shadow-sm transition flex items-center justify-center"
+                              title="Perluas Teks"
+                            >
+                              <i data-lucide="chevrons-down" class="w-4 h-4"></i>
+                            </button>
+                          ` : ''}
+
+                          ${snippetObj.canCollapse ? `
+                            <button
+                              type="button"
+                              data-action="collapse-search-snippet"
+                              data-id="${art.id}"
+                              class="w-8 h-8 rounded-xl bg-white hover:bg-amber-50 border border-gray-200 hover:border-amber-300 text-amber-700 shadow-sm transition flex items-center justify-center"
+                              title="Ringkas Teks"
+                            >
+                              <i data-lucide="chevrons-up" class="w-4 h-4"></i>
+                            </button>
+                          ` : ''}
+                        </div>
+
+                        <button
+                          type="button"
+                          data-action="read-article"
+                          data-id="${art.id}"
+                          class="w-8 h-8 rounded-xl bg-[#0D342C] hover:bg-[#164E42] text-white shadow-sm transition flex items-center justify-center ml-auto"
+                          title="Baca Selengkapnya"
+                        >
+                          <i data-lucide="book-open" class="w-4 h-4"></i>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                `;
+              }).join('')}
+            </div>
+          ` : ''}
+
+          ${(state.searchTab === 'semua' || state.searchTab === 'kategori') ? `
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5 pt-2">
+              ${matchedCategories.map(cat => {
+                const count = state.articles.filter(a => a.categoryId === cat.id).length;
+                return `
+                  <div
+                    data-action="goto-category-expand"
+                    data-cat-id="${cat.id}"
+                    class="bg-white rounded-2xl p-4 border border-gray-100 flex items-center justify-between cursor-pointer hover:border-emerald-300 transition"
+                  >
+                    <div class="min-w-0 pr-3">
+                      <div class="text-sm font-bold text-gray-900">${highlightTextWithKeywords(cat.name, activeKeywords)}</div>
+                      ${cat.description ? `<div class="text-xs text-gray-500 mt-0.5 truncate">${highlightTextWithKeywords(cat.description, activeKeywords)}</div>` : ''}
+                      <div class="text-[11px] font-semibold text-emerald-700 mt-1">${count}</div>
+                    </div>
+                    <i data-lucide="chevron-right" class="w-4 h-4 text-gray-400 shrink-0"></i>
+                  </div>
+                `;
+              }).join('')}
+            </div>
+          ` : ''}
+        </div>
+      `;
+    }
+
+    // ==========================================
+    // 6. VIEW: TULIS TULISAN BARU
+    // ==========================================
+    function renderTulisView() {
+      if (state.currentUser?.role !== 'admin') {
+        return `
+          <div class="p-8 text-center">
+            <p class="text-sm text-gray-500">Halaman khusus Administrator.</p>
+          </div>
+        `;
+      }
+
+      const editingItem = state.editingArticleId
+        ? state.articles.find(a => a.id === state.editingArticleId)
+        : null;
+
+      const allRefNames = getMergedReferencesList().map(r => r.name);
+
+      return `
+        <div class="p-4 sm:p-8 max-w-5xl mx-auto w-full">
+          <div class="mb-6">
+            <h1 class="text-xl sm:text-2xl font-bold text-gray-900">${editingItem ? 'Edit Tulisan' : 'Tulis Baru'}</h1>
+          </div>
+
+          <form id="article-form" class="bg-white rounded-2xl p-5 sm:p-8 border border-gray-100 shadow-sm space-y-5">
+            <div class="grid grid-cols-1 sm:grid-cols-12 gap-4">
+              <div class="sm:col-span-8">
+                <label class="block text-xs font-semibold text-gray-700 mb-1.5">Judul *</label>
+                <input
+                  id="form-article-title"
+                  type="text"
+                  placeholder="Judul tulisan..."
+                  value="${escapeHtml(editingItem?.title || '')}"
+                  class="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:border-[#0D342C] outline-none"
+                  required
+                />
+              </div>
+              <div class="sm:col-span-4">
+                <label class="block text-xs font-semibold text-gray-700 mb-1.5">Kategori *</label>
+                <select
+                  id="form-article-category"
+                  class="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-sm focus:border-[#0D342C] outline-none bg-white"
+                  required
+                >
+                  <option value="">Pilih kategori</option>
+                  ${state.categories.map(c => `
+                    <option value="${c.id}" ${editingItem?.categoryId === c.id ? 'selected' : ''}>${escapeHtml(c.name)}</option>
+                  `).join('')}
+                </select>
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-xs font-semibold text-gray-700 mb-1.5">Referensi</label>
+              <input
+                id="form-article-reference"
+                type="text"
+                list="reference-suggestions"
+                placeholder="Nama sumber/referensi..."
+                value="${escapeHtml(editingItem?.reference || '')}"
+                class="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:border-[#0D342C] outline-none"
+              />
+              <datalist id="reference-suggestions">
+                ${allRefNames.map(name => `<option value="${escapeHtml(name)}"></option>`).join('')}
+              </datalist>
+            </div>
+
+            <div class="relative">
+              <label class="block text-xs font-semibold text-gray-700 mb-1.5">Isi Tulisan *</label>
+
+              <div class="sticky-editor-toolbar flex flex-wrap items-center gap-1.5 p-2.5 rounded-t-xl border border-gray-200 text-gray-700">
+                <select
+                  id="editor-font-family"
+                  class="px-2.5 py-1.5 rounded-lg border border-gray-200 bg-white text-xs font-semibold text-gray-700 outline-none"
+                  title="Pilih Jenis Huruf (Sorot teks terlebih dahulu)"
+                >
+                  <option value="">Pilih Font...</option>
+                  <option value="Plus Jakarta Sans">Default (Plus Jakarta Sans)</option>
+                  <option value="Amiri">Amiri (Arab & Kaligrafi)</option>
+                  <option value="KFGQPC Uthmanic Script HAFS">KFGQPC Uthmani (Mushaf)</option>
+                  <option value="Arial">Arial</option>
+                  <option value="Times New Roman">Times New Roman</option>
+                </select>
+
+                <span class="w-px h-5 bg-gray-300 mx-0.5"></span>
+
+                <button type="button" data-action="rich-cmd" data-cmd="bold" class="p-2 rounded-lg hover:bg-gray-200 text-xs font-bold" title="Tebal (Bold)">
+                  <i data-lucide="bold" class="w-4 h-4"></i>
+                </button>
+                <button type="button" data-action="rich-cmd" data-cmd="italic" class="p-2 rounded-lg hover:bg-gray-200 text-xs italic" title="Miring (Italic)">
+                  <i data-lucide="italic" class="w-4 h-4"></i>
+                </button>
+                <button type="button" data-action="rich-cmd" data-cmd="underline" class="p-2 rounded-lg hover:bg-gray-200 text-xs underline" title="Garis Bawah">
+                  <i data-lucide="underline" class="w-4 h-4"></i>
+                </button>
+
+                <span class="w-px h-5 bg-gray-300 mx-0.5"></span>
+
+                <button type="button" data-action="block-align" data-align="left" class="p-2 rounded-lg hover:bg-gray-200 text-xs" title="Rata Kiri (Align Left)">
+                  <i data-lucide="align-left" class="w-4 h-4"></i>
+                </button>
+                <button type="button" data-action="block-align" data-align="center" class="p-2 rounded-lg hover:bg-gray-200 text-xs" title="Rata Tengah (Align Center)">
+                  <i data-lucide="align-center" class="w-4 h-4"></i>
+                </button>
+                <button type="button" data-action="block-align" data-align="right" class="p-2 rounded-lg hover:bg-gray-200 text-xs" title="Rata Kanan (Align Right)">
+                  <i data-lucide="align-right" class="w-4 h-4"></i>
+                </button>
+                <button type="button" data-action="block-align" data-align="justify" class="p-2 rounded-lg hover:bg-gray-200 text-xs" title="Rata Kanan-Kiri (Justify)">
+                  <i data-lucide="align-justify" class="w-4 h-4"></i>
+                </button>
+
+                <span class="w-px h-5 bg-gray-300 mx-0.5"></span>
+
+                <button
+                  type="button"
+                  data-action="block-dir"
+                  data-dir="ltr"
+                  class="px-2.5 py-1.5 rounded-lg hover:bg-gray-200 text-xs font-bold flex items-center gap-1 border border-gray-200 bg-white"
+                  title="Arah Kiri ke Kanan (Hanya untuk paragraf yang disorot)"
+                >
+                  <span>LTR</span>
+                </button>
+                <button
+                  type="button"
+                  data-action="block-dir"
+                  data-dir="rtl"
+                  class="px-2.5 py-1.5 rounded-lg hover:bg-gray-200 text-xs font-bold flex items-center gap-1 border border-gray-200 bg-white"
+                  title="Arah Kanan ke Kiri / Arab (Hanya untuk paragraf yang disorot)"
+                >
+                  <span>RTL</span>
+                </button>
+
+                <span class="w-px h-5 bg-gray-300 mx-0.5"></span>
+
+                <button type="button" data-action="rich-cmd" data-cmd="formatBlock" data-val="P" class="px-2 py-1.5 rounded-lg hover:bg-gray-200 text-xs font-bold" title="Paragraf Normal">
+                  P
+                </button>
+                <button type="button" data-action="rich-cmd" data-cmd="formatBlock" data-val="H2" class="px-2 py-1.5 rounded-lg hover:bg-gray-200 text-xs font-bold" title="Subjudul Besar">
+                  H2
+                </button>
+                <button type="button" data-action="rich-cmd" data-cmd="formatBlock" data-val="H3" class="px-2 py-1.5 rounded-lg hover:bg-gray-200 text-xs font-bold" title="Subjudul Kecil">
+                  H3
+                </button>
+                <button type="button" data-action="rich-cmd" data-cmd="insertUnorderedList" class="p-2 rounded-lg hover:bg-gray-200 text-xs" title="Daftar Poin">
+                  <i data-lucide="list" class="w-4 h-4"></i>
+                </button>
+                <button type="button" data-action="rich-cmd" data-cmd="insertOrderedList" class="p-2 rounded-lg hover:bg-gray-200 text-xs" title="Daftar Angka">
+                  <i data-lucide="list-ordered" class="w-4 h-4"></i>
+                </button>
+                <button type="button" data-action="rich-cmd" data-cmd="formatBlock" data-val="BLOCKQUOTE" class="p-2 rounded-lg hover:bg-gray-200 text-xs" title="Kutipan / Highlight">
+                  <i data-lucide="quote" class="w-4 h-4"></i>
+                </button>
+
+                <span class="w-px h-5 bg-gray-300 mx-0.5"></span>
+
+                <button type="button" data-action="rich-insert" data-snippet="بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ" class="px-2.5 py-1 rounded-lg hover:bg-gray-200 text-xs font-semibold">
+                  + Basmalah
+                </button>
+                <button type="button" data-action="rich-insert" data-snippet="ﷺ" class="px-2 py-1 rounded-lg hover:bg-gray-200 text-xs font-semibold">
+                  ﷺ
+                </button>
+                <button type="button" data-action="rich-insert" data-snippet="ﷻ" class="px-2 py-1 rounded-lg hover:bg-gray-200 text-xs font-semibold">
+                  ﷻ
+                </button>
+              </div>
+
+              <div
+                id="rich-editor-board"
+                contenteditable="true"
+                data-placeholder="Tulis isi kajian atau kitab secara lengkap di papan editor ini..."
+                class="rich-content w-full min-h-[380px] p-5 rounded-b-xl border border-t-0 border-gray-200 text-base focus:border-[#0D342C] outline-none leading-relaxed bg-white"
+              >${editingItem?.content || '<p>Mulai menulis isi kajian di sini...</p>'}</div>
+            </div>
+
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-3 border-t border-gray-100">
+              <label class="flex items-center gap-2.5 cursor-pointer">
+                <input
+                  id="form-article-fav"
+                  type="checkbox"
+                  ${editingItem?.isFavorite ? 'checked' : ''}
+                  class="w-4 h-4 rounded text-[#0D342C] focus:ring-[#0D342C]"
+                />
+                <span class="text-xs font-semibold text-gray-700">Tandai sebagai tulisan favorit</span>
+              </label>
+
+              <div class="flex items-center gap-3">
+                <button
+                  type="button"
+                  data-action="nav"
+                  data-menu="koleksi"
+                  class="px-5 py-3 rounded-xl bg-gray-100 hover:bg-gray-200 text-gray-700 text-xs font-bold transition"
+                >
+                  Batal
+                </button>
+                <button
+                  type="submit"
+                  class="px-6 py-3 rounded-xl bg-[#0D342C] hover:bg-[#164E42] text-white text-xs font-bold shadow-md transition flex items-center gap-2"
+                >
+                  <i data-lucide="check" class="w-4 h-4"></i>
+                  <span>${editingItem ? 'Simpan Perubahan' : 'Terbitkan Tulisan'}</span>
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      `;
+    }
+
+    // ==========================================
+    // 7. VIEW: FAVORIT
+    // ==========================================
+    function renderFavoritView() {
+      const isAdmin = state.currentUser?.role === 'admin';
+      const favs = state.articles.filter(a => a.isFavorite);
+      return `
+        <div class="p-4 sm:p-8 space-y-6 max-w-7xl mx-auto w-full">
+          <div>
+            <h1 class="text-xl sm:text-2xl font-bold text-gray-900">Favorit</h1>
+          </div>
+
+          ${favs.length === 0 ? `
+            <div class="bg-white rounded-2xl p-12 text-center border border-gray-100">
+              <div class="w-12 h-12 rounded-2xl bg-amber-50 text-amber-500 flex items-center justify-center mx-auto mb-3">
+                <i data-lucide="star" class="w-6 h-6"></i>
+              </div>
+              <h3 class="text-sm font-bold text-gray-900">Belum ada tulisan favorit</h3>
+            </div>
+          ` : `
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+              ${favs.map(art => `
+                <div class="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm space-y-3">
+                  <div class="flex items-center justify-between gap-2">
+                    <span class="px-2.5 py-0.5 rounded-lg bg-emerald-50 text-emerald-800 text-[11px] font-semibold">${escapeHtml(art.categoryName)}</span>
+                    ${isAdmin ? `
+                      <button type="button" data-action="toggle-fav" data-id="${art.id}" data-fav="true" class="text-amber-400">
+                        <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
+                      </button>
+                    ` : `<i data-lucide="star" class="w-4 h-4 fill-amber-400 text-amber-400"></i>`}
+                  </div>
+                  <h3 data-action="read-article" data-id="${art.id}" class="text-base font-bold text-gray-900 hover:text-[#0D342C] cursor-pointer">
+                    ${escapeHtml(art.title)}
+                  </h3>
+                  <p data-action="read-article" data-id="${art.id}" class="spoiler-text text-xs sm:text-sm text-gray-600 leading-relaxed text-justify cursor-pointer">
+                    ${escapeHtml(getArticleSpoiler(art.content, 200))}
+                  </p>
+                  <div class="pt-2 border-t border-gray-100 flex items-center justify-between text-[11px] text-gray-500">
+                    <span class="truncate max-w-[70%]">${art.reference ? escapeHtml(art.reference) : ''}</span>
+                    <button type="button" data-action="read-article" data-id="${art.id}" class="font-bold text-[#0D342C] hover:underline">Baca →</button>
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+          `}
+        </div>
+      `;
+    }
+
+    // ==========================================
+    // 8. VIEW: PENGATURAN
+    // ==========================================
+    function renderPengaturanView() {
+      const cfg = state.appConfig;
+      const isAdmin = state.currentUser?.role === 'admin';
+
+      if (!isAdmin) {
+        return `
+          <div class="p-8 text-center">
+            <p class="text-sm text-gray-500">Akses terbatas.</p>
+          </div>
+        `;
+      }
+
+      return `
+        <div class="p-4 sm:p-8 space-y-6 max-w-6xl mx-auto w-full">
+          <div>
+            <h1 class="text-xl sm:text-2xl font-bold text-gray-900">Pengaturan</h1>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+            <div class="lg:col-span-7">
+              <form id="settings-form" class="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm space-y-4">
+                <div class="flex items-center justify-between pb-3 border-b border-gray-100">
+                  <div class="flex items-center gap-2.5">
+                    <div class="w-9 h-9 rounded-xl bg-emerald-50 text-[#0D342C] flex items-center justify-center">
+                      <i data-lucide="sliders" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                      <h3 class="text-sm font-bold text-gray-900">Identitas & Tema Aplikasi</h3>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="p-4 rounded-2xl bg-gray-50 border border-gray-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                  <div class="text-xs font-bold text-gray-900 flex items-center gap-1.5">
+                    <i data-lucide="sun-moon" class="w-4 h-4 text-[#0D342C]"></i>
+                    <span>Mode Tampilan</span>
+                  </div>
+                  <select
+                    id="set-theme-mode"
+                    data-action="instant-theme-toggle"
+                    class="px-3.5 py-2 rounded-xl border border-gray-200 text-xs font-bold bg-white outline-none"
+                  >
+                    <option value="light" ${cfg.themeMode !== 'dark' ? 'selected' : ''}>☀️ Mode Terang (Light)</option>
+                    <option value="dark" ${cfg.themeMode === 'dark' ? 'selected' : ''}>🌙 Mode Gelap (Dark)</option>
+                  </select>
+                </div>
+
+                <div class="p-4 rounded-2xl bg-[#0D342C] text-white flex items-center gap-4">
+                  <img
+                    id="live-logo-preview"
+                    src="${escapeHtml(cfg.logoUrl)}"
+                    alt="Preview Logo"
+                    class="w-14 h-14 rounded-xl bg-white/10 p-2 object-contain shrink-0 border border-gold-500/40"
+                    onerror="this.src='${DEFAULT_LOGO_SVG}'"
+                  />
+                  <div class="min-w-0">
+                    <div class="font-arabic text-xl text-amber-100 truncate">${escapeHtml(cfg.appArabicName)}</div>
+                    <div class="text-xs font-bold text-gold-400 tracking-wider uppercase truncate">${escapeHtml(cfg.appName)}</div>
+                    <div class="text-[11px] text-emerald-100/80 truncate mt-0.5">${escapeHtml(cfg.appDescription)}</div>
+                  </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label class="block text-xs font-semibold text-gray-700 mb-1">Nama Aplikasi (Utama / Latin) *</label>
+                    <input
+                      id="set-app-name"
+                      type="text"
+                      value="${escapeHtml(cfg.appName)}"
+                      placeholder="MAKTABAH AL-BIDAYAH WAN NIHAYAH"
+                      class="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-xs focus:border-[#0D342C] outline-none"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label class="block text-xs font-semibold text-gray-700 mb-1">Nama Kaligrafi / Arab (Opsional)</label>
+                    <input
+                      id="set-app-arabic"
+                      type="text"
+                      dir="rtl"
+                      value="${escapeHtml(cfg.appArabicName)}"
+                      placeholder="مكتبة البداية والنهاية"
+                      class="w-full px-3.5 py-2 rounded-xl border border-gray-200 font-arabic text-base focus:border-[#0D342C] outline-none"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label class="block text-xs font-semibold text-gray-700 mb-1">Deskripsi / Slogan Aplikasi *</label>
+                  <input
+                    id="set-app-desc"
+                    type="text"
+                    value="${escapeHtml(cfg.appDescription)}"
+                    placeholder="Membaca • Menulis • Menggapai Ridha-Nya"
+                    class="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-xs focus:border-[#0D342C] outline-none"
+                    required
+                  />
+                </div>
+
+                <div>
+                  <label class="block text-xs font-semibold text-gray-700 mb-1">Link URL Logo Aplikasi *</label>
+                  <div class="flex gap-2">
+                    <input
+                      id="set-app-logo"
+                      type="text"
+                      value="${escapeHtml(cfg.logoUrl)}"
+                      placeholder="https://example.com/logo.png"
+                      class="flex-1 px-3.5 py-2.5 rounded-xl border border-gray-200 text-xs focus:border-[#0D342C] outline-none"
+                    />
+                    <button
+                      type="button"
+                      data-action="reset-default-logo"
+                      class="px-3 py-2 rounded-xl bg-gray-100 hover:bg-gray-200 text-xs font-semibold text-gray-700 shrink-0"
+                    >
+                      Logo Default
+                    </button>
+                  </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2 border-t border-gray-100">
+                  <div>
+                    <label class="block text-xs font-semibold text-gray-700 mb-1">Judul Banner Beranda</label>
+                    <input
+                      id="set-hero-title"
+                      type="text"
+                      value="${escapeHtml(cfg.heroTitle)}"
+                      class="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-xs focus:border-[#0D342C] outline-none"
+                    />
+                  </div>
+                  <div>
+                    <label class="block text-xs font-semibold text-gray-700 mb-1">Sub-judul Banner Beranda</label>
+                    <input
+                      id="set-hero-subtitle"
+                      type="text"
+                      value="${escapeHtml(cfg.heroSubtitle)}"
+                      class="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-xs focus:border-[#0D342C] outline-none"
+                    />
+                  </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label class="block text-xs font-semibold text-gray-700 mb-1">Kutipan Doa/Ayat Beranda (Arab)</label>
+                    <input
+                      id="set-daily-arabic"
+                      type="text"
+                      dir="rtl"
+                      value="${escapeHtml(cfg.dailyArabic)}"
+                      class="w-full px-3.5 py-2 rounded-xl border border-gray-200 font-arabic text-base focus:border-[#0D342C] outline-none"
+                    />
+                  </div>
+                  <div>
+                    <label class="block text-xs font-semibold text-gray-700 mb-1">Terjemah Doa/Ayat Beranda</label>
+                    <input
+                      id="set-daily-translation"
+                      type="text"
+                      value="${escapeHtml(cfg.dailyTranslation)}"
+                      class="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-xs focus:border-[#0D342C] outline-none"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label class="block text-xs font-semibold text-gray-700 mb-1">Kutipan Hadits Halaman Login</label>
+                  <input
+                    id="set-login-quote"
+                    type="text"
+                    value="${escapeHtml(cfg.loginQuote)}"
+                    class="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-xs focus:border-[#0D342C] outline-none"
+                  />
+                </div>
+
+                <button
+                  type="submit"
+                  class="w-full py-3.5 rounded-xl bg-[#0D342C] hover:bg-[#164E42] text-white text-xs font-bold shadow-md transition flex items-center justify-center gap-2"
+                >
+                  <i data-lucide="save" class="w-4 h-4"></i>
+                  <span>Simpan & Terapkan Real-Time</span>
+                </button>
+              </form>
+            </div>
+
+            <div class="lg:col-span-5 space-y-5">
+              <div class="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm space-y-4">
+                <div class="flex items-center gap-2.5 pb-3 border-b border-gray-100">
+                  <div class="w-9 h-9 rounded-xl bg-amber-50 text-amber-700 flex items-center justify-center">
+                    <i data-lucide="users" class="w-5 h-5"></i>
+                  </div>
+                  <div>
+                    <h3 class="text-sm font-bold text-gray-900">Manajemen Akun Anggota</h3>
+                  </div>
+                </div>
+
+                <form id="user-form" class="space-y-3">
+                  <div>
+                    <label class="block text-xs font-semibold text-gray-700 mb-1">Nama Lengkap Anggota</label>
+                    <input id="usr-fullname" type="text" placeholder="Misal: Fatimah Az-Zahra" class="w-full px-3.5 py-2 rounded-xl border border-gray-200 text-xs outline-none" required />
+                  </div>
+                  <div class="grid grid-cols-2 gap-3">
+                    <div>
+                      <label class="block text-xs font-semibold text-gray-700 mb-1">Username Login</label>
+                      <input id="usr-username" type="text" placeholder="fatimah" class="w-full px-3.5 py-2 rounded-xl border border-gray-200 text-xs outline-none" required />
+                    </div>
+                    <div>
+                      <label class="block text-xs font-semibold text-gray-700 mb-1">Password</label>
+                      <input id="usr-password" type="text" placeholder="••••••" class="w-full px-3.5 py-2 rounded-xl border border-gray-200 text-xs outline-none" required />
+                    </div>
+                  </div>
+                  <button type="submit" class="w-full py-2.5 rounded-xl bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold transition">
+                    + Tambah Akun Anggota
+                  </button>
+                </form>
+
+                <div class="pt-3 border-t border-gray-100 space-y-2">
+                  <div class="text-xs font-bold text-gray-700">Daftar Anggota Terdaftar (${state.users.length})</div>
+                  ${state.users.length === 0 ? `
+                    <p class="text-xs text-gray-400 py-3">Belum ada akun anggota terdaftar.</p>
+                  ` : state.users.map(u => `
+                    <div class="flex items-center justify-between p-3 rounded-xl bg-gray-50 border border-gray-100">
+                      <div>
+                        <div class="text-xs font-bold text-gray-900">${escapeHtml(u.fullName)}</div>
+                        <div class="text-[11px] text-gray-500">Username: <code class="font-semibold text-emerald-800">${escapeHtml(u.username)}</code></div>
+                      </div>
+                      <button type="button" data-action="delete-user" data-id="${u.id}" class="p-1.5 rounded-lg text-red-500 hover:bg-red-50">
+                        <i data-lucide="trash-2" class="w-4 h-4"></i>
+                      </button>
+                    </div>
+                  `).join('')}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    // ==========================================
+    // RENDER UTAMA APLIKASI
+    // ==========================================
+    function renderApp(options = {}) {
+      applyThemeMode();
+      const container = document.getElementById('app-view');
+      if (!container) return;
+
+      const prevWs = document.getElementById('main-workspace-scroll');
+      const currentScrollTop = prevWs ? prevWs.scrollTop : 0;
+
+      if (!state.currentUser) {
+        container.innerHTML = renderLoginView();
+        lucide.createIcons();
+        bindEvents();
+        return;
+      }
+
+      if (state.currentUser.role !== 'admin' && (state.activeMenu === 'pengaturan' || state.activeMenu === 'tulis')) {
+        state.activeMenu = 'beranda';
+      }
+
+      let contentHtml = '';
+      switch (state.activeMenu) {
+        case 'beranda':
+          contentHtml = renderBerandaView();
+          break;
+        case 'koleksi':
+          contentHtml = renderKoleksiView();
+          break;
+        case 'baca':
+          contentHtml = renderBacaView();
+          break;
+        case 'kategori':
+          contentHtml = renderKategoriView();
+          break;
+        case 'referensi':
+          contentHtml = renderReferensiView();
+          break;
+        case 'pencarian':
+          contentHtml = renderPencarianView();
+          break;
+        case 'tulis':
+          contentHtml = renderTulisView();
+          break;
+        case 'favorit':
+          contentHtml = renderFavoritView();
+          break;
+        case 'pengaturan':
+          contentHtml = renderPengaturanView();
+          break;
+        default:
+          contentHtml = renderBerandaView();
+      }
+
+      container.innerHTML = `
+        <div class="w-full h-full flex overflow-hidden bg-alabaster">
+          ${renderNavigation()}
+          <div id="main-workspace-scroll" class="main-workspace flex-1 flex flex-col h-full overflow-y-auto">
+            ${renderTopbar()}
+            <main class="flex-1">
+              ${contentHtml}
+            </main>
+          </div>
+        </div>
+      `;
+
+      lucide.createIcons();
+      bindEvents();
+
+      const newWs = document.getElementById('main-workspace-scroll');
+      if (newWs) {
+        if (options.preserveScroll) {
+          newWs.scrollTop = currentScrollTop;
+        } else if (options.restoreMenuScroll) {
+          const savedScroll = state.menuScrollPositions[state.activeMenu] || 0;
+          newWs.scrollTop = savedScroll;
+        } else if (state.activeMenu === 'baca') {
+          newWs.scrollTop = 0;
+        }
+      }
+    }
+
+    // ==========================================
+    // EVENT DELEGATION & BINDINGS
+    // ==========================================
+    function bindEvents() {
+      const loginForm = document.getElementById('login-form');
+      if (loginForm) loginForm.onsubmit = handleLogin;
+
+      const articleForm = document.getElementById('article-form');
+      if (articleForm) articleForm.onsubmit = handleSaveArticle;
+
+      const categoryForm = document.getElementById('category-form');
+      if (categoryForm) categoryForm.onsubmit = handleSaveCategory;
+
+      const referenceCrudForm = document.getElementById('reference-crud-form');
+      if (referenceCrudForm) referenceCrudForm.onsubmit = handleSaveReference;
+
+      const settingsForm = document.getElementById('settings-form');
+      if (settingsForm) settingsForm.onsubmit = handleSaveSettings;
+
+      const userForm = document.getElementById('user-form');
+      if (userForm) userForm.onsubmit = handleAddUser;
+
+      const wsScroll = document.getElementById('main-workspace-scroll');
+      if (wsScroll) {
+        wsScroll.addEventListener('scroll', () => {
+          if (state.activeMenu !== 'baca') {
+            state.menuScrollPositions[state.activeMenu] = wsScroll.scrollTop;
+          }
+        }, { passive: true });
+      }
+
+      document.querySelectorAll('[data-action="quick-search-input"]').forEach(inp => {
+        inp.onkeydown = (e) => {
+          if (e.key === 'Enter') {
+            state.searchMode = 'fulltext';
+            state.searchQuery = e.target.value;
+            state.activeMenu = 'pencarian';
+            renderApp();
+          }
+        };
+      });
+
+      const mainSearchInput = document.getElementById('main-search-input');
+      if (mainSearchInput) {
+        mainSearchInput.oninput = (e) => {
+          state.searchQuery = e.target.value;
+          state.expandedSearchSnippets = {};
+          renderApp({ preserveScroll: true });
+          const el = document.getElementById('main-search-input');
+          if (el) {
+            el.focus();
+            el.setSelectionRange(el.value.length, el.value.length);
+          }
+        };
+      }
+
+      document.querySelectorAll('.multi-search-input').forEach(inp => {
+        inp.oninput = (e) => {
+          const idx = parseInt(inp.getAttribute('data-multi-index'), 10);
+          const caretPos = e.target.selectionStart;
+          state.multiSearchWords[idx] = e.target.value;
+          state.expandedSearchSnippets = {};
+          renderApp({ preserveScroll: true });
+          const targetEl = document.querySelector(`.multi-search-input[data-multi-index="${idx}"]`);
+          if (targetEl) {
+            targetEl.focus();
+            targetEl.setSelectionRange(caretPos, caretPos);
+          }
+        };
+      });
+
+      const themeSelect = document.getElementById('set-theme-mode');
+      if (themeSelect) {
+        themeSelect.onchange = (e) => {
+          state.appConfig.themeMode = e.target.value;
+          applyThemeMode();
+        };
+      }
+
+      const editorFontSelect = document.getElementById('editor-font-family');
+      if (editorFontSelect) {
+        editorFontSelect.onchange = (e) => {
+          const fontVal = e.target.value;
+          if (fontVal) {
+            applyFontFamilyToSelection(fontVal);
+            e.target.value = '';
+          }
+        };
+      }
+
+      document.querySelectorAll('[data-action]').forEach(el => {
+        const action = el.getAttribute('data-action');
+        if (action === 'quick-search-input' || action === 'instant-theme-toggle') return;
+
+        if (['rich-cmd', 'rich-insert', 'block-dir', 'block-align'].includes(action)) {
+          el.onmousedown = (ev) => ev.preventDefault();
+        }
+
+        el.onclick = (e) => {
+          e.stopPropagation();
+
+          if (action === 'switch-login-tab') {
+            state.loginTab = el.getAttribute('data-tab');
+            renderApp();
+          } else if (action === 'toggle-password') {
+            state.showPassword = !state.showPassword;
+            renderApp();
+          } else if (action === 'quick-theme-toggle') {
+            toggleQuickThemeMode();
+          } else if (action === 'nav') {
+            saveCurrentScrollPosition();
+            const targetMenu = el.getAttribute('data-menu');
+            if (state.currentUser?.role !== 'admin' && (targetMenu === 'pengaturan' || targetMenu === 'tulis')) {
+              showToast('Akses terbatas: Pembaca hanya memiliki hak akses baca (Read-Only).', 'info');
+              return;
+            }
+            if (targetMenu === 'tulis') state.editingArticleId = null;
+            state.activeMenu = targetMenu;
+            renderApp({ restoreMenuScroll: true });
+          } else if (action === 'logout') {
+            handleLogout();
+          } else if (action === 'read-article') {
+            if (state.activeMenu !== 'baca') {
+              saveCurrentScrollPosition(state.activeMenu);
+              state.previousMenu = state.activeMenu;
+            }
+            state.readingArticleId = el.getAttribute('data-id');
+            state.activeMenu = 'baca';
+            renderApp();
+          } else if (action === 'return-from-read') {
+            state.activeMenu = state.previousMenu || 'koleksi';
+            renderApp({ restoreMenuScroll: true });
+          } else if (action === 'expand-search-snippet') {
+            const artId = el.getAttribute('data-id');
+            const curr = state.expandedSearchSnippets[artId] || 0;
+            state.expandedSearchSnippets[artId] = Math.min(3, curr + 1);
+            renderApp({ preserveScroll: true });
+          } else if (action === 'collapse-search-snippet') {
+            const artId = el.getAttribute('data-id');
+            const curr = state.expandedSearchSnippets[artId] || 0;
+            state.expandedSearchSnippets[artId] = Math.max(0, curr - 1);
+            renderApp({ preserveScroll: true });
+          } else if (action === 'toggle-category-accordion') {
+            const catId = el.getAttribute('data-cat-id');
+            state.expandedCategories[catId] = !state.expandedCategories[catId];
+            renderApp({ preserveScroll: true });
+          } else if (action === 'toggle-reference-accordion') {
+            const refName = el.getAttribute('data-ref-name');
+            state.expandedReferences[refName] = !state.expandedReferences[refName];
+            renderApp({ preserveScroll: true });
+          } else if (action === 'edit-reference') {
+            const refId = el.getAttribute('data-id');
+            const refName = el.getAttribute('data-name');
+            handleEditReference(refId, refName);
+          } else if (action === 'cancel-edit-reference') {
+            state.editingReferenceId = null;
+            renderApp({ preserveScroll: true });
+          } else if (action === 'delete-reference') {
+            const refId = el.getAttribute('data-id');
+            const refName = el.getAttribute('data-name');
+            handleDeleteReference(refId, refName);
+          } else if (action === 'goto-category-expand') {
+            saveCurrentScrollPosition();
+            const catId = el.getAttribute('data-cat-id');
+            state.expandedCategories[catId] = true;
+            state.activeMenu = 'kategori';
+            renderApp();
+          } else if (action === 'select-cat-filter') {
+            state.selectedCategoryFilter = el.getAttribute('data-cat-id');
+            renderApp({ preserveScroll: true });
+          } else if (action === 'filter-category-goto') {
+            saveCurrentScrollPosition();
+            state.selectedCategoryFilter = el.getAttribute('data-cat-id');
+            state.activeMenu = 'koleksi';
+            renderApp();
+          } else if (action === 'toggle-fav') {
+            const id = el.getAttribute('data-id');
+            const fav = el.getAttribute('data-fav') === 'true';
+            toggleFavoriteArticle(id, fav);
+          } else if (action === 'edit-article') {
+            if (state.currentUser?.role !== 'admin') return;
+            state.editingArticleId = el.getAttribute('data-id');
+            state.activeMenu = 'tulis';
+            renderApp();
+          } else if (action === 'delete-article') {
+            handleDeleteArticle(el.getAttribute('data-id'));
+          } else if (action === 'delete-category') {
+            handleDeleteCategory(el.getAttribute('data-id'));
+          } else if (action === 'set-search-mode') {
+            state.searchMode = el.getAttribute('data-mode');
+            state.expandedSearchSnippets = {};
+            renderApp({ preserveScroll: true });
+          } else if (action === 'clear-search') {
+            state.searchQuery = '';
+            state.expandedSearchSnippets = {};
+            renderApp({ preserveScroll: true });
+          } else if (action === 'clear-multi-search') {
+            state.multiSearchWords = ['', '', '', ''];
+            state.expandedSearchSnippets = {};
+            renderApp({ preserveScroll: true });
+          } else if (action === 'set-search-tab') {
+            state.searchTab = el.getAttribute('data-tab');
+            renderApp({ preserveScroll: true });
+          } else if (action === 'rich-cmd') {
+            const cmd = el.getAttribute('data-cmd');
+            const val = el.getAttribute('data-val') || null;
+            const board = document.getElementById('rich-editor-board');
+            if (board) {
+              board.focus();
+              document.execCommand(cmd, false, val);
+            }
+          } else if (action === 'rich-insert') {
+            const snippet = el.getAttribute('data-snippet') || '';
+            const board = document.getElementById('rich-editor-board');
+            if (board) {
+              board.focus();
+              document.execCommand('insertText', false, snippet);
+            }
+          } else if (action === 'block-dir') {
+            const dir = el.getAttribute('data-dir');
+            applyBlockFormatToSelection({ dir });
+          } else if (action === 'block-align') {
+            const align = el.getAttribute('data-align');
+            applyBlockFormatToSelection({ align });
+          } else if (action === 'font-size-up') {
+            state.readerFontSize = Math.min(32, state.readerFontSize + 2);
+            const bodyEl = document.getElementById('reader-article-body');
+            const indEl = document.getElementById('reader-font-indicator');
+            if (bodyEl) bodyEl.style.fontSize = `${state.readerFontSize}px`;
+            if (indEl) indEl.textContent = `${state.readerFontSize}px`;
+          } else if (action === 'font-size-down') {
+            state.readerFontSize = Math.max(12, state.readerFontSize - 2);
+            const bodyEl = document.getElementById('reader-article-body');
+            const indEl = document.getElementById('reader-font-indicator');
+            if (bodyEl) bodyEl.style.fontSize = `${state.readerFontSize}px`;
+            if (indEl) indEl.textContent = `${state.readerFontSize}px`;
+          } else if (action === 'font-size-reset') {
+            state.readerFontSize = 16;
+            const bodyEl = document.getElementById('reader-article-body');
+            const indEl = document.getElementById('reader-font-indicator');
+            if (bodyEl) bodyEl.style.fontSize = `16px`;
+            if (indEl) indEl.textContent = `16px`;
+          } else if (action === 'reset-default-logo') {
+            const logoInp = document.getElementById('set-app-logo');
+            const previewImg = document.getElementById('live-logo-preview');
+            if (logoInp) logoInp.value = DEFAULT_LOGO_SVG;
+            if (previewImg) previewImg.src = DEFAULT_LOGO_SVG;
+            showToast('Logo dikembalikan ke kubah emas default.');
+          } else if (action === 'delete-user') {
+            handleDeleteUser(el.getAttribute('data-id'));
+          }
+        };
+      });
+    }
+
+    // Jalankan Aplikasi
+    if (document.readyState === 'loading') {
+      window.addEventListener('DOMContentLoaded', () => renderApp());
+    } else {
+      renderApp();
+    }
+  </script>
+</body>
+</html>
