@@ -5,22 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Maktabah Al Bidayah Wan Nihayah - Perpustakaan Digital</title>
 
-  <!-- Favicon, Apple Touch Icon, PWA Installed Icon & Open Graph Image (Khusus Saat Diinstal / Deploy Vercel) -->
+  <!-- Favicon, Apple Touch Icon & Open Graph Image (Untuk Tab Browser & Deploy Vercel) -->
   <meta name="referrer" content="no-referrer">
-  <meta name="mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="Maktabah">
-  <link id="dynamic-favicon" rel="icon" type="image/png" href="https://drive.google.com/thumbnail?id=1hYuIUpYzjz-7FK7RjZrB7LNh-mgKMBzU&sz=w512">
-  <link id="dynamic-shortcut-icon" rel="shortcut icon" type="image/png" href="https://lh3.googleusercontent.com/d/1hYuIUpYzjz-7FK7RjZrB7LNh-mgKMBzU">
-  <link id="dynamic-apple-icon" rel="apple-touch-icon" sizes="180x180" href="https://drive.google.com/thumbnail?id=1hYuIUpYzjz-7FK7RjZrB7LNh-mgKMBzU&sz=w512">
-  <link rel="apple-touch-startup-image" href="https://drive.google.com/thumbnail?id=1hYuIUpYzjz-7FK7RjZrB7LNh-mgKMBzU&sz=w1000">
+  <link id="dynamic-favicon" rel="icon" type="image/png" href="https://drive.google.com/thumbnail?id=1nN9ox_9J5mZMxlslDz0Nj6kRxfbNdtRm&sz=w512">
+  <link id="dynamic-shortcut-icon" rel="shortcut icon" type="image/png" href="https://lh3.googleusercontent.com/d/1nN9ox_9J5mZMxlslDz0Nj6kRxfbNdtRm">
+  <link id="dynamic-apple-icon" rel="apple-touch-icon" href="https://drive.google.com/thumbnail?id=1nN9ox_9J5mZMxlslDz0Nj6kRxfbNdtRm&sz=w512">
   <meta property="og:title" content="Maktabah Al Bidayah Wan Nihayah - Perpustakaan Digital">
   <meta property="og:description" content="Berisi Kumpulan Ibarot-ibarot Bahtsul Masail antar Pondok Pesantren yang memuat Masalah-masalah Faktual di Masyarakat.">
-  <meta id="dynamic-og-image" property="og:image" content="https://drive.google.com/thumbnail?id=1hYuIUpYzjz-7FK7RjZrB7LNh-mgKMBzU&sz=w1000">
+  <meta id="dynamic-og-image" property="og:image" content="https://drive.google.com/thumbnail?id=1nN9ox_9J5mZMxlslDz0Nj6kRxfbNdtRm&sz=w1000">
 
-  <!-- PWA Manifest Data URI dengan Ikon & Tampilan Aplikasi Terinstal dari Google Drive (1hYuIUpYzjz-7FK7RjZrB7LNh-mgKMBzU) -->
-  <link rel="manifest" href="data:application/manifest+json;charset=utf-8,%7B%22name%22%3A%22Maktabah%20Al%20Bidayah%20Wan%20Nihayah%22%2C%22short_name%22%3A%22Maktabah%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%230D342C%22%2C%22theme_color%22%3A%22%230D342C%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22https%3A%2F%2Fdrive.google.com%2Fthumbnail%3Fid%3D1hYuIUpYzjz-7FK7RjZrB7LNh-mgKMBzU%26sz%3Dw192%22%2C%22sizes%22%3A%22192x192%22%2C%22type%22%3A%22image%2Fpng%22%2C%22purpose%22%3A%22any%20maskable%22%7D%2C%7B%22src%22%3A%22https%3A%2F%2Fdrive.google.com%2Fthumbnail%3Fid%3D1hYuIUpYzjz-7FK7RjZrB7LNh-mgKMBzU%26sz%3Dw512%22%2C%22sizes%22%3A%22512x512%22%2C%22type%22%3A%22image%2Fpng%22%2C%22purpose%22%3A%22any%20maskable%22%7D%5D%7D">
+  <!-- PWA Manifest Data URI dengan Logo Google Drive -->
+  <link rel="manifest" href="data:application/manifest+json;charset=utf-8,%7B%22name%22%3A%22Maktabah%20Al%20Bidayah%20Wan%20Nihayah%22%2C%22short_name%22%3A%22Maktabah%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%230D342C%22%2C%22theme_color%22%3A%22%230D342C%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22https%3A%2F%2Fdrive.google.com%2Fthumbnail%3Fid%3D1nN9ox_9J5mZMxlslDz0Nj6kRxfbNdtRm%26sz%3Dw512%22%2C%22sizes%22%3A%22512x512%22%2C%22type%22%3A%22image%2Fpng%22%7D%5D%7D">
   <meta name="theme-color" content="#0D342C">
 
   <!-- Tailwind CSS -->
@@ -336,20 +331,6 @@
 </head>
 <body>
   <div id="maktabah-root">
-    <!-- Splash Screen Khusus Saat Aplikasi Diinstal (PWA Standalone) / Dibuka dari Vercel -->
-    <div id="pwa-installed-splash" class="fixed inset-0 z-[100002] bg-[#0D342C] hidden flex-col items-center justify-center p-6 transition-opacity duration-500">
-      <div class="max-w-md w-full flex flex-col items-center text-center">
-        <img
-          src="https://drive.google.com/thumbnail?id=1hYuIUpYzjz-7FK7RjZrB7LNh-mgKMBzU&sz=w1000"
-          alt="Maktabah Al Bidayah Wan Nihayah"
-          referrerpolicy="no-referrer"
-          class="w-64 h-64 sm:w-80 sm:h-80 object-contain rounded-2xl shadow-2xl mb-5"
-          onerror="this.onerror=null;this.src='https://lh3.googleusercontent.com/d/1hYuIUpYzjz-7FK7RjZrB7LNh-mgKMBzU';"
-        />
-        <div class="w-8 h-8 border-2 border-gold-400 border-t-transparent rounded-full animate-spin"></div>
-      </div>
-    </div>
-
     <!-- Toast Notification Container -->
     <div id="toast-container" class="fixed top-4 right-4 z-[100001] flex flex-col gap-2 max-w-sm w-full pointer-events-none px-4 sm:px-0"></div>
 
@@ -406,48 +387,9 @@
       navigator.serviceWorker.register(swUrl).catch(() => {});
     }
 
-    // Link Logo Aplikasi Utama (Canvas/Web) vs Gambar Khusus Saat Diinstal Menjadi Aplikasi (PWA Standalone / Vercel)
+    // Link Logo Aplikasi Utama dari Google Drive
     const CUSTOM_GDRIVE_LOGO_RAW = 'https://drive.google.com/file/d/1nN9ox_9J5mZMxlslDz0Nj6kRxfbNdtRm/view?usp=sharing';
     const CUSTOM_GDRIVE_LOGO_ID = '1nN9ox_9J5mZMxlslDz0Nj6kRxfbNdtRm';
-
-    const INSTALLED_VERCEL_IMAGE_RAW = 'https://drive.google.com/file/d/1hYuIUpYzjz-7FK7RjZrB7LNh-mgKMBzU/view?usp=sharing';
-    const INSTALLED_VERCEL_IMAGE_ID = '1hYuIUpYzjz-7FK7RjZrB7LNh-mgKMBzU';
-
-    // Deteksi apakah aplikasi sedang berjalan sebagai Aplikasi Terinstal (PWA Standalone) atau di-deploy di Vercel
-    function isInstalledPwaOrVercel() {
-      try {
-        const isStandaloneDisplay = window.matchMedia && (
-          window.matchMedia('(display-mode: standalone)').matches ||
-          window.matchMedia('(display-mode: fullscreen)').matches ||
-          window.matchMedia('(display-mode: minimal-ui)').matches
-        );
-        const isIosStandalone = window.navigator.standalone === true;
-        const host = (window.location.hostname || '').toLowerCase();
-        const isVercelDomain = host.includes('vercel.app');
-        return Boolean(isStandaloneDisplay || isIosStandalone || isVercelDomain);
-      } catch (e) {
-        return false;
-      }
-    }
-
-    const ACTIVE_DEFAULT_LOGO_RAW = isInstalledPwaOrVercel() ? INSTALLED_VERCEL_IMAGE_RAW : CUSTOM_GDRIVE_LOGO_RAW;
-    const ACTIVE_DEFAULT_LOGO_ID = isInstalledPwaOrVercel() ? INSTALLED_VERCEL_IMAGE_ID : CUSTOM_GDRIVE_LOGO_ID;
-
-    // Tampilkan Splash Gambar (1hYuIUpYzjz-7FK7RjZrB7LNh-mgKMBzU) saat aplikasi dibuka sebagai PWA Terinstal / dari Vercel
-    function triggerInstalledAppSplash() {
-      if (!isInstalledPwaOrVercel()) return;
-      const splash = document.getElementById('pwa-installed-splash');
-      if (!splash) return;
-      splash.classList.remove('hidden');
-      splash.classList.add('flex');
-      setTimeout(() => {
-        splash.style.opacity = '0';
-        setTimeout(() => {
-          splash.classList.add('hidden');
-          splash.classList.remove('flex');
-        }, 450);
-      }, 1400);
-    }
 
     // SVG Fallback Logo Kubah & Al-Qur'an Emas
     const DEFAULT_LOGO_SVG = `data:image/svg+xml;utf8,` + encodeURIComponent(`
@@ -474,7 +416,7 @@
 
     function resolveImageUrl(url = '') {
       const trimmed = String(url || '').trim();
-      if (!trimmed) return `https://drive.google.com/thumbnail?id=${ACTIVE_DEFAULT_LOGO_ID}&sz=w1000`;
+      if (!trimmed) return `https://drive.google.com/thumbnail?id=${CUSTOM_GDRIVE_LOGO_ID}&sz=w1000`;
       const gId = extractGoogleDriveId(trimmed);
       if (gId) {
         return `https://drive.google.com/thumbnail?id=${gId}&sz=w1000`;
@@ -482,10 +424,9 @@
       return trimmed;
     }
 
-    // Sinkronisasi Favicon & Meta Icon secara Real-time (Untuk Aplikasi Terinstal & Vercel menggunakan 1hYuIUpYzjz-7FK7RjZrB7LNh-mgKMBzU)
+    // Sinkronisasi Favicon & Meta Icon secara Real-time saat di-deploy ke Vercel
     function syncBrowserFavicon(rawUrl = '') {
-      const targetRaw = isInstalledPwaOrVercel() ? INSTALLED_VERCEL_IMAGE_RAW : (rawUrl || ACTIVE_DEFAULT_LOGO_RAW);
-      const resolved = resolveImageUrl(targetRaw);
+      const resolved = resolveImageUrl(rawUrl || CUSTOM_GDRIVE_LOGO_RAW);
       const favEl = document.getElementById('dynamic-favicon');
       const shortEl = document.getElementById('dynamic-shortcut-icon');
       const appleEl = document.getElementById('dynamic-apple-icon');
@@ -497,7 +438,7 @@
     }
 
     window.__handleLogoFallback = function(imgEl, rawUrl) {
-      const gId = extractGoogleDriveId(rawUrl) || ACTIVE_DEFAULT_LOGO_ID;
+      const gId = extractGoogleDriveId(rawUrl) || CUSTOM_GDRIVE_LOGO_ID;
       const step = parseInt(imgEl.getAttribute('data-fallback-step') || '0', 10);
       if (step === 0) {
         imgEl.setAttribute('data-fallback-step', '1');
@@ -549,7 +490,7 @@
         appName: 'Maktabah Al Bidayah Wan Nihayah',
         appArabicName: 'مكتبة البداية والنهاية',
         appDescription: "Berisi Kumpulan Ibarot-ibarot Bahtsul Masail antar Pondok Pesantren yang memuat Masalah-masalah Faktual di Masyarakat, Jawaban-Jawaban yang Shohih dari berbagai Sumber dan juga Solusi Menurut Kacamata Fiqih Ala Madzhahibul Arba'ah yang relevan Ala Hasabi Zaman.",
-        logoUrl: ACTIVE_DEFAULT_LOGO_RAW,
+        logoUrl: CUSTOM_GDRIVE_LOGO_RAW,
         themeMode: 'light', // 'light' | 'dark'
         appFont: 'default', // 'default' | 'Arial' | 'Amiri'
         appFontSize: '16', // '14' | '15' | '16' | '17' | '18' | '20'
@@ -642,7 +583,7 @@
         appName: 'Maktabah Al Bidayah Wan Nihayah',
         appArabicName: 'مكتبة البداية والنهاية',
         appDescription: "Berisi Kumpulan Ibarot-ibarot Bahtsul Masail antar Pondok Pesantren yang memuat Masalah-masalah Faktual di Masyarakat, Jawaban-Jawaban yang Shohih dari berbagai Sumber dan juga Solusi Menurut Kacamata Fiqih Ala Madzhahibul Arba'ah yang relevan Ala Hasabi Zaman.",
-        logoUrl: ACTIVE_DEFAULT_LOGO_RAW,
+        logoUrl: CUSTOM_GDRIVE_LOGO_RAW,
         themeMode: 'light',
         appFont: 'default',
         appFontSize: '16',
@@ -684,8 +625,8 @@
         (snap) => {
           if (snap.exists()) {
             const incomingData = snap.data() || {};
-            if (!incomingData.logoUrl || !String(incomingData.logoUrl).trim() || isInstalledPwaOrVercel()) {
-              incomingData.logoUrl = ACTIVE_DEFAULT_LOGO_RAW;
+            if (!incomingData.logoUrl || !String(incomingData.logoUrl).trim()) {
+              incomingData.logoUrl = CUSTOM_GDRIVE_LOGO_RAW;
             }
             state.appConfig = { ...state.appConfig, ...incomingData };
             document.title = state.appConfig.appName;
@@ -4169,10 +4110,10 @@
           } else if (action === 'reset-default-logo') {
             const logoInp = document.getElementById('set-app-logo');
             const previewImg = document.getElementById('live-logo-preview');
-            if (logoInp) logoInp.value = ACTIVE_DEFAULT_LOGO_RAW;
+            if (logoInp) logoInp.value = CUSTOM_GDRIVE_LOGO_RAW;
             if (previewImg) {
               previewImg.setAttribute('data-fallback-step', '0');
-              previewImg.src = resolveImageUrl(ACTIVE_DEFAULT_LOGO_RAW);
+              previewImg.src = resolveImageUrl(CUSTOM_GDRIVE_LOGO_RAW);
             }
             showToast('Logo dikembalikan ke logo Google Drive utama.');
           } else if (action === 'delete-user') {
@@ -4184,12 +4125,8 @@
 
     // Jalankan Aplikasi
     if (document.readyState === 'loading') {
-      window.addEventListener('DOMContentLoaded', () => {
-        triggerInstalledAppSplash();
-        renderApp();
-      });
+      window.addEventListener('DOMContentLoaded', () => renderApp());
     } else {
-      triggerInstalledAppSplash();
       renderApp();
     }
   </script>
