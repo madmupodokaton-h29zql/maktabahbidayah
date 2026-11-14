@@ -5,9 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Maktabah Al Bidayah Wan Nihayah - Perpustakaan Digital</title>
 
+  <!-- Favicon, Apple Touch Icon & Open Graph Image (Untuk Tab Browser & Deploy Vercel) -->
+  <meta name="referrer" content="no-referrer">
+  <link id="dynamic-favicon" rel="icon" type="image/png" href="https://drive.google.com/thumbnail?id=1nN9ox_9J5mZMxlslDz0Nj6kRxfbNdtRm&sz=w512">
+  <link id="dynamic-shortcut-icon" rel="shortcut icon" type="image/png" href="https://lh3.googleusercontent.com/d/1nN9ox_9J5mZMxlslDz0Nj6kRxfbNdtRm">
+  <link id="dynamic-apple-icon" rel="apple-touch-icon" href="https://drive.google.com/thumbnail?id=1nN9ox_9J5mZMxlslDz0Nj6kRxfbNdtRm&sz=w512">
+  <meta property="og:title" content="Maktabah Al Bidayah Wan Nihayah - Perpustakaan Digital">
+  <meta property="og:description" content="Berisi Kumpulan Ibarot-ibarot Bahtsul Masail antar Pondok Pesantren yang memuat Masalah-masalah Faktual di Masyarakat.">
+  <meta id="dynamic-og-image" property="og:image" content="https://drive.google.com/thumbnail?id=1nN9ox_9J5mZMxlslDz0Nj6kRxfbNdtRm&sz=w1000">
 
-  <!-- PWA Manifest Data URI -->
-  <link rel="manifest" href="data:application/manifest+json;charset=utf-8,%7B%22name%22%3A%22Maktabah%20Al-Bidayah%20Wan%20Nihayah%22%2C%22short_name%22%3A%22Maktabah%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%230D342C%22%2C%22theme_color%22%3A%22%230D342C%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22https%3A%2F%2Fplacehold.co%2F192x192%2F0D342C%2FC5A059%3Ftext%3DM%22%2C%22sizes%22%3A%22192x192%22%2C%22type%22%3A%22image%2Fpng%22%7D%5D%7D">
+  <!-- PWA Manifest Data URI dengan Logo Google Drive -->
+  <link rel="manifest" href="data:application/manifest+json;charset=utf-8,%7B%22name%22%3A%22Maktabah%20Al%20Bidayah%20Wan%20Nihayah%22%2C%22short_name%22%3A%22Maktabah%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%230D342C%22%2C%22theme_color%22%3A%22%230D342C%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22https%3A%2F%2Fdrive.google.com%2Fthumbnail%3Fid%3D1nN9ox_9J5mZMxlslDz0Nj6kRxfbNdtRm%26sz%3Dw512%22%2C%22sizes%22%3A%22512x512%22%2C%22type%22%3A%22image%2Fpng%22%7D%5D%7D">
   <meta name="theme-color" content="#0D342C">
 
   <!-- Tailwind CSS -->
@@ -408,12 +416,25 @@
 
     function resolveImageUrl(url = '') {
       const trimmed = String(url || '').trim();
-      if (!trimmed) return `https://lh3.googleusercontent.com/d/${CUSTOM_GDRIVE_LOGO_ID}`;
+      if (!trimmed) return `https://drive.google.com/thumbnail?id=${CUSTOM_GDRIVE_LOGO_ID}&sz=w1000`;
       const gId = extractGoogleDriveId(trimmed);
       if (gId) {
-        return `https://lh3.googleusercontent.com/d/${gId}`;
+        return `https://drive.google.com/thumbnail?id=${gId}&sz=w1000`;
       }
       return trimmed;
+    }
+
+    // Sinkronisasi Favicon & Meta Icon secara Real-time saat di-deploy ke Vercel
+    function syncBrowserFavicon(rawUrl = '') {
+      const resolved = resolveImageUrl(rawUrl || CUSTOM_GDRIVE_LOGO_RAW);
+      const favEl = document.getElementById('dynamic-favicon');
+      const shortEl = document.getElementById('dynamic-shortcut-icon');
+      const appleEl = document.getElementById('dynamic-apple-icon');
+      const ogEl = document.getElementById('dynamic-og-image');
+      if (favEl) favEl.href = resolved;
+      if (shortEl) shortEl.href = resolved;
+      if (appleEl) appleEl.href = resolved;
+      if (ogEl) ogEl.content = resolved;
     }
 
     window.__handleLogoFallback = function(imgEl, rawUrl) {
@@ -421,7 +442,7 @@
       const step = parseInt(imgEl.getAttribute('data-fallback-step') || '0', 10);
       if (step === 0) {
         imgEl.setAttribute('data-fallback-step', '1');
-        imgEl.src = `https://drive.google.com/thumbnail?id=${gId}&sz=w1000`;
+        imgEl.src = `https://lh3.googleusercontent.com/d/${gId}`;
       } else if (step === 1) {
         imgEl.setAttribute('data-fallback-step', '2');
         imgEl.src = `https://drive.google.com/uc?export=view&id=${gId}`;
@@ -603,8 +624,13 @@
         configDocRef,
         (snap) => {
           if (snap.exists()) {
-            state.appConfig = { ...state.appConfig, ...snap.data() };
+            const incomingData = snap.data() || {};
+            if (!incomingData.logoUrl || !String(incomingData.logoUrl).trim()) {
+              incomingData.logoUrl = CUSTOM_GDRIVE_LOGO_RAW;
+            }
+            state.appConfig = { ...state.appConfig, ...incomingData };
             document.title = state.appConfig.appName;
+            syncBrowserFavicon(state.appConfig.logoUrl);
             renderApp({ preserveScroll: true });
           }
         },
@@ -1156,6 +1182,9 @@
       } else {
         htmlEl.classList.remove('dark');
       }
+
+      // Sinkronkan Favicon & Logo Browser ketika dibuka sebagai index.html / Vercel
+      syncBrowserFavicon(state.appConfig.logoUrl);
 
       // Terapkan Font Global & Ukuran Font Global dari Pengaturan
       const fontChoice = state.appConfig.appFont || 'default';
