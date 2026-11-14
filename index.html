@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Maktabah Al-Bidayah Wan Nihayah - Perpustakaan Digital</title>
+  <title>Maktabah Al Bidayah Wan Nihayah - Perpustakaan Digital</title>
+
 
   <!-- PWA Manifest Data URI -->
   <link rel="manifest" href="data:application/manifest+json;charset=utf-8,%7B%22name%22%3A%22Maktabah%20Al-Bidayah%20Wan%20Nihayah%22%2C%22short_name%22%3A%22Maktabah%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%230D342C%22%2C%22theme_color%22%3A%22%230D342C%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22https%3A%2F%2Fplacehold.co%2F192x192%2F0D342C%2FC5A059%3Ftext%3DM%22%2C%22sizes%22%3A%22192x192%22%2C%22type%22%3A%22image%2Fpng%22%7D%5D%7D">
@@ -261,14 +262,27 @@
       line-height: 2.1;
     }
 
-    /* Background Masjid / Islamic Atmospheric Login */
+    /* Pertahankan bentuk kotak logo, hanya potong sedikit bagian pinggir (inset) untuk menghilangkan garis kotak putih */
+    .logo-clean-edge {
+      border: none !important;
+      outline: none !important;
+      box-shadow: none !important;
+      background: transparent !important;
+      border-radius: 0 !important;
+      -webkit-clip-path: inset(4% 4% 4% 4%);
+      clip-path: inset(4% 4% 4% 4%);
+    }
+
+    /* Background Halaman Login dari Google Drive (ID: 1lHmZ556YyXaoMTVqjT-hYn7eVjQKJXPZ) */
     .login-bg {
       background-color: #092620;
       background-image: 
-        linear-gradient(135deg, rgba(10, 46, 38, 0.92) 0%, rgba(13, 52, 44, 0.82) 50%, rgba(9, 38, 32, 0.95) 100%),
-        url('https://images.unsplash.com/photo-1564769625905-50e93615e769?auto=format&fit=crop&w=1600&q=80');
+        linear-gradient(135deg, rgba(8, 36, 30, 0.85) 0%, rgba(13, 52, 44, 0.72) 50%, rgba(7, 30, 25, 0.90) 100%),
+        url('https://lh3.googleusercontent.com/d/1lHmZ556YyXaoMTVqjT-hYn7eVjQKJXPZ'),
+        url('https://drive.google.com/thumbnail?id=1lHmZ556YyXaoMTVqjT-hYn7eVjQKJXPZ&sz=w1920');
       background-size: cover;
       background-position: center;
+      background-attachment: fixed;
     }
 
     .hero-banner-bg {
@@ -340,12 +354,12 @@
 
     // PASTE FIREBASE CONFIG ANDA DI SINI
     const firebaseConfig = {
-      apiKey: "AIzaSyA9cI4500bkJCTDtRiHVkCy8hPDeY9o-Qw",
-      authDomain: "maktabahalbdyh.firebaseapp.com",
-      projectId: "maktabahalbdyh",
-      storageBucket: "maktabahalbdyh.firebasestorage.app",
-      messagingSenderId: "1078680073479",
-      appId: "1:1078680073479:web:7c626a29a8c7048f7f01a2"
+  apiKey: "AIzaSyA9cI4500bkJCTDtRiHVkCy8hPDeY9o-Qw",
+  authDomain: "maktabahalbdyh.firebaseapp.com",
+  projectId: "maktabahalbdyh",
+  storageBucket: "maktabahalbdyh.firebasestorage.app",
+  messagingSenderId: "1078680073479",
+  appId: "1:1078680073479:web:7c626a29a8c7048f7f01a2"
     };
 
     // Import Firebase SDK (v11.6.1)
@@ -365,7 +379,11 @@
       navigator.serviceWorker.register(swUrl).catch(() => {});
     }
 
-    // SVG Default Logo Kubah & Al-Qur'an Emas
+    // Link Logo Aplikasi Utama dari Google Drive
+    const CUSTOM_GDRIVE_LOGO_RAW = 'https://drive.google.com/file/d/1nN9ox_9J5mZMxlslDz0Nj6kRxfbNdtRm/view?usp=sharing';
+    const CUSTOM_GDRIVE_LOGO_ID = '1nN9ox_9J5mZMxlslDz0Nj6kRxfbNdtRm';
+
+    // SVG Fallback Logo Kubah & Al-Qur'an Emas
     const DEFAULT_LOGO_SVG = `data:image/svg+xml;utf8,` + encodeURIComponent(`
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none">
         <path d="M60 12C60 12 63 20 60 24C57 20 60 12 60 12Z" fill="#D4AF37"/>
@@ -375,6 +393,43 @@
         <line x1="60" y1="74" x2="60" y2="98" stroke="#0D342C" stroke-width="3"/>
       </svg>
     `);
+
+    // Helper Konversi URL Google Drive agar langsung dapat dirender sebagai gambar
+    function extractGoogleDriveId(url = '') {
+      const str = String(url || '').trim();
+      const matchFile = str.match(/\/file\/d\/([a-zA-Z0-9_-]+)/);
+      if (matchFile && matchFile[1]) return matchFile[1];
+      const matchIdParam = str.match(/[?&]id=([a-zA-Z0-9_-]+)/);
+      if (matchIdParam && matchIdParam[1]) return matchIdParam[1];
+      const matchLh3 = str.match(/googleusercontent\.com\/d\/([a-zA-Z0-9_-]+)/);
+      if (matchLh3 && matchLh3[1]) return matchLh3[1];
+      return null;
+    }
+
+    function resolveImageUrl(url = '') {
+      const trimmed = String(url || '').trim();
+      if (!trimmed) return `https://lh3.googleusercontent.com/d/${CUSTOM_GDRIVE_LOGO_ID}`;
+      const gId = extractGoogleDriveId(trimmed);
+      if (gId) {
+        return `https://lh3.googleusercontent.com/d/${gId}`;
+      }
+      return trimmed;
+    }
+
+    window.__handleLogoFallback = function(imgEl, rawUrl) {
+      const gId = extractGoogleDriveId(rawUrl) || CUSTOM_GDRIVE_LOGO_ID;
+      const step = parseInt(imgEl.getAttribute('data-fallback-step') || '0', 10);
+      if (step === 0) {
+        imgEl.setAttribute('data-fallback-step', '1');
+        imgEl.src = `https://drive.google.com/thumbnail?id=${gId}&sz=w1000`;
+      } else if (step === 1) {
+        imgEl.setAttribute('data-fallback-step', '2');
+        imgEl.src = `https://drive.google.com/uc?export=view&id=${gId}`;
+      } else {
+        imgEl.onerror = null;
+        imgEl.src = DEFAULT_LOGO_SVG;
+      }
+    };
 
     // ==========================================
     // STATE APLIKASI UTAMA
@@ -393,13 +448,14 @@
       searchTab: 'semua', // 'semua' | 'tulisan' | 'kategori'
 
       // State Ekspansi Konteks Snippet Pencarian per Artikel
-      expandedSearchSnippets: {}, // { [articleId]: number (level ekspansi: 0 = default, 1 = sekitar paragraf, 2 = lebih luas, 3 = seluruh naskah terformat) }
+      expandedSearchSnippets: {},
 
       // State Penyimpan Posisi Scroll untuk setiap menu
-      menuScrollPositions: {}, // { [menuName]: scrollTopNumber }
+      menuScrollPositions: {},
 
       readingArticleId: null,
       editingArticleId: null,
+      editingCategoryId: null,
       editingReferenceId: null,
       readerFontSize: 16,
       showPassword: false,
@@ -410,11 +466,13 @@
 
       // Konfigurasi Identitas Aplikasi (Real-time Custom di Pengaturan)
       appConfig: {
-        appName: 'MAKTABAH AL-BIDAYAH WAN NIHAYAH',
+        appName: 'Maktabah Al Bidayah Wan Nihayah',
         appArabicName: 'مكتبة البداية والنهاية',
-        appDescription: 'Membaca • Menulis • Menggapai Ridha-Nya',
-        logoUrl: DEFAULT_LOGO_SVG,
+        appDescription: "Berisi Kumpulan Ibarot-ibarot Bahtsul Masail antar Pondok Pesantren yang memuat Masalah-masalah Faktual di Masyarakat, Jawaban-Jawaban yang Shohih dari berbagai Sumber dan juga Solusi Menurut Kacamata Fiqih Ala Madzhahibul Arba'ah yang relevan Ala Hasabi Zaman.",
+        logoUrl: CUSTOM_GDRIVE_LOGO_RAW,
         themeMode: 'light', // 'light' | 'dark'
+        appFont: 'default', // 'default' | 'Arial' | 'Amiri'
+        appFontSize: '16', // '14' | '15' | '16' | '17' | '18' | '20'
         loginQuote: '“Sebaik-baik kalian adalah yang belajar Al-Qur\'an dan mengajarkannya.” (HR. Bukhari)',
         heroTitle: 'Ilmu adalah cahaya dan menulis adalah amal jariyah.',
         heroSubtitle: 'Mari terus menambah ilmu dan menyebarkan kebaikan melalui tulisan.',
@@ -501,11 +559,13 @@
     } else {
       // MODE PRODUKSI MURNI FIREBASE (ZERO DUMMY DATA)
       state.appConfig = {
-        appName: 'Perpustakaan Digital',
-        appArabicName: 'المكتبة الرقمية',
-        appDescription: 'Sistem Koleksi Tulisan & Pustaka Ilmu',
-        logoUrl: DEFAULT_LOGO_SVG,
+        appName: 'Maktabah Al Bidayah Wan Nihayah',
+        appArabicName: 'مكتبة البداية والنهاية',
+        appDescription: "Berisi Kumpulan Ibarot-ibarot Bahtsul Masail antar Pondok Pesantren yang memuat Masalah-masalah Faktual di Masyarakat, Jawaban-Jawaban yang Shohih dari berbagai Sumber dan juga Solusi Menurut Kacamata Fiqih Ala Madzhahibul Arba'ah yang relevan Ala Hasabi Zaman.",
+        logoUrl: CUSTOM_GDRIVE_LOGO_RAW,
         themeMode: 'light',
+        appFont: 'default',
+        appFontSize: '16',
         loginQuote: '“Menuntut ilmu adalah kewajiban bagi setiap Muslim.”',
         heroTitle: 'Ilmu adalah cahaya dan menulis adalah amal jariyah.',
         heroSubtitle: 'Mari terus menambah ilmu dan menyebarkan kebaikan melalui tulisan.',
@@ -1096,6 +1156,25 @@
       } else {
         htmlEl.classList.remove('dark');
       }
+
+      // Terapkan Font Global & Ukuran Font Global dari Pengaturan
+      const fontChoice = state.appConfig.appFont || 'default';
+      let fontStack = "'Plus Jakarta Sans', sans-serif";
+      if (fontChoice === 'Arial') {
+        fontStack = "Arial, Helvetica, sans-serif";
+      } else if (fontChoice === 'Amiri') {
+        fontStack = "'Amiri', serif";
+      }
+      document.body.style.fontFamily = fontStack;
+      const rootEl = document.getElementById('maktabah-root');
+      if (rootEl) rootEl.style.fontFamily = fontStack;
+
+      const sizeChoice = parseInt(state.appConfig.appFontSize || '16', 10);
+      if (!isNaN(sizeChoice) && sizeChoice >= 12 && sizeChoice <= 24) {
+        htmlEl.style.fontSize = `${sizeChoice}px`;
+      } else {
+        htmlEl.style.fontSize = '16px';
+      }
     }
 
     // Fungsi Tombol Mode Cepat (Dark & Light) di Halaman Aplikasi
@@ -1360,9 +1439,11 @@
       });
     }
 
-    // CRUD KATEGORI
+    // CRUD KATEGORI (TAMBAH, UBAH / EDIT, DAN HAPUS UNTUK ADMIN)
     async function handleSaveCategory(e) {
       e.preventDefault();
+      if (state.currentUser?.role !== 'admin') return;
+
       const name = document.getElementById('cat-name')?.value?.trim();
       const color = document.getElementById('cat-color')?.value || 'emerald';
       const description = document.getElementById('cat-desc')?.value?.trim() || '';
@@ -1377,31 +1458,71 @@
       const payload = { name, slug, color, description };
 
       if (IS_PREVIEW) {
-        state.categories.push({ id: 'cat-' + Date.now(), ...payload });
-        showToast('Kategori baru berhasil ditambahkan!');
+        if (state.editingCategoryId) {
+          const idx = state.categories.findIndex(c => c.id === state.editingCategoryId);
+          if (idx > -1) {
+            state.categories[idx] = { ...state.categories[idx], ...payload };
+          }
+          // Sinkronkan nama kategori di semua artikel terkait
+          state.articles.forEach(art => {
+            if (art.categoryId === state.editingCategoryId) {
+              art.categoryName = name;
+            }
+          });
+          state.editingCategoryId = null;
+          showToast('Kategori berhasil diperbarui!');
+        } else {
+          state.categories.push({ id: 'cat-' + Date.now(), ...payload });
+          showToast('Kategori baru berhasil ditambahkan!');
+        }
         renderApp({ preserveScroll: true });
         return;
       }
 
       try {
-        await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'categories'), payload);
-        showToast('Kategori berhasil disimpan ke database!');
+        if (state.editingCategoryId) {
+          const catId = state.editingCategoryId;
+          await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', 'categories', catId), payload);
+          const relatedArticles = state.articles.filter(a => a.categoryId === catId);
+          for (const art of relatedArticles) {
+            await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', 'articles', art.id), { categoryName: name });
+          }
+          state.editingCategoryId = null;
+          showToast('Kategori berhasil diperbarui di database!');
+        } else {
+          await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'categories'), payload);
+          showToast('Kategori berhasil disimpan ke database!');
+        }
+        renderApp({ preserveScroll: true });
       } catch (err) {
-        showToast('Gagal menambah kategori.', 'error');
+        console.error(err);
+        showToast('Gagal menyimpan kategori.', 'error');
       }
     }
 
+    function handleEditCategory(catId) {
+      if (state.currentUser?.role !== 'admin') return;
+      saveCurrentScrollPosition();
+      state.editingCategoryId = catId;
+      renderApp({ preserveScroll: true });
+      const formEl = document.getElementById('category-form');
+      if (formEl) formEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
     function handleDeleteCategory(catId) {
+      if (state.currentUser?.role !== 'admin') return;
       showConfirm('Hapus Kategori', 'Yakin ingin menghapus kategori ini?', async () => {
         saveCurrentScrollPosition();
         if (IS_PREVIEW) {
           state.categories = state.categories.filter(c => c.id !== catId);
+          if (state.editingCategoryId === catId) state.editingCategoryId = null;
           showToast('Kategori dihapus.');
           renderApp({ preserveScroll: true });
           return;
         }
         try {
           await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'categories', catId));
+          if (state.editingCategoryId === catId) state.editingCategoryId = null;
           showToast('Kategori berhasil dihapus.');
         } catch (err) {
           showToast('Gagal menghapus kategori.', 'error');
@@ -1552,8 +1673,10 @@
       const appName = document.getElementById('set-app-name')?.value?.trim();
       const appArabicName = document.getElementById('set-app-arabic')?.value?.trim();
       const appDescription = document.getElementById('set-app-desc')?.value?.trim();
-      const logoUrl = document.getElementById('set-app-logo')?.value?.trim() || DEFAULT_LOGO_SVG;
+      const logoUrl = document.getElementById('set-app-logo')?.value?.trim() || CUSTOM_GDRIVE_LOGO_RAW;
       const themeMode = document.getElementById('set-theme-mode')?.value || 'light';
+      const appFont = document.getElementById('set-app-font')?.value || 'default';
+      const appFontSize = document.getElementById('set-app-font-size')?.value || '16';
       const loginQuote = document.getElementById('set-login-quote')?.value?.trim();
       const heroTitle = document.getElementById('set-hero-title')?.value?.trim();
       const heroSubtitle = document.getElementById('set-hero-subtitle')?.value?.trim();
@@ -1573,6 +1696,8 @@
         appDescription,
         logoUrl,
         themeMode,
+        appFont,
+        appFontSize,
         loginQuote: loginQuote || '',
         heroTitle: heroTitle || '',
         heroSubtitle: heroSubtitle || '',
@@ -1584,7 +1709,7 @@
         state.appConfig = { ...state.appConfig, ...newConfig };
         document.title = state.appConfig.appName;
         applyThemeMode();
-        showToast('Identitas & tema aplikasi berhasil diperbarui secara real-time!');
+        showToast('Identitas, font & tema aplikasi berhasil diperbarui secara real-time!');
         renderApp({ preserveScroll: true });
         return;
       }
@@ -1659,8 +1784,9 @@
     function renderLoginView() {
       const cfg = state.appConfig;
       const isDark = cfg.themeMode === 'dark';
+      const resolvedLogo = resolveImageUrl(cfg.logoUrl);
       const previewBadge = IS_PREVIEW ? `
-        <div class="mb-5 p-3.5 rounded-xl bg-amber-50 border border-amber-200 text-xs text-amber-900">
+        <div class="mb-5 p-3.5 rounded-xl bg-amber-50/90 border border-amber-200 text-xs text-amber-900">
           <div class="flex items-center gap-2 font-bold text-amber-800 mb-1">
             <i data-lucide="sparkles" class="w-4 h-4"></i>
             <span>MODE PREVIEW AKTIF (UJI COBA)</span>
@@ -1686,19 +1812,25 @@
 
           <div class="max-w-6xl w-full grid grid-cols-1 lg:grid-cols-12 gap-8 items-center my-auto py-6">
             
-            <!-- Sisi Kiri: Identitas Real-time Aplikasi -->
+            <!-- Sisi Kiri: Identitas Real-time Aplikasi dengan Background Logo Transparan & Ukuran Diperbesar -->
             <div class="lg:col-span-7 text-center flex flex-col items-center justify-center px-4 text-white">
-              <div class="w-24 h-24 sm:w-28 sm:h-28 mb-4 rounded-2xl bg-white/5 border border-gold-500/30 p-3 flex items-center justify-center shadow-2xl backdrop-blur-sm">
-                <img src="${escapeHtml(cfg.logoUrl)}" alt="Logo Aplikasi" class="w-full h-full object-contain" onerror="this.src='${DEFAULT_LOGO_SVG}'" />
+              <div class="w-44 h-44 sm:w-56 sm:h-56 mb-4 bg-transparent flex items-center justify-center">
+                <img
+                  src="${escapeHtml(resolvedLogo)}"
+                  alt="Logo Aplikasi"
+                  referrerpolicy="no-referrer"
+                  class="w-full h-full object-contain logo-clean-edge"
+                  onerror="window.__handleLogoFallback(this, '${escapeHtml(cfg.logoUrl)}')"
+                />
               </div>
 
               ${cfg.appArabicName ? `
                 <h1 class="font-arabic text-3xl sm:text-5xl text-amber-50/95 mb-2 tracking-wide drop-shadow">${escapeHtml(cfg.appArabicName)}</h1>
               ` : ''}
 
-              <h2 class="text-lg sm:text-2xl font-bold tracking-[0.16em] uppercase text-gold-400 mb-3">${escapeHtml(cfg.appName)}</h2>
+              <h2 class="text-lg sm:text-2xl font-bold tracking-[0.12em] uppercase text-gold-400 mb-3 drop-shadow">${escapeHtml(cfg.appName)}</h2>
 
-              <p class="text-sm sm:text-base text-emerald-100/90 font-medium tracking-wide max-w-md">${escapeHtml(cfg.appDescription)}</p>
+              <p class="text-xs sm:text-sm text-emerald-50/90 font-medium leading-relaxed max-w-xl">${escapeHtml(cfg.appDescription)}</p>
 
               <div class="mt-6 flex items-center gap-3 opacity-75">
                 <span class="w-12 h-px bg-gold-500"></span>
@@ -1707,9 +1839,9 @@
               </div>
             </div>
 
-            <!-- Sisi Kanan: Kartu Form Login Putih Bersih -->
+            <!-- Sisi Kanan: Kartu Form Login Menyatu dengan Efek Glassmorphism Transparan -->
             <div class="lg:col-span-5">
-              <div class="bg-white rounded-3xl shadow-2xl p-6 sm:p-9 border border-gray-100">
+              <div class="bg-white/90 dark:bg-emerald-950/85 backdrop-blur-md rounded-3xl shadow-2xl p-6 sm:p-9 border border-white/25">
                 <div class="mb-6">
                   <h3 class="text-2xl font-bold text-gray-900">Selamat Datang</h3>
                   <p class="text-sm text-gray-500 mt-1">Masuk ke akun Anda untuk melanjutkan</p>
@@ -1788,6 +1920,7 @@
     function renderNavigation() {
       const cfg = state.appConfig;
       const isAdmin = state.currentUser?.role === 'admin';
+      const resolvedLogo = resolveImageUrl(cfg.logoUrl);
 
       const menuItems = [
         { id: 'beranda', label: 'Beranda', icon: 'home' },
@@ -1814,16 +1947,22 @@
 
       return `
         <!-- FIXED LEFT SIDEBAR (DESKTOP) -->
-        <aside class="desktop-sidebar fixed top-0 left-0 bottom-0 w-[260px] bg-[#0D342C] text-white flex-col justify-between z-40 select-none shadow-xl">
+        <aside class="desktop-sidebar fixed top-0 left-0 bottom-0 w-[260px] bg-[#0D342C]/95 backdrop-blur-md text-white flex-col justify-between z-40 select-none shadow-xl">
           <div>
-            <!-- Brand Header Real-time -->
-            <div class="p-5 border-b border-white/10 flex items-center gap-3">
-              <div class="w-11 h-11 rounded-xl bg-white/10 border border-gold-500/40 p-1.5 flex items-center justify-center shrink-0">
-                <img src="${escapeHtml(cfg.logoUrl)}" alt="Logo" class="w-full h-full object-contain" onerror="this.src='${DEFAULT_LOGO_SVG}'" />
+            <!-- Brand Header Real-time dengan Logo Transparan Menyatu -->
+            <div class="p-5 border-b border-white/10 flex items-center gap-3 bg-transparent">
+              <div class="w-12 h-12 bg-transparent flex items-center justify-center shrink-0">
+                <img
+                  src="${escapeHtml(resolvedLogo)}"
+                  alt="Logo"
+                  referrerpolicy="no-referrer"
+                  class="w-full h-full object-contain logo-clean-edge"
+                  onerror="window.__handleLogoFallback(this, '${escapeHtml(cfg.logoUrl)}')"
+                />
               </div>
-              <div class="min-w-0 flex-1">
+              <div class="min-w-0 flex-1 bg-transparent">
                 ${cfg.appArabicName ? `<div class="font-arabic text-lg text-amber-100 truncate leading-tight">${escapeHtml(cfg.appArabicName)}</div>` : ''}
-                <div class="text-[10px] font-bold tracking-wider uppercase text-gold-400 truncate mt-0.5">${escapeHtml(cfg.appName)}</div>
+                <div class="text-[11px] font-bold tracking-wider uppercase text-gold-400 leading-snug mt-0.5">${escapeHtml(cfg.appName)}</div>
               </div>
             </div>
 
@@ -1899,14 +2038,21 @@
       const user = state.currentUser;
       const isAdmin = user?.role === 'admin';
       const isDark = cfg.themeMode === 'dark';
+      const resolvedLogo = resolveImageUrl(cfg.logoUrl);
 
       return `
-        <!-- Header Khusus Mobile (Logo, Tombol Mode Cepat & Identitas Real-time) -->
-        <div class="lg:hidden bg-[#0D342C] text-white px-4 pt-4 pb-5 rounded-b-3xl shadow-md">
-          <div class="flex items-center justify-between mb-3">
-            <div class="flex items-center gap-2.5 min-w-0">
-              <img src="${escapeHtml(cfg.logoUrl)}" alt="Logo" class="w-9 h-9 rounded-lg bg-white/10 p-1 object-contain" onerror="this.src='${DEFAULT_LOGO_SVG}'" />
-              <div class="min-w-0">
+        <!-- Header Khusus Mobile (Logo Transparan, Tombol Mode Cepat & Identitas Real-time) -->
+        <div class="lg:hidden bg-[#0D342C]/95 backdrop-blur-md text-white px-4 pt-4 pb-5 rounded-b-3xl shadow-md">
+          <div class="flex items-center justify-between mb-3 bg-transparent">
+            <div class="flex items-center gap-2.5 min-w-0 bg-transparent">
+              <img
+                src="${escapeHtml(resolvedLogo)}"
+                alt="Logo"
+                referrerpolicy="no-referrer"
+                class="w-11 h-11 bg-transparent object-contain logo-clean-edge shrink-0"
+                onerror="window.__handleLogoFallback(this, '${escapeHtml(cfg.logoUrl)}')"
+              />
+              <div class="min-w-0 bg-transparent">
                 ${cfg.appArabicName ? `<div class="font-arabic text-base text-amber-100 truncate">${escapeHtml(cfg.appArabicName)}</div>` : ''}
                 <div class="text-[10px] font-bold text-gold-400 tracking-wider uppercase truncate">${escapeHtml(cfg.appName)}</div>
               </div>
@@ -1945,8 +2091,8 @@
           </div>
         </div>
 
-        <!-- Topbar Desktop -->
-        <header class="hidden lg:flex items-center justify-between px-8 py-4 bg-white border-b border-gray-200/80 sticky top-0 z-30">
+        <!-- Topbar Desktop Transparan Menyatu -->
+        <header class="hidden lg:flex items-center justify-between px-8 py-4 bg-white/85 backdrop-blur-md border-b border-gray-200/80 sticky top-0 z-30">
           <div class="flex items-center gap-3">
             <div class="w-10 h-10 rounded-xl bg-emerald-50 text-[#0D342C] flex items-center justify-center font-bold">
               <i data-lucide="user-check" class="w-5 h-5"></i>
@@ -2454,10 +2600,13 @@
     }
 
     // ==========================================
-    // 4. VIEW: KATEGORI INTERAKTIF (JUDUL TULISAN TAMPIL PENUH / FULL)
+    // 4. VIEW: KATEGORI INTERAKTIF (DILENGKAPI UBAH / EDIT & HAPUS UNTUK ADMIN)
     // ==========================================
     function renderKategoriView() {
       const isAdmin = state.currentUser?.role === 'admin';
+      const editingCat = state.editingCategoryId
+        ? state.categories.find(c => c.id === state.editingCategoryId)
+        : null;
 
       return `
         <div class="p-4 sm:p-8 space-y-6 max-w-7xl mx-auto w-full">
@@ -2495,8 +2644,17 @@
                         ${cat.description ? `<p class="text-xs text-gray-500 mt-1">${escapeHtml(cat.description)}</p>` : ''}
                       </div>
 
-                      <div class="flex items-center gap-2 shrink-0">
+                      <div class="flex items-center gap-1.5 shrink-0">
                         ${isAdmin ? `
+                          <button
+                            type="button"
+                            data-action="edit-category"
+                            data-id="${cat.id}"
+                            class="p-2 rounded-xl text-gray-500 hover:text-[#0D342C] hover:bg-emerald-50 transition"
+                            title="Ubah / Edit Kategori"
+                          >
+                            <i data-lucide="edit-3" class="w-4 h-4"></i>
+                          </button>
                           <button
                             type="button"
                             data-action="delete-category"
@@ -2546,35 +2704,59 @@
             ${isAdmin ? `
               <div class="lg:col-span-4">
                 <form id="category-form" class="bg-white rounded-2xl p-5 border border-gray-100 shadow-sm space-y-4 sticky top-24">
-                  <h3 class="text-sm font-bold text-gray-900 flex items-center gap-2">
-                    <i data-lucide="folder-plus" class="w-4 h-4 text-[#0D342C]"></i>
-                    <span>Tambah Kategori Baru</span>
-                  </h3>
+                  <div class="flex items-center justify-between">
+                    <h3 class="text-sm font-bold text-gray-900 flex items-center gap-2">
+                      <i data-lucide="${editingCat ? 'edit-3' : 'folder-plus'}" class="w-4 h-4 text-[#0D342C]"></i>
+                      <span>${editingCat ? 'Ubah / Edit Kategori' : 'Tambah Kategori Baru'}</span>
+                    </h3>
+                    ${editingCat ? `
+                      <button
+                        type="button"
+                        data-action="cancel-edit-category"
+                        class="text-[11px] font-semibold text-gray-500 hover:text-gray-800"
+                      >
+                        Batal Edit
+                      </button>
+                    ` : ''}
+                  </div>
 
                   <div>
                     <label class="block text-xs font-semibold text-gray-700 mb-1">Nama Kategori *</label>
-                    <input id="cat-name" type="text" placeholder="Misal: Ushul Fiqih" class="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-xs focus:border-[#0D342C] outline-none" required />
+                    <input
+                      id="cat-name"
+                      type="text"
+                      value="${escapeHtml(editingCat?.name || '')}"
+                      placeholder="Misal: Ushul Fiqih"
+                      class="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-xs focus:border-[#0D342C] outline-none"
+                      required
+                    />
                   </div>
 
                   <div>
                     <label class="block text-xs font-semibold text-gray-700 mb-1">Warna Label</label>
                     <select id="cat-color" class="w-full px-3 py-2.5 rounded-xl border border-gray-200 text-xs focus:border-[#0D342C] outline-none bg-white">
-                      <option value="emerald">Hijau Zamrud</option>
-                      <option value="amber">Emas / Amber</option>
-                      <option value="blue">Biru</option>
-                      <option value="purple">Ungu</option>
-                      <option value="red">Merah</option>
-                      <option value="teal">Teal</option>
+                      <option value="emerald" ${editingCat?.color === 'emerald' ? 'selected' : ''}>Hijau Zamrud</option>
+                      <option value="amber" ${editingCat?.color === 'amber' ? 'selected' : ''}>Emas / Amber</option>
+                      <option value="blue" ${editingCat?.color === 'blue' ? 'selected' : ''}>Biru</option>
+                      <option value="purple" ${editingCat?.color === 'purple' ? 'selected' : ''}>Ungu</option>
+                      <option value="red" ${editingCat?.color === 'red' ? 'selected' : ''}>Merah</option>
+                      <option value="teal" ${editingCat?.color === 'teal' ? 'selected' : ''}>Teal</option>
                     </select>
                   </div>
 
                   <div>
                     <label class="block text-xs font-semibold text-gray-700 mb-1">Deskripsi Singkat</label>
-                    <textarea id="cat-desc" rows="2" placeholder="Penjelasan singkat kategori..." class="w-full px-3.5 py-2 rounded-xl border border-gray-200 text-xs focus:border-[#0D342C] outline-none"></textarea>
+                    <textarea
+                      id="cat-desc"
+                      rows="2"
+                      placeholder="Penjelasan singkat kategori..."
+                      class="w-full px-3.5 py-2 rounded-xl border border-gray-200 text-xs focus:border-[#0D342C] outline-none"
+                    >${escapeHtml(editingCat?.description || '')}</textarea>
                   </div>
 
-                  <button type="submit" class="w-full py-2.5 rounded-xl bg-[#0D342C] hover:bg-[#164E42] text-white text-xs font-semibold shadow-sm transition">
-                    Simpan Kategori
+                  <button type="submit" class="w-full py-2.5 rounded-xl bg-[#0D342C] hover:bg-[#164E42] text-white text-xs font-semibold shadow-sm transition flex items-center justify-center gap-1.5">
+                    <i data-lucide="save" class="w-4 h-4"></i>
+                    <span>${editingCat ? 'Simpan Perubahan' : 'Simpan Kategori'}</span>
                   </button>
                 </form>
               </div>
@@ -3277,6 +3459,7 @@
     function renderPengaturanView() {
       const cfg = state.appConfig;
       const isAdmin = state.currentUser?.role === 'admin';
+      const resolvedLogo = resolveImageUrl(cfg.logoUrl);
 
       if (!isAdmin) {
         return `
@@ -3301,38 +3484,67 @@
                       <i data-lucide="sliders" class="w-5 h-5"></i>
                     </div>
                     <div>
-                      <h3 class="text-sm font-bold text-gray-900">Identitas & Tema Aplikasi</h3>
+                      <h3 class="text-sm font-bold text-gray-900">Identitas, Font & Tema Aplikasi</h3>
                     </div>
                   </div>
                 </div>
 
-                <div class="p-4 rounded-2xl bg-gray-50 border border-gray-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                  <div class="text-xs font-bold text-gray-900 flex items-center gap-1.5">
-                    <i data-lucide="sun-moon" class="w-4 h-4 text-[#0D342C]"></i>
-                    <span>Mode Tampilan</span>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 p-4 rounded-2xl bg-gray-50 border border-gray-200">
+                  <div>
+                    <label class="block text-[11px] font-bold text-gray-700 mb-1">Mode Tampilan</label>
+                    <select
+                      id="set-theme-mode"
+                      data-action="instant-theme-toggle"
+                      class="w-full px-3 py-2 rounded-xl border border-gray-200 text-xs font-bold bg-white outline-none"
+                    >
+                      <option value="light" ${cfg.themeMode !== 'dark' ? 'selected' : ''}>☀️ Mode Terang</option>
+                      <option value="dark" ${cfg.themeMode === 'dark' ? 'selected' : ''}>🌙 Mode Gelap</option>
+                    </select>
                   </div>
-                  <select
-                    id="set-theme-mode"
-                    data-action="instant-theme-toggle"
-                    class="px-3.5 py-2 rounded-xl border border-gray-200 text-xs font-bold bg-white outline-none"
-                  >
-                    <option value="light" ${cfg.themeMode !== 'dark' ? 'selected' : ''}>☀️ Mode Terang (Light)</option>
-                    <option value="dark" ${cfg.themeMode === 'dark' ? 'selected' : ''}>🌙 Mode Gelap (Dark)</option>
-                  </select>
+
+                  <div>
+                    <label class="block text-[11px] font-bold text-gray-700 mb-1">Font Semua Halaman</label>
+                    <select
+                      id="set-app-font"
+                      data-action="instant-font-toggle"
+                      class="w-full px-3 py-2 rounded-xl border border-gray-200 text-xs font-bold bg-white outline-none"
+                    >
+                      <option value="default" ${(!cfg.appFont || cfg.appFont === 'default') ? 'selected' : ''}>Default Font</option>
+                      <option value="Arial" ${cfg.appFont === 'Arial' ? 'selected' : ''}>Arial</option>
+                      <option value="Amiri" ${cfg.appFont === 'Amiri' ? 'selected' : ''}>Amiri</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label class="block text-[11px] font-bold text-gray-700 mb-1">Ukuran Font Global</label>
+                    <select
+                      id="set-app-font-size"
+                      data-action="instant-fontsize-toggle"
+                      class="w-full px-3 py-2 rounded-xl border border-gray-200 text-xs font-bold bg-white outline-none"
+                    >
+                      <option value="14" ${cfg.appFontSize === '14' ? 'selected' : ''}>14px (Kecil)</option>
+                      <option value="15" ${cfg.appFontSize === '15' ? 'selected' : ''}>15px (Agak Kecil)</option>
+                      <option value="16" ${(!cfg.appFontSize || cfg.appFontSize === '16') ? 'selected' : ''}>16px (Normal)</option>
+                      <option value="17" ${cfg.appFontSize === '17' ? 'selected' : ''}>17px (Sedang)</option>
+                      <option value="18" ${cfg.appFontSize === '18' ? 'selected' : ''}>18px (Besar)</option>
+                      <option value="20" ${cfg.appFontSize === '20' ? 'selected' : ''}>20px (Sangat Besar)</option>
+                    </select>
+                  </div>
                 </div>
 
                 <div class="p-4 rounded-2xl bg-[#0D342C] text-white flex items-center gap-4">
                   <img
                     id="live-logo-preview"
-                    src="${escapeHtml(cfg.logoUrl)}"
+                    src="${escapeHtml(resolvedLogo)}"
                     alt="Preview Logo"
-                    class="w-14 h-14 rounded-xl bg-white/10 p-2 object-contain shrink-0 border border-gold-500/40"
-                    onerror="this.src='${DEFAULT_LOGO_SVG}'"
+                    referrerpolicy="no-referrer"
+                    class="w-16 h-16 bg-transparent object-contain shrink-0 logo-clean-edge"
+                    onerror="window.__handleLogoFallback(this, '${escapeHtml(cfg.logoUrl)}')"
                   />
-                  <div class="min-w-0">
+                  <div class="min-w-0 bg-transparent">
                     <div class="font-arabic text-xl text-amber-100 truncate">${escapeHtml(cfg.appArabicName)}</div>
                     <div class="text-xs font-bold text-gold-400 tracking-wider uppercase truncate">${escapeHtml(cfg.appName)}</div>
-                    <div class="text-[11px] text-emerald-100/80 truncate mt-0.5">${escapeHtml(cfg.appDescription)}</div>
+                    <div class="text-[11px] text-emerald-100/80 line-clamp-2 mt-0.5">${escapeHtml(cfg.appDescription)}</div>
                   </div>
                 </div>
 
@@ -3343,7 +3555,7 @@
                       id="set-app-name"
                       type="text"
                       value="${escapeHtml(cfg.appName)}"
-                      placeholder="MAKTABAH AL-BIDAYAH WAN NIHAYAH"
+                      placeholder="Maktabah Al Bidayah Wan Nihayah"
                       class="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-xs focus:border-[#0D342C] outline-none"
                       required
                     />
@@ -3363,24 +3575,23 @@
 
                 <div>
                   <label class="block text-xs font-semibold text-gray-700 mb-1">Deskripsi / Slogan Aplikasi *</label>
-                  <input
+                  <textarea
                     id="set-app-desc"
-                    type="text"
-                    value="${escapeHtml(cfg.appDescription)}"
-                    placeholder="Membaca • Menulis • Menggapai Ridha-Nya"
+                    rows="3"
+                    placeholder="Deskripsi atau slogan aplikasi..."
                     class="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-xs focus:border-[#0D342C] outline-none"
                     required
-                  />
+                  >${escapeHtml(cfg.appDescription)}</textarea>
                 </div>
 
                 <div>
-                  <label class="block text-xs font-semibold text-gray-700 mb-1">Link URL Logo Aplikasi *</label>
+                  <label class="block text-xs font-semibold text-gray-700 mb-1">Link URL Logo Aplikasi (Mendukung Link Google Drive) *</label>
                   <div class="flex gap-2">
                     <input
                       id="set-app-logo"
                       type="text"
                       value="${escapeHtml(cfg.logoUrl)}"
-                      placeholder="https://example.com/logo.png"
+                      placeholder="https://drive.google.com/file/d/..."
                       class="flex-1 px-3.5 py-2.5 rounded-xl border border-gray-200 text-xs focus:border-[#0D342C] outline-none"
                     />
                     <button
@@ -3388,7 +3599,7 @@
                       data-action="reset-default-logo"
                       class="px-3 py-2 rounded-xl bg-gray-100 hover:bg-gray-200 text-xs font-semibold text-gray-700 shrink-0"
                     >
-                      Logo Default
+                      Logo Drive Utama
                     </button>
                   </div>
                 </div>
@@ -3672,6 +3883,33 @@
         };
       }
 
+      const appFontSelect = document.getElementById('set-app-font');
+      if (appFontSelect) {
+        appFontSelect.onchange = (e) => {
+          state.appConfig.appFont = e.target.value;
+          applyThemeMode();
+        };
+      }
+
+      const appFontSizeSelect = document.getElementById('set-app-font-size');
+      if (appFontSizeSelect) {
+        appFontSizeSelect.onchange = (e) => {
+          state.appConfig.appFontSize = e.target.value;
+          applyThemeMode();
+        };
+      }
+
+      const logoInput = document.getElementById('set-app-logo');
+      if (logoInput) {
+        logoInput.oninput = (e) => {
+          const previewImg = document.getElementById('live-logo-preview');
+          if (previewImg) {
+            previewImg.setAttribute('data-fallback-step', '0');
+            previewImg.src = resolveImageUrl(e.target.value);
+          }
+        };
+      }
+
       const editorFontSelect = document.getElementById('editor-font-family');
       if (editorFontSelect) {
         editorFontSelect.onchange = (e) => {
@@ -3685,7 +3923,7 @@
 
       document.querySelectorAll('[data-action]').forEach(el => {
         const action = el.getAttribute('data-action');
-        if (action === 'quick-search-input' || action === 'instant-theme-toggle') return;
+        if (['quick-search-input', 'instant-theme-toggle', 'instant-font-toggle', 'instant-fontsize-toggle'].includes(action)) return;
 
         if (['rich-cmd', 'rich-insert', 'block-dir', 'block-align'].includes(action)) {
           el.onmousedown = (ev) => ev.preventDefault();
@@ -3779,6 +4017,11 @@
             renderApp();
           } else if (action === 'delete-article') {
             handleDeleteArticle(el.getAttribute('data-id'));
+          } else if (action === 'edit-category') {
+            handleEditCategory(el.getAttribute('data-id'));
+          } else if (action === 'cancel-edit-category') {
+            state.editingCategoryId = null;
+            renderApp({ preserveScroll: true });
           } else if (action === 'delete-category') {
             handleDeleteCategory(el.getAttribute('data-id'));
           } else if (action === 'set-search-mode') {
@@ -3838,9 +4081,12 @@
           } else if (action === 'reset-default-logo') {
             const logoInp = document.getElementById('set-app-logo');
             const previewImg = document.getElementById('live-logo-preview');
-            if (logoInp) logoInp.value = DEFAULT_LOGO_SVG;
-            if (previewImg) previewImg.src = DEFAULT_LOGO_SVG;
-            showToast('Logo dikembalikan ke kubah emas default.');
+            if (logoInp) logoInp.value = CUSTOM_GDRIVE_LOGO_RAW;
+            if (previewImg) {
+              previewImg.setAttribute('data-fallback-step', '0');
+              previewImg.src = resolveImageUrl(CUSTOM_GDRIVE_LOGO_RAW);
+            }
+            showToast('Logo dikembalikan ke logo Google Drive utama.');
           } else if (action === 'delete-user') {
             handleDeleteUser(el.getAttribute('data-id'));
           }
